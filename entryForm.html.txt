@@ -546,15 +546,6 @@
         dateField.value = formatDate;
       }
 
-// ░░░░░░░░░▓ TRIES TO DETERMINE PROD NUMBER
-      // function determineProdNum(){
-      //   if (type.value == 1) {
-      //     return Math.max(...getSpreadsheetData().prodNum) + 1;
-      //   } else {
-      //     return "-";
-      //   }
-      // }
-
 
 // ░░░░░░░░░▓ SETS EACH AUDIO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
