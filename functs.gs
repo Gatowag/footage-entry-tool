@@ -1,6 +1,7 @@
 // ░░░░░░░░░▓ COMMON VARIABLES SCOPED GLOBALLY
 const ss = SpreadsheetApp.getActiveSpreadsheet();
-const ws = ss.getSheetByName("Production Order");
+const tab1 = ss.getSheetByName("Production Order");
+const tab2 = ss.getSheetByName("Release Order");
 const rangeOffset = 810;
 var prodOffset = -1;
 var dataArray = {
@@ -34,7 +35,7 @@ function addNewRow(rowData) {
 	const rowPt4 = rowData.crew;
 	const rowCombined = rowPt1.concat(rowPt2,rowPt3,rowPt4);
 
-	ws.appendRow(rowCombined);
+	tab1.appendRow(rowCombined);
 	closeIncompletes(rowData.type,rowData.cont,rowData.toggledLabel);
 	setBackgroundColor(rowData.type);
 	setNumberFormat();
@@ -47,9 +48,9 @@ function addNewRow(rowData) {
 // ░░░░░░░░░▓ FILTERS TO ONLY "UNFINISHED" ENTRIES AND RETURNS THOSE TITLES
 // ░░░░░░░░░▓ IN AN ARRAY WHEN THE FUNCTION IS CALLED IN ENTRYFORM
 function getSpreadsheetData(){
-	const lastRow = ws.getLastRow();
-	const labelRange = ws.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const locationRange = ws.getRange(810,19,lastRow - (810-1),2);
+	const lastRow = tab1.getLastRow();
+	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
+	const locationRange = tab1.getRange(810,19,lastRow - (810-1),2);
 
 	for ( i = 0; i < ((lastRow + 1) - rangeOffset); i++){
 		if (labelRange.getBackgrounds()[i] == "#ffff00")
@@ -64,9 +65,9 @@ function getSpreadsheetData(){
 
 // ░░░░░░░░░▓ DETERMINES PROD NUMBER
 function determineProdNum(type,cont,label){
-	const lastRow = ws.getLastRow();
-	const prodNumRange = ws.getRange(rangeOffset,2,lastRow - (rangeOffset - 1),1);
-	const labelRange = ws.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
+	const lastRow = tab1.getLastRow();
+	const prodNumRange = tab1.getRange(rangeOffset,2,lastRow - (rangeOffset - 1),1);
+	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
 	var prodArray = [];
 	var prodNumIndex = [];
 	var mostRecentNum;
@@ -102,9 +103,9 @@ function determineProdNum(type,cont,label){
 
 // ░░░░░░░░░▓ DETERMINES PART NUMBER
 function determinePt(type,cont,label){
-	const lastRow = ws.getLastRow();
-	const labelRange = ws.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const ptRange = ws.getRange(rangeOffset,13,lastRow - (rangeOffset - 1),1);
+	const lastRow = tab1.getLastRow();
+	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
+	const ptRange = tab1.getRange(rangeOffset,13,lastRow - (rangeOffset - 1),1);
 	var ptIndex = [];
 	var labelList = [];
 
@@ -130,48 +131,48 @@ function determinePt(type,cont,label){
 
 // ░░░░░░░░░▓ FORMATS THE COLOR OF THE NEW ROW BASED ON FOOTAGE TYPE
 function setBackgroundColor(type) {
-	const newRow = ws.getLastRow();
+	const newRow = tab1.getLastRow();
 
 	if (type == "1"){
-		ws.setActiveSelection(newRow + ":" + newRow).setBackground("#f1c232").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f1c232").setFontColor("black");
 	} else if (type == "2"){
-		ws.setActiveSelection(newRow + ":" + newRow).setBackground("#ffff00").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#ffff00").setFontColor("black");
 	} else if (type == "3"){
-		ws.setActiveSelection(newRow + ":" + newRow).setBackground("#e69138").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#e69138").setFontColor("black");
 	} else if (type == "5"){
-		ws.setActiveSelection(newRow + ":" + newRow).setBackground("#3c4043").setFontColor("white");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#3c4043").setFontColor("white");
 	} else {
-		ws.setActiveSelection(newRow + ":" + newRow).setBackground("#f9cb9c").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f9cb9c").setFontColor("black");
 	}
 }
 
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
 function setNumberFormat() {
-	const newRow = ws.getLastRow();
-	const cell = ws.getRange("K" + newRow);
+	const newRow = tab1.getLastRow();
+	const cell = tab1.getRange("K" + newRow);
 
 	cell.setNumberFormat("0:00:00");
 }
 
 // ░░░░░░░░░▓ MERGES UNUSED CELLS
 function mergeCells(length,type) {
-	const newRow = ws.getLastRow();
+	const newRow = tab1.getLastRow();
 	var mergeEnd;
 
 	// THIS APPLIES TO THE VIDEO MEMORY CARD SECTION
 	mergeEnd = "IHGFEDC"[length] || "C";
 
-	ws.getRange('C' + newRow + ':' + mergeEnd + newRow).merge();
+	tab1.getRange('C' + newRow + ':' + mergeEnd + newRow).merge();
   
 	// THIS APPLIES TO THE "PT" COLUMN
 	if(type == "2" || type == "3"){}
-	else {ws.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
+	else {tab1.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
 }
 
 // ░░░░░░░░░▓ RECOLORS INCOMPLETE EPS IF CLOSED BY A MULIT-PART COMPLETE ENTRY
 function closeIncompletes(type, cont, label) {
-	const newRow = ws.getLastRow();
-	const labelRange = ws.getRange(rangeOffset,12,newRow - (rangeOffset-1),1);
+	const newRow = tab1.getLastRow();
+	const labelRange = tab1.getRange(rangeOffset,12,newRow - (rangeOffset-1),1);
 	let labelMatchedRow = [];
 	let firstMatch;
 
@@ -182,12 +183,12 @@ function closeIncompletes(type, cont, label) {
 		};
 
 		firstMatch = labelMatchedRow.shift();
-		ws.getRange(firstMatch + ":" + firstMatch).setBackground("#f1c232");
-		labelMatchedRow.forEach(recolorIncompleteRows);
+		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#f1c232");
+		labelMatchedRow.forEach(recolorIncompleteRotab1);
 	}
 }
 
 // ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
-function recolorIncompleteRows(item){
-	ws.getRange(item + ":" + item).setBackground("#e69138");
+function recolorIncompleteRotab1(item){
+	tab1.getRange(item + ":" + item).setBackground("#e69138");
 }
