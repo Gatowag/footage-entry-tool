@@ -35,12 +35,21 @@ function addNewRow(rowData) {
 	const rowPt4 = rowData.crew;
 	const rowCombined = rowPt1.concat(rowPt2,rowPt3,rowPt4);
 
-	tab1.appendRow(rowCombined);
-	closeIncompletes(rowData.type,rowData.cont,rowData.toggledLabel);
-	setBackgroundColor(rowData.type);
+	tab1.appendRow(
+		rowCombined);
+	closeIncompletes(
+		rowData.type,
+		rowData.cont,
+		rowData.toggledLabel);
+	setBackgroundColor(
+		rowData.type);
 	setNumberFormat();
-	mergeCells(rowData.videoCardsLength,rowData.type);
-	passToTab2(rowData.toggledLabel);
+	mergeCells(
+		rowData.videoCardsLength,
+		rowData.type);
+	passToTab2(
+		rowData.toggledLabel,
+		rowData.type);
 	return true;
 }
 
@@ -65,7 +74,7 @@ function getSpreadsheetData(){
 }
 
 // ░░░░░░░░░▓ DETERMINES PROD NUMBER
-function determineProdNum(type,cont,label){
+function determineProdNum(type, cont, label){
 	const lastRow = tab1.getLastRow();
 	const prodNumRange = tab1.getRange(rangeOffset,2,lastRow - (rangeOffset - 1),1);
 	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
@@ -103,7 +112,7 @@ function determineProdNum(type,cont,label){
 }
 
 // ░░░░░░░░░▓ DETERMINES PART NUMBER
-function determinePt(type,cont,label){
+function determinePt(type, cont, label){
 	const lastRow = tab1.getLastRow();
 	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
 	const ptRange = tab1.getRange(rangeOffset,13,lastRow - (rangeOffset - 1),1);
@@ -156,7 +165,7 @@ function setNumberFormat() {
 }
 
 // ░░░░░░░░░▓ MERGES UNUSED CELLS
-function mergeCells(length,type) {
+function mergeCells(length, type) {
 	const newRow = tab1.getLastRow();
 	var mergeEnd;
 
@@ -195,7 +204,10 @@ function recolorIncompleteRotab1(item){
 }
 
 // ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
-function passToTab2(label){
-	tab2.insertRowBefore(2);
-	tab2.getRange("G2").setValue(label);
+function passToTab2(label, type){
+	if (type === "1" || type === "3"){
+		tab2.insertRowBefore(2);
+		tab2.getRange("G2").setValue(label);
+	} else {
+	}
 }
