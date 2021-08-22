@@ -40,6 +40,7 @@ function addNewRow(rowData) {
 	setBackgroundColor(rowData.type);
 	setNumberFormat();
 	mergeCells(rowData.videoCardsLength,rowData.type);
+	passToTab2(rowData.toggledLabel);
 	return true;
 }
 
@@ -191,4 +192,10 @@ function closeIncompletes(type, cont, label) {
 // ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
 function recolorIncompleteRotab1(item){
 	tab1.getRange(item + ":" + item).setBackground("#e69138");
+}
+
+// ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
+function passToTab2(label){
+	tab2.insertRowBefore(2);
+	tab2.getRange("G2").setValue(label);
 }
