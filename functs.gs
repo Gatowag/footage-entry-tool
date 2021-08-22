@@ -49,7 +49,8 @@ function addNewRow(rowData) {
 		rowData.type);
 	passToTab2(
 		rowData.toggledLabel,
-		rowData.type);
+		rowData.type,
+		rowData.dateRecorded);
 	return true;
 }
 
@@ -204,10 +205,11 @@ function recolorIncompleteRotab1(item){
 }
 
 // ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
-function passToTab2(label, type){
+function passToTab2(label, type, date){
 	if (type === "1" || type === "3"){
 		tab2.insertRowBefore(2);
 		tab2.getRange("G2").setValue(label);
+		tab2.getRange("I2").setValue(date);
 	} else {
 	}
 }
