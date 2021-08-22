@@ -1,733 +1,728 @@
 <!-- Written by Brandt Hughes, 2021 - built off of Bootstrap v5.1 and scavenged code examples, especially from the Learn Google Spreadsheets youtube channel (https://www.youtube.com/playlist?list=PLv9Pf9aNgemuzTNWeHd8HziGVNzSlWACh). Written very specifically for use in the Modern Rogue Production Doc. -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-  </head>
+		<!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	</head>
 
 <body>
-  <div class="container pt-2 ">
-    <!-- ░░░░░▓ VIDEO TYPE -->
-      <div class="form-group">
-        <label for="type_of_video" class="form-label">Type of Video</label>
-      </div>
+	<div class="container pt-2 ">
+		<!-- ░░░░░▓ VIDEO TYPE -->
+		<div class="form-group">
+			<label for="type_of_video" class="form-label">Type of Video</label>
+		</div>
 
-      <div><input type="text" class="form-control d-none" id="toggled_label"></div>
+		<div><input type="text" class="form-control d-none" id="toggled_label"></div>
 
-      <select class="form-select" id="type_of_video">
-        <option selected value="1">Episode</option>
-        <option value="2">Multi-Part: Unfinished</option>
-        <option value="3">Multi-Part: Completed</option>
-        <option value="4">Ads</option>
-        <option value="5">Patreon Bonus</option>
-      </select>
+		<select class="form-select" id="type_of_video">
+			<option selected value="1">Episode</option>
+			<option value="2">Multi-Part: Unfinished</option>
+			<option value="3">Multi-Part: Completed</option>
+			<option value="4">Ads</option>
+			<option value="5">Patreon Bonus</option>
+		</select>
 
-    <!-- ░░░░░▓ VIDEO LABEL -->
-      <div class="form-group pt-2" id="label_group">
-        <label for="label" class="form-label">Label Footage</label>
-        <input type="text" class="form-control" id="label">
-      </div>
+		<!-- ░░░░░▓ VIDEO LABEL -->
+		<div class="form-group pt-2" id="label_group">
+			<label for="label" class="form-label">Label Footage</label>
+			<input type="text" class="form-control" id="label">
+		</div>
 
-    <!-- ░░░░░▓ MULTI: LINKED VIDEO DROPDOWN -->
-      <div id="cont_group" class="d-none">
-        <div class="form-group pt-2">
-          <label for="cont_dropdown" class="form-label">Select Previous Part</label>
-        </div>
+		<!-- ░░░░░▓ MULTI: LINKED VIDEO DROPDOWN -->
+		<div id="cont_group" class="d-none">
+			<div class="form-group pt-2">
+				<label for="cont_dropdown" class="form-label">Select Previous Part</label>
+			</div>
 
-        <select class="form-select" id="cont_dropdown">
-        </select>
-      </div>
+			<select class="form-select" id="cont_dropdown">
+			</select>
+		</div>
 
-    <!-- ░░░░░▓ MULTI: SWAP INPUT -->
-      <div class="form-check d-none" id="cont_check_group">
-        <input class="form-check-input" type="checkbox" id="continuation_check">
-        <label class="form-check-label" for="continuation_check">
-          Is this a continuation?
-        </label>
-      </div>
+		<!-- ░░░░░▓ MULTI: SWAP INPUT -->
+		<div class="form-check d-none" id="cont_check_group">
+			<input class="form-check-input" type="checkbox" id="continuation_check">
+			<label class="form-check-label" for="continuation_check">
+				Is this a continuation?
+			</label>
+		</div>
 
-    <!-- ░░░░░▓ DATE SELECT -->
-      <div class="form-group pt-2">
-        <label for="date_recorded">Date Recorded</label>
-        <input type="date" class="form-control" id="date_recorded">
-      </div>
+		<!-- ░░░░░▓ DATE SELECT -->
+		<div class="form-group pt-2">
+			<label for="date_recorded">Date Recorded</label>
+			<input type="date" class="form-control" id="date_recorded">
+		</div>
 
-    <!-- ░░░░░▓ MEMORY CARDS: VIDEO -->
-      <div class="form-group pt-2">
-        <label for="mem_vid" class="form-label">Video Memory Cards</label>
-      </div>
+		<!-- ░░░░░▓ MEMORY CARDS: VIDEO -->
+		<div class="form-group pt-2">
+			<label for="mem_vid" class="form-label">Video Memory Cards</label>
+		</div>
 
       
-      <div class="btn-group" role="group" id="mem_vid1">
-        <input type="checkbox" class="btn-check" id="btncheckW0" value="W0">
-        <label class="btn btn-outline-primary" for="btncheckW0">W0</label>
+		<div class="btn-group" role="group" id="mem_vid1">
+			<input type="checkbox" class="btn-check" id="btncheckW0" value="W0">
+			<label class="btn btn-outline-primary" for="btncheckW0">W0</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckL0" value="L0">
-        <label class="btn btn-outline-primary" for="btncheckL0">L0</label>
+			<input type="checkbox" class="btn-check" id="btncheckL0" value="L0">
+			<label class="btn btn-outline-primary" for="btncheckL0">L0</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckR0" value="R0">
-        <label class="btn btn-outline-primary" for="btncheckR0">R0</label>
+			<input type="checkbox" class="btn-check" id="btncheckR0" value="R0">
+			<label class="btn btn-outline-primary" for="btncheckR0">R0</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckW1" value="W1">
-        <label class="btn btn-outline-primary" for="btncheckW1">W1</label>
+			<input type="checkbox" class="btn-check" id="btncheckW1" value="W1">
+			<label class="btn btn-outline-primary" for="btncheckW1">W1</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckL1" value="L1">
-        <label class="btn btn-outline-primary" for="btncheckL1">L1</label>
+			<input type="checkbox" class="btn-check" id="btncheckL1" value="L1">
+			<label class="btn btn-outline-primary" for="btncheckL1">L1</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckR1" value="R1">
-        <label class="btn btn-outline-primary" for="btncheckR1">R1</label>
-      </div>
+			<input type="checkbox" class="btn-check" id="btncheckR1" value="R1">
+			<label class="btn btn-outline-primary" for="btncheckR1">R1</label>
+		</div>
 
-      <div class="btn-group" role="group" id="mem_vid2">
-        <input type="checkbox" class="btn-check" id="btncheckW2" value="W2">
-        <label class="btn btn-outline-primary" for="btncheckW2">W2</label>
+		<div class="btn-group" role="group" id="mem_vid2">
+			<input type="checkbox" class="btn-check" id="btncheckW2" value="W2">
+			<label class="btn btn-outline-primary" for="btncheckW2">W2</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckL2" value="L2">
-        <label class="btn btn-outline-primary" for="btncheckL2">L2</label>
+			<input type="checkbox" class="btn-check" id="btncheckL2" value="L2">
+			<label class="btn btn-outline-primary" for="btncheckL2">L2</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckR2" value="R2">
-        <label class="btn btn-outline-primary" for="btncheckR2">R2</label>
+			<input type="checkbox" class="btn-check" id="btncheckR2" value="R2">
+			<label class="btn btn-outline-primary" for="btncheckR2">R2</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckW3" value="W3">
-        <label class="btn btn-outline-primary" for="btncheckW3">W3</label>
+			<input type="checkbox" class="btn-check" id="btncheckW3" value="W3">
+			<label class="btn btn-outline-primary" for="btncheckW3">W3</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckR3" value="R3">
-        <label class="btn btn-outline-primary" for="btncheckR3">R3</label>
+			<input type="checkbox" class="btn-check" id="btncheckR3" value="R3">
+			<label class="btn btn-outline-primary" for="btncheckR3">R3</label>
 
-        <input type="checkbox" class="btn-check" id="btncheckL3" value="L3">
-        <label class="btn btn-outline-primary" for="btncheckL3">L3</label>
-      </div>
+			<input type="checkbox" class="btn-check" id="btncheckL3" value="L3">
+			<label class="btn btn-outline-primary" for="btncheckL3">L3</label>
+		</div>
 
-    <!-- ░░░░░▓ MEMORY CARDS: AUDIO -->
-      <div class="form-group pt-2">
-        <label for="mem_audio" class="form-label">Audio Memory Cards</label>
-      </div>
-
-
-      <div class="btn-group" role="group" aria-label="radio toggle group for memory card selection" id="mem_audio">
-        <input type="radio" class="btn-check" name="btnradio" id="btncheckA3" value="A3">
-        <label class="btn btn-outline-primary" for="btncheckA3">A3</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btncheckA4" value="A4">
-        <label class="btn btn-outline-primary" for="btncheckA4">A4</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btncheck0" value="0">
-        <label class="btn btn-outline-primary" for="btncheck0">0</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btncheck2" value="2">
-        <label class="btn btn-outline-primary" for="btncheck2">2</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btncheck3" value="3">
-        <label class="btn btn-outline-primary" for="btncheck3">3</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btncheck7" value="7">
-        <label class="btn btn-outline-primary" for="btncheck7">7</label>
-      </div>
-
-    <!-- ░░░░░▓ RECORDING DURATION -->
-      <div class="form-group pt-2" id="duration_group">
-        <label for="duration" class="form-label">Recording Duration</label>
-        <input type="number" class="form-control form-control-sm" id="duration">
-        <div id="durationDescript" class="form-text bm-2">Expected format: <code>hmmss</code> (numbers only)</div>
-      </div>
-
-    <!-- ░░░░░▓ LOCATION -->
-      <div class="form-group pt-2">
-        <label for="location_property" class="form-label">Primary Location</label>
-      </div>
-
-      <div class="input-group">
-        <input type="text" id="location_property" value="HQ" class="form-control col-4" data-bs-toggle="tooltip" data-bs-placement="top" title="property (wide category)" onclick="this.select();">
-        <input type="text" id="location_room" value="soundstage" class="form-control col-6" data-bs-toggle="tooltip" data-bs-placement="top" title="area on property (narrow category)" onclick="this.select();">
-      </div>
-
-    <!-- ░░░░░▓ CREW ROLE BUTTONS -->
-      <div class="form-group pt-2">
-        <label for="crew_roles" class="form-label">Crew Roles</label>
-      </div>
-
-      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group" role="group" aria-label="First group">
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian">Brian</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason">Jason</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt">Brandt</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce">Bryce</button>
-        </div>
-
-        <div class="btn-group mt-2 mx-auto" role="group" aria-label="Second group">
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJohn" aria-expanded="false" aria-controls="rolesJohn">John</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese">Annaliese</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesCory" aria-expanded="false" aria-controls="rolesCory">Cory</button>
-        </div>
-
-        <div class="btn-group mt-2 mx-auto" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff">Jeff</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesEli" aria-expanded="false" aria-controls="rolesEli">Eli</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional">Additional</button>
-        </div>
-      </div>
-      </div>
-
-    <!-- ░░░░░▓ EXPANDABLE CREW ROLE CHECKBOXES -->
-      <div class="accordion" id="roleExpands">
-
-        <!-- BRIAN -->
-        <div id="rolesBrian" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Brian.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBrianCheckbox1" value="host">
-            <label class="form-check-label" for="inlineBrianCheckbox1">host</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBrianOtherCheckbox" value="other">
-            <label class="form-check-label" for="inlineBrianOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineBrianOther"></textarea>
-          </div>
-        </div>
-
-        <!-- JASON -->
-        <div id="rolesJason" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Jason.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJasonCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineJasonCheckbox1">host</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJasonCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineJasonCheckbox2">research</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJasonOtherCheckbox" value="option3">
-            <label class="form-check-label" for="inlineJasonOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineJasonOther"></textarea>
-          </div>
-        </div>
-
-        <!-- BRANDT -->
-        <div id="rolesBrandt" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Brandt.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBrandtCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineBrandtCheckbox1">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBrandtOtherCheckbox" value="option2">
-            <label class="form-check-label" for="inlineBrandtOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineBrandtOther"></textarea>
-          </div>
-        </div>
-
-        <!-- BRYCE -->
-        <div id="rolesBryce" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Bryce.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBryceCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineBryceCheckbox1">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineBryceOtherCheckbox" value="option2">
-            <label class="form-check-label" for="inlineBryceOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineBryceOther"></textarea>
-          </div>
-        </div>
-
-        <!-- JOHN -->
-        <div id="rolesJohn" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for John.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJohnCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineJohnCheckbox1">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJohnOtherCheckbox" value="option2">
-            <label class="form-check-label" for="inlineJohnOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineJohnOther"></textarea>
-          </div>
-        </div>
-
-        <!-- ANNALIESE -->
-        <div id="rolesAnnaliese" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Annaliese.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineAnnalieseCheckbox1">audio</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineAnnalieseCheckbox2">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox3" value="option3">
-            <label class="form-check-label" for="inlineAnnalieseCheckbox3">assistance</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineAnnalieseOtherCheckbox" value="option4">
-            <label class="form-check-label" for="inlineAnnalieseOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineAnnalieseOther"></textarea>
-          </div>
-        </div>
-
-        <!-- CORY -->
-        <div id="rolesCory" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Cory.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCoryCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCoryCheckbox1">assistance</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCoryCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCoryCheckbox2">guest</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCoryCheckbox3" value="option3">
-            <label class="form-check-label" for="inlineCoryCheckbox3">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCoryOtherCheckbox" value="option4">
-            <label class="form-check-label" for="inlineCoryOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineCoryOther"></textarea>
-          </div>
-        </div>
-
-        <!-- JEFF -->
-        <div id="rolesJeff" class="accordion-body accordion-collapse collapse" aria-labelledby="Third group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Jeff.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJeffCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineJeffCheckbox1">assistance</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineJeffOtherCheckbox" value="option2">
-            <label class="form-check-label" for="inlineJeffOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineJeffOther"></textarea>
-          </div>
-        </div>
-
-        <!-- ELI -->
-        <div id="rolesEli" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
-          <small class="text-muted">Choose all that apply for Eli.</small>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineEliCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineEliCheckbox1">assistance</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineEliCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineEliCheckbox2">camera</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineEliOtherCheckbox" value="option3">
-            <label class="form-check-label" for="inlineEliOtherCheckbox">other</label>
-          </div>
-          <div>
-            <textarea class="form-control d-none" id="inlineEliOther"></textarea>
-          </div>
-        </div>
-
-        <!-- ADDITIONAL -->
-        <div id="rolesAdditional" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
-          <div class="row g-2">
-            <div class="col">
-              <input type="text" class="form-control" id="additionalName1" placeholder="Name" aria-label="Name"></input>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="additionalRoles1" placeholder="Roles" aria-label="Roles"></input>
-            </div>
-          </div>
-          <div class="row pt-2 g-2 d-none" id="hiddenAdditionalRole2">
-            <div class="col">
-              <input type="text" class="form-control" id="additionalName2" placeholder="Name" aria-label="Name"></input>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="additionalRoles2" placeholder="Roles" aria-label="Roles"></input>
-            </div>
-          </div>
-          <div class="row pt-2 g-2 d-none" id="hiddenAdditionalRole3">
-            <div class="col">
-              <input type="text" class="form-control" id="additionalName3" placeholder="Name" aria-label="Name"></input>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="additionalRoles3" placeholder="Roles" aria-label="Roles"></input>
-            </div>
-          </div>
-          <div class="row pt-2" id="addAnotherButton">
-            <div class="col">
-              <button type="button" onClick="unhideAdditionalRole()" class="btn btn-outline-primary pt-2" aria-controls="rolesAdditional">Add Another</button>
-            </div>
-        </div>
-      </div>
-
-    <!-- ░░░░░▓ SUBMIT BUTTON -->
-      <div class="d-flex justify-content-center pt-3" id="submit_container">
-        <button class="btn btn-dark" id="submitButton">Submit Footage</button>
-      </div>
-
-    <!-- ░░░░░▓ RESET BUTTON -->
-      <div class="d-flex justify-content-center pt-3" id="reset_container">
-        <button class="btn btn-danger" id="resetButton">Reset</button>
-      </div>
-
-    <!-- ░░░░░▓ VERSION NUMBER TEXT -->
-      <div class="d-flex justify-content-center" id="version_number">
-        <div class="form-text pt-3 ">alpha version 0.8</div>
-      </div>
-  </div>
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+		<!-- ░░░░░▓ MEMORY CARDS: AUDIO -->
+		<div class="form-group pt-2">
+			<label for="mem_audio" class="form-label">Audio Memory Cards</label>
+		</div>
 
 
+		<div class="btn-group" role="group" aria-label="radio toggle group for memory card selection" id="mem_audio">
+			<input type="radio" class="btn-check" name="btnradio" id="btncheckA3" value="A3">
+			<label class="btn btn-outline-primary" for="btncheckA3">A3</label>
 
-<!-- custom script that allows everything to work... hopefully -->
-    <script>
+			<input type="radio" class="btn-check" name="btnradio" id="btncheckA4" value="A4">
+			<label class="btn btn-outline-primary" for="btncheckA4">A4</label>
+
+			<input type="radio" class="btn-check" name="btnradio" id="btncheck0" value="0">
+			<label class="btn btn-outline-primary" for="btncheck0">0</label>
+
+			<input type="radio" class="btn-check" name="btnradio" id="btncheck2" value="2">
+			<label class="btn btn-outline-primary" for="btncheck2">2</label>
+
+			<input type="radio" class="btn-check" name="btnradio" id="btncheck3" value="3">
+			<label class="btn btn-outline-primary" for="btncheck3">3</label>
+
+			<input type="radio" class="btn-check" name="btnradio" id="btncheck7" value="7">
+			<label class="btn btn-outline-primary" for="btncheck7">7</label>
+		</div>
+
+		<!-- ░░░░░▓ RECORDING DURATION -->
+		<div class="form-group pt-2" id="duration_group">
+			<label for="duration" class="form-label">Recording Duration</label>
+			<input type="number" class="form-control form-control-sm" id="duration">
+			<div id="durationDescript" class="form-text bm-2">Expected format: <code>hmmss</code> (numbers only)</div>
+		</div>
+
+		<!-- ░░░░░▓ LOCATION -->
+		<div class="form-group pt-2">
+			<label for="location_property" class="form-label">Primary Location</label>
+		</div>
+
+		<div class="input-group">
+			<input type="text" id="location_property" value="HQ" class="form-control col-4" data-bs-toggle="tooltip" data-bs-placement="top" title="property (wide category)" onclick="this.select();">
+			<input type="text" id="location_room" value="soundstage" class="form-control col-6" data-bs-toggle="tooltip" data-bs-placement="top" title="area on property (narrow category)" onclick="this.select();">
+		</div>
+
+		<!-- ░░░░░▓ CREW ROLE BUTTONS -->
+		<div class="form-group pt-2">
+			<label for="crew_roles" class="form-label">Crew Roles</label>
+		</div>
+
+		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			<div class="btn-group" role="group" aria-label="First group">
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian">Brian</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason">Jason</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt">Brandt</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce">Bryce</button>
+			</div>
+
+			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Second group">
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJohn" aria-expanded="false" aria-controls="rolesJohn">John</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese">Annaliese</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesCory" aria-expanded="false" aria-controls="rolesCory">Cory</button>
+			</div>
+
+			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Third group">
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff">Jeff</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesEli" aria-expanded="false" aria-controls="rolesEli">Eli</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional">Additional</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ░░░░░▓ EXPANDABLE CREW ROLE CHECKBOXES -->
+	<div class="accordion" id="roleExpands">
+
+		<!-- BRIAN -->
+		<div id="rolesBrian" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Brian.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBrianCheckbox1" value="host">
+				<label class="form-check-label" for="inlineBrianCheckbox1">host</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBrianOtherCheckbox" value="other">
+				<label class="form-check-label" for="inlineBrianOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineBrianOther"></textarea>
+			</div>
+		</div>
+
+		<!-- JASON -->
+		<div id="rolesJason" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Jason.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJasonCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineJasonCheckbox1">host</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJasonCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineJasonCheckbox2">research</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJasonOtherCheckbox" value="option3">
+				<label class="form-check-label" for="inlineJasonOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineJasonOther"></textarea>
+			</div>
+		</div>
+
+		<!-- BRANDT -->
+		<div id="rolesBrandt" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Brandt.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBrandtCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineBrandtCheckbox1">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBrandtOtherCheckbox" value="option2">
+				<label class="form-check-label" for="inlineBrandtOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineBrandtOther"></textarea>
+			</div>
+		</div>
+
+		<!-- BRYCE -->
+		<div id="rolesBryce" class="accordion-body accordion-collapse collapse" aria-labelledby="First group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Bryce.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBryceCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineBryceCheckbox1">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineBryceOtherCheckbox" value="option2">
+				<label class="form-check-label" for="inlineBryceOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineBryceOther"></textarea>
+			</div>
+		</div>
+
+		<!-- JOHN -->
+		<div id="rolesJohn" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for John.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJohnCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineJohnCheckbox1">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJohnOtherCheckbox" value="option2">
+				<label class="form-check-label" for="inlineJohnOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineJohnOther"></textarea>
+			</div>
+		</div>
+
+		<!-- ANNALIESE -->
+		<div id="rolesAnnaliese" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Annaliese.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineAnnalieseCheckbox1">audio</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineAnnalieseCheckbox2">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineAnnalieseCheckbox3" value="option3">
+				<label class="form-check-label" for="inlineAnnalieseCheckbox3">assistance</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineAnnalieseOtherCheckbox" value="option4">
+				<label class="form-check-label" for="inlineAnnalieseOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineAnnalieseOther"></textarea>
+			</div>
+		</div>
+
+		<!-- CORY -->
+		<div id="rolesCory" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Cory.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCoryCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineCoryCheckbox1">assistance</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCoryCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineCoryCheckbox2">guest</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCoryCheckbox3" value="option3">
+				<label class="form-check-label" for="inlineCoryCheckbox3">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCoryOtherCheckbox" value="option4">
+				<label class="form-check-label" for="inlineCoryOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineCoryOther"></textarea>
+			</div>
+		</div>
+
+		<!-- JEFF -->
+		<div id="rolesJeff" class="accordion-body accordion-collapse collapse" aria-labelledby="Third group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Jeff.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJeffCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineJeffCheckbox1">assistance</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineJeffOtherCheckbox" value="option2">
+				<label class="form-check-label" for="inlineJeffOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineJeffOther"></textarea>
+			</div>
+		</div>
+
+		<!-- ELI -->
+		<div id="rolesEli" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
+			<small class="text-muted">Choose all that apply for Eli.</small>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineEliCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineEliCheckbox1">assistance</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineEliCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineEliCheckbox2">camera</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineEliOtherCheckbox" value="option3">
+				<label class="form-check-label" for="inlineEliOtherCheckbox">other</label>
+			</div>
+			<div>
+				<textarea class="form-control d-none" id="inlineEliOther"></textarea>
+			</div>
+		</div>
+
+		<!-- ADDITIONAL -->
+		<div id="rolesAdditional" class="accordion-body accordion-collapse collapse" aria-labelledby="Second group" data-bs-parent="#roleExpands">
+			<div class="row g-2">
+				<div class="col">
+					<input type="text" class="form-control" id="additionalName1" placeholder="Name" aria-label="Name"></input>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="additionalRoles1" placeholder="Roles" aria-label="Roles"></input>
+				</div>
+			</div>
+			<div class="row pt-2 g-2 d-none" id="hiddenAdditionalRole2">
+				<div class="col">
+					<input type="text" class="form-control" id="additionalName2" placeholder="Name" aria-label="Name"></input>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="additionalRoles2" placeholder="Roles" aria-label="Roles"></input>
+				</div>
+			</div>
+			<div class="row pt-2 g-2 d-none" id="hiddenAdditionalRole3">
+				<div class="col">
+					<input type="text" class="form-control" id="additionalName3" placeholder="Name" aria-label="Name"></input>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="additionalRoles3" placeholder="Roles" aria-label="Roles"></input>
+				</div>
+			</div>
+			<div class="row pt-2" id="addAnotherButton">
+				<div class="col">
+					<button type="button" onClick="unhideAdditionalRole()" class="btn btn-outline-primary pt-2" aria-controls="rolesAdditional">Add Another</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- ░░░░░▓ SUBMIT BUTTON -->
+		<div class="d-flex justify-content-center pt-3" id="submit_container">
+			<button class="btn btn-dark" id="submitButton">Submit Footage</button>
+		</div>
+
+		<!-- ░░░░░▓ RESET BUTTON -->
+		<div class="d-flex justify-content-center pt-3" id="reset_container">
+			<button class="btn btn-danger" id="resetButton">Reset</button>
+		</div>
+
+		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
+		<div class="d-flex justify-content-center" id="version_number">
+			<div class="form-text pt-3 ">alpha version 0.8</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- custom script that allows everything to work... -->
+
+	<script>
 
 // ░░░░░░░░░▓ GLOBAL VARIABLES
-      var arrayOfValues;
-      var type = document.getElementById("type_of_video");
-      var labelField = document.getElementById("label");
-      var labelGroup = document.getElementById("label_group");
-      var contDropDown = document.getElementById("cont_dropdown");
-      var contGroup = document.getElementById("cont_group");
-      var toggledLabel = document.getElementById("toggled_label");
+	var arrayOfValues;
+	var type = document.getElementById("type_of_video");
+	var labelField = document.getElementById("label");
+	var labelGroup = document.getElementById("label_group");
+	var contDropDown = document.getElementById("cont_dropdown");
+	var contGroup = document.getElementById("cont_group");
+	var toggledLabel = document.getElementById("toggled_label");
 
 
 
 // ░░░░░░░░░▓ DATA SENT TO NEW ROW ON SUBMIT
-      function afterButtonClicked(){
-        var label = determineLabel();
-        var dateRecorded = document.getElementById("date_recorded");
-        var videoCards = determineVideoCards();
-        var audioCard = determineAudioCard();
-        var duration = document.getElementById("duration");
-        var locProperty = document.getElementById("location_property");
-        var locRoom = document.getElementById("location_room");
-        var contCheck = document.getElementById("continuation_check");
-          var contVal = contCheck.checked ? "CONT" : "NEW";
-        var crewList = determineCrew();
-        var rowData = {
-                        dateRecorded: dateRecorded.value,
-                        type: type.value,
-                        toggledLabel: label,
-                        videoCardsLength: videoCards.length,
-                        videoCardsData: videoCards.array,
-                        audioCard: audioCard,
-                        duration: duration.value,
-                        property: locProperty.value,
-                        room: locRoom.value,
-                        crew: crewList,
-                        cont: contVal,
-                      };
-        google.script.run.withSuccessHandler(afterSubmit).addNewRow(rowData);
-      }
+	function afterButtonClicked(){
+		var label = determineLabel();
+		var dateRecorded = document.getElementById("date_recorded");
+		var videoCards = determineVideoCards();
+		var audioCard = determineAudioCard();
+		var duration = document.getElementById("duration");
+		var locProperty = document.getElementById("location_property");
+		var locRoom = document.getElementById("location_room");
+		var contCheck = document.getElementById("continuation_check");
+			var contVal = contCheck.checked ? "CONT" : "NEW";
+		var crewList = determineCrew();
+		var rowData = {
+						dateRecorded: dateRecorded.value,
+						type: type.value,
+						toggledLabel: label,
+						videoCardsLength: videoCards.length,
+						videoCardsData: videoCards.array,
+						audioCard: audioCard,
+						duration: duration.value,
+						property: locProperty.value,
+						room: locRoom.value,
+						crew: crewList,
+						cont: contVal,
+					};
+		google.script.run.withSuccessHandler(afterSubmit).addNewRow(rowData);
+	}
 
 
 // ░░░░░░░░░▓ FUNCTIONS TO RUN WHEN SIDEBAR LOADS
-      function afterSidebarLoads(){
-        google.script.run.withSuccessHandler(afterSpreadsheetDataReturned).getSpreadsheetData();
-        setDate();
-      }
+	function afterSidebarLoads(){
+		google.script.run.withSuccessHandler(afterSpreadsheetDataReturned).getSpreadsheetData();
+		setDate();
+	}
 
 
 // ░░░░░░░░░▓ POPULATE LABEL DROPDOWN WITH PREVIOUS LABELS
-      function addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,index){
-        var currentlyAdded = [];
+	function addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,index){
+		var currentlyAdded = [];
 
-        arrayOfValues.unfinished.forEach(function(r){
-          if(currentlyAdded.indexOf(r[index]) === -1){
-            var option = document.createElement("option");
-            option.textContent = r[index];
-            contDropDown.appendChild(option);
-            currentlyAdded.push(r[index]);
-          }
-        });
-      }
+		arrayOfValues.unfinished.forEach(function(r){
+			if(currentlyAdded.indexOf(r[index]) === -1){
+				var option = document.createElement("option");
+				option.textContent = r[index];
+				contDropDown.appendChild(option);
+				currentlyAdded.push(r[index]);
+			}
+		});
+	}
 
 
 // ░░░░░░░░░▓ I DON'T REMEMBER, SOMETHING TO DO WITH
 // ░░░░░░░░░▓ ONLY ALLOWING UNIQUE ENTRIES INTO CONTINUATION DROPDOWN
-      function afterSpreadsheetDataReturned(dataArray){
-        arrayOfValues = JSON.parse(JSON.stringify(dataArray));
-        addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,0);
-      }
+	function afterSpreadsheetDataReturned(dataArray){
+		arrayOfValues = JSON.parse(JSON.stringify(dataArray));
+		addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,0);
+	}
 
 
 // ░░░░░░░░░▓ CHANGE VISIBILITY OF ENTRY FIELDS BASED ON VIDEO TYPE
-      function updateTypeDependentFields(){
-        var contCheck = document.getElementById("cont_check_group");
+	function updateTypeDependentFields(){
+		var contCheck = document.getElementById("cont_check_group");
         
-          if(type.value === "3"){
-            labelGroup.classList.add("d-none");
-            contGroup.classList.remove("d-none");
-            contCheck.classList.add("d-none");
-
-            } else if(type.value === "2") {
-              labelGroup.classList.remove("d-none");
-              contGroup.classList.add("d-none");
-              contCheck.classList.remove("d-none");
-
-            } else {
-              labelGroup.classList.remove("d-none");
-              contGroup.classList.add("d-none");
-              contCheck.classList.add("d-none");
-          }
-      }
+			if(type.value === "3"){
+				labelGroup.classList.add("d-none");
+				contGroup.classList.remove("d-none");
+				contCheck.classList.add("d-none");
+				
+			} else if(type.value === "2") {
+				labelGroup.classList.remove("d-none");
+				contGroup.classList.add("d-none");
+				contCheck.classList.remove("d-none");
+				
+			} else {
+				labelGroup.classList.remove("d-none");
+				contGroup.classList.add("d-none");
+				contCheck.classList.add("d-none");
+			}
+	}
 
 
 // ░░░░░░░░░▓ TOGGLE INPUT / DROPDOWN FOR MULTI-PART UNFINISHED VIDEOS
-      function afterContinuationClicked(){
-        var contCheck = document.getElementById("continuation_check");
+	function afterContinuationClicked(){
+		var contCheck = document.getElementById("continuation_check");
 
-          if(contCheck.checked){
-            labelGroup.classList.add("d-none");
-            contGroup.classList.remove("d-none");
-          } else {
-            labelGroup.classList.remove("d-none");
-            contGroup.classList.add("d-none");
-          }
-      }
+		if(contCheck.checked){
+			labelGroup.classList.add("d-none");
+			contGroup.classList.remove("d-none");
+		} else {
+			labelGroup.classList.remove("d-none");
+			contGroup.classList.add("d-none");
+		}
+	}
 
 
 // ░░░░░░░░░▓ TOGGLE "OTHER" ROLE FIELD FOR EACH MEMBER OF CREW
-      function afterCrewRoleOtherClicked(otherID){
-        var otherEntry = document.getElementById(otherID);
-        var otherCheck = document.getElementById(otherID + "Checkbox");
+	function afterCrewRoleOtherClicked(otherID){
+		var otherEntry = document.getElementById(otherID);
+		var otherCheck = document.getElementById(otherID + "Checkbox");
 
-          if(otherCheck.checked){
-            otherEntry.classList.remove("d-none");
-          } else {
-            otherEntry.classList.add("d-none");
-          }
-      }
+		if(otherCheck.checked){
+			otherEntry.classList.remove("d-none");
+		} else {
+			otherEntry.classList.add("d-none");
+		}
+	}
 
 
 // ░░░░░░░░░▓ ON SUBMIT DETERMINES WHETHER LABEL SHOULD PULL FROM TEXT ENTRY OR DROPDOWN
-      function determineLabel(){
-        var contCheck = document.getElementById("continuation_check");
-
-        if (type.value == "3"){
-            toggledLabel.value = contDropDown.value;
-
-          } else if(contCheck.checked) {
-            toggledLabel.value = contDropDown.value;
-        
-          } else {
-            toggledLabel.value = labelField.value;
-          }
-        return toggledLabel.value;
-      }
+	function determineLabel(){
+		var contCheck = document.getElementById("continuation_check");
+		
+		if (type.value == "3" || contCheck.checked){
+			toggledLabel.value = contDropDown.value;
+		} else {
+			toggledLabel.value = labelField.value;
+		}
+		return toggledLabel.value;
+	}
 
 
 // ░░░░░░░░░▓ UPDATE DATE VALUE TO TODAY
-      function setDate(){
-        var dateField = document.getElementById("date_recorded");
-        var today = new Date();
-        var formatDate = today.getFullYear() + (today.getMonth() <= 11 ? '-0' : '-') + (today.getMonth() + 1) + (today.getDate() <= 11 ? '-0' : '-') + today.getDate();
-
-        dateField.value = formatDate;
-      }
+	function setDate(){
+		var dateField = document.getElementById("date_recorded");
+		var today = new Date();
+		var formatDate = today.getFullYear() + (today.getMonth() <= 11 ? '-0' : '-') + (today.getMonth() + 1) + (today.getDate() <= 11 ? '-0' : '-') + today.getDate();
+		
+		dateField.value = formatDate;
+	}
 
 
 // ░░░░░░░░░▓ SETS EACH AUDIO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
-      function determineAudioCard(){
-        var cardA3 = document.getElementById("btncheckA3").checked ? "A3" : "";
-        var cardA4 = document.getElementById("btncheckA4").checked ? "A4" : "";
-        var card0 = document.getElementById("btncheck0").checked ? "0" : "";
-        var card2 = document.getElementById("btncheck2").checked ? "2" : "";
-        var card3 = document.getElementById("btncheck3").checked ? "3" : "";
-        var card7 = document.getElementById("btncheck7").checked ? "7" : "";
-  
-        return cardA3 + cardA4 + card0 + card2 + card3 + card7;
-      }
+	function determineAudioCard(){
+		var cardA3 = document.getElementById("btncheckA3").checked ? "A3" : "";
+		var cardA4 = document.getElementById("btncheckA4").checked ? "A4" : "";
+		var card0 = document.getElementById("btncheck0").checked ? "0" : "";
+		var card2 = document.getElementById("btncheck2").checked ? "2" : "";
+		var card3 = document.getElementById("btncheck3").checked ? "3" : "";
+		var card7 = document.getElementById("btncheck7").checked ? "7" : "";
+		
+		return cardA3 + cardA4 + card0 + card2 + card3 + card7;
+	}
 
 
 // ░░░░░░░░░▓ SETS EACH VIDEO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
-      function determineVideoCards(){
-        var cardW0 = document.getElementById("btncheckW0").checked ? "W0" : "";
-        var cardW1 = document.getElementById("btncheckW1").checked ? "W1" : "";
-        var cardW2 = document.getElementById("btncheckW2").checked ? "W2" : "";
-        var cardW3 = document.getElementById("btncheckW3").checked ? "W3" : "";
-        var cardL0 = document.getElementById("btncheckL0").checked ? "L0" : "";
-        var cardL1 = document.getElementById("btncheckL1").checked ? "L1" : "";
-        var cardL2 = document.getElementById("btncheckL2").checked ? "L2" : "";
-        var cardL3 = document.getElementById("btncheckL3").checked ? "L3" : "";
-        var cardR0 = document.getElementById("btncheckR0").checked ? "R0" : "";
-        var cardR1 = document.getElementById("btncheckR1").checked ? "R1" : "";
-        var cardR2 = document.getElementById("btncheckR2").checked ? "R2" : "";
-        var cardR3 = document.getElementById("btncheckR3").checked ? "R3" : "";
-
-        var unfilteredVideoCardArray = [cardW0, cardW1, cardW2, cardW3, cardL0, cardL1, cardL2, cardL3, cardR0, cardR1, cardR2, cardR3];
-        var filteredVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty);
-        var lengthVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty).length;
-        var filteredVideoCards = {
-                          length: lengthVideoCardArray,
-                          array: filteredVideoCardArray
-                         };
-
-        for ( i=0; filteredVideoCardArray.length < 7; i++){
-          filteredVideoCardArray.unshift("");
-        }
-
-        return filteredVideoCards;
-      }
+	function determineVideoCards(){
+		var cardW0 = document.getElementById("btncheckW0").checked ? "W0" : "";
+		var cardW1 = document.getElementById("btncheckW1").checked ? "W1" : "";
+		var cardW2 = document.getElementById("btncheckW2").checked ? "W2" : "";
+		var cardW3 = document.getElementById("btncheckW3").checked ? "W3" : "";
+		var cardL0 = document.getElementById("btncheckL0").checked ? "L0" : "";
+		var cardL1 = document.getElementById("btncheckL1").checked ? "L1" : "";
+		var cardL2 = document.getElementById("btncheckL2").checked ? "L2" : "";
+		var cardL3 = document.getElementById("btncheckL3").checked ? "L3" : "";
+		var cardR0 = document.getElementById("btncheckR0").checked ? "R0" : "";
+		var cardR1 = document.getElementById("btncheckR1").checked ? "R1" : "";
+		var cardR2 = document.getElementById("btncheckR2").checked ? "R2" : "";
+		var cardR3 = document.getElementById("btncheckR3").checked ? "R3" : "";
+		
+		var unfilteredVideoCardArray = [cardW0, cardW1, cardW2, cardW3, cardL0, cardL1, cardL2, cardL3, cardR0, cardR1, cardR2, cardR3];
+		var filteredVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty);
+		var lengthVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty).length;
+		var filteredVideoCards = {
+						length: lengthVideoCardArray,
+						array: filteredVideoCardArray
+		};
+		
+		for ( i=0; filteredVideoCardArray.length < 7; i++){
+			filteredVideoCardArray.unshift("");
+		}
+		
+		return filteredVideoCards;
+	}
 
 
 // ░░░░░░░░░▓ SETS EACH AUDIO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
-      function determineCrew(){
-          let brianArray = [];
-          let brianHost = document.getElementById("inlineBrianCheckbox1").checked ? brianArray.push("host") : "";
-          let brianOther = document.getElementById("inlineBrianOtherCheckbox").checked ? brianArray.push(document.getElementById("inlineBrianOther").value) : "";
-        let brian = brianHost != "" || brianOther != "" ? "Brian: " + brianArray.join(", ") : "";
-
-          let jasonArray = [];
-          let jasonHost = document.getElementById("inlineJasonCheckbox1").checked ? jasonArray.push("host") : "";
-          let jasonResearch = document.getElementById("inlineJasonCheckbox2").checked ? jasonArray.push("research") : "";
-          let jasonOther = document.getElementById("inlineJasonOtherCheckbox").checked ? jasonArray.push(document.getElementById("inlineJasonOther").value) : "";
-        let jason = jasonHost != "" || jasonOther != "" ? "Jason: " + jasonArray.join(", ") : "";
-
-          let brandtArray = [];
-          let brandtCam = document.getElementById("inlineBrandtCheckbox1").checked ? brandtArray.push("cam") : "";
-          let brandtOther = document.getElementById("inlineBrandtOtherCheckbox").checked ? brandtArray.push(document.getElementById("inlineBrandtOther").value) : "";
-        let brandt = brandtCam != "" || brandtOther != "" ? "Brandt: " + brandtArray.join(", ") : "";
-
-          let bryceArray = [];
-          let bryceCam = document.getElementById("inlineBryceCheckbox1").checked ? bryceArray.push("cam") : "";
-          let bryceOther = document.getElementById("inlineBryceOtherCheckbox").checked ? bryceArray.push(document.getElementById("inlineBryceOther").value) : "";
-        let bryce = bryceCam != "" || bryceOther != "" ? "Bryce: " + bryceArray.join(", ") : "";
-
-          let johnArray = [];
-          let johnCam = document.getElementById("inlineJohnCheckbox1").checked ? johnArray.push("cam") : "";
-          let johnOther = document.getElementById("inlineJohnOtherCheckbox").checked ? johnArray.push(document.getElementById("inlineJohnOther").value) : "";
-        let john = johnCam != "" || johnOther != "" ? "John: " + johnArray.join(", ") : "";
-
-          let annalieseArray = [];
-          let annalieseAudio = document.getElementById("inlineAnnalieseCheckbox1").checked ? annalieseArray.push("audio") : "";
-          let annalieseCam = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("cam") : "";
-          let annalieseAssist = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("assistance") : "";
-          let annalieseOther = document.getElementById("inlineAnnalieseOtherCheckbox").checked ? annalieseArray.push(document.getElementById("inlineAnnalieseOther").value) : "";
-        let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
-
-          let coryArray = [];
-          let coryGuest = document.getElementById("inlineCoryCheckbox2").checked ? coryArray.push("guest") : "";
-          let coryCam = document.getElementById("inlineCoryCheckbox3").checked ? coryArray.push("cam") : "";
-          let coryAssist = document.getElementById("inlineCoryCheckbox1").checked ? coryArray.push("assistance") : "";
-          let coryOther = document.getElementById("inlineCoryOtherCheckbox").checked ? coryArray.push(document.getElementById("inlineCoryOther").value) : "";
-        let cory = coryGuest != "" || coryCam != "" || coryAssist != "" || coryOther != "" ? "Cory: " + coryArray.join(", ") : "";
-
-          let jeffArray = [];
-          let jeffAssist = document.getElementById("inlineJeffCheckbox1").checked ? jeffArray.push("assistance") : "";
-          let jeffOther = document.getElementById("inlineJeffOtherCheckbox").checked ? jeffArray.push(document.getElementById("inlineJeffOther").value) : "";
-        let jeff = jeffAssist != "" || jeffOther != "" ? "Jeff: " + jeffArray.join(", ") : "";
-
-          let eliArray = [];
-          let eliCam = document.getElementById("inlineEliCheckbox2").checked ? eliArray.push("cam") : "";
-          let eliAssist = document.getElementById("inlineEliCheckbox1").checked ? eliArray.push("assistance") : "";
-          let eliOther = document.getElementById("inlineEliOtherCheckbox").checked ? eliArray.push(document.getElementById("inlineEliOther").value) : "";
-        let eli = eliCam != "" || eliAssist != "" || eliOther != "" ? "Eli: " + eliArray.join(", ") : "";
-
-          let adtnlArray1 = [];
-          let adtnlName1 = document.getElementById("additionalName1").value;
-          let adtnlRole1 = document.getElementById("additionalRoles1").value;
-        let adtnl1 = adtnlName1 != "" || adtnlRole1 != "" ? adtnlName1 + ": " + adtnlRole1 : "";
-
-          let adtnlArray2 = [];
-          let adtnlName2 = document.getElementById("additionalName2").value;
-          let adtnlRole2 = document.getElementById("additionalRoles2").value;
-        let adtnl2 = adtnlName2 != "" || adtnlRole2 != "" ? adtnlName2 + ": " + adtnlRole2 : "";
-
-          let adtnlArray3 = [];
-          let adtnlName3 = document.getElementById("additionalName3").value;
-          let adtnlRole3 = document.getElementById("additionalRoles3").value;
-        let adtnl3 = adtnlName3 != "" || adtnlRole3 != "" ? adtnlName3 + ": " + adtnlRole3 : "";
-        
-        let crewUnfilteredArray = [brian, jason, brandt, bryce, john, annaliese, cory, jeff, eli, adtnl1, adtnl2, adtnl3];
-        let crewFilteredArray = crewUnfilteredArray.filter(filterOutEmpty);
-
-        return crewFilteredArray;
-      }
+	function determineCrew(){
+			let brianArray = [];
+			let brianHost = document.getElementById("inlineBrianCheckbox1").checked ? brianArray.push("host") : "";
+			let brianOther = document.getElementById("inlineBrianOtherCheckbox").checked ? brianArray.push(document.getElementById("inlineBrianOther").value) : "";
+		let brian = brianHost != "" || brianOther != "" ? "Brian: " + brianArray.join(", ") : "";
+		
+			let jasonArray = [];
+			let jasonHost = document.getElementById("inlineJasonCheckbox1").checked ? jasonArray.push("host") : "";
+			let jasonResearch = document.getElementById("inlineJasonCheckbox2").checked ? jasonArray.push("research") : "";
+			let jasonOther = document.getElementById("inlineJasonOtherCheckbox").checked ? jasonArray.push(document.getElementById("inlineJasonOther").value) : "";
+		let jason = jasonHost != "" || jasonOther != "" ? "Jason: " + jasonArray.join(", ") : "";
+		
+			let brandtArray = [];
+			let brandtCam = document.getElementById("inlineBrandtCheckbox1").checked ? brandtArray.push("cam") : "";
+			let brandtOther = document.getElementById("inlineBrandtOtherCheckbox").checked ? brandtArray.push(document.getElementById("inlineBrandtOther").value) : "";
+		let brandt = brandtCam != "" || brandtOther != "" ? "Brandt: " + brandtArray.join(", ") : "";
+		
+			let bryceArray = [];
+			let bryceCam = document.getElementById("inlineBryceCheckbox1").checked ? bryceArray.push("cam") : "";
+			let bryceOther = document.getElementById("inlineBryceOtherCheckbox").checked ? bryceArray.push(document.getElementById("inlineBryceOther").value) : "";
+		let bryce = bryceCam != "" || bryceOther != "" ? "Bryce: " + bryceArray.join(", ") : "";
+		
+			let johnArray = [];
+			let johnCam = document.getElementById("inlineJohnCheckbox1").checked ? johnArray.push("cam") : "";
+			let johnOther = document.getElementById("inlineJohnOtherCheckbox").checked ? johnArray.push(document.getElementById("inlineJohnOther").value) : "";
+		let john = johnCam != "" || johnOther != "" ? "John: " + johnArray.join(", ") : "";
+		
+			let annalieseArray = [];
+			let annalieseAudio = document.getElementById("inlineAnnalieseCheckbox1").checked ? annalieseArray.push("audio") : "";
+			let annalieseCam = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("cam") : "";
+			let annalieseAssist = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("assistance") : "";
+			let annalieseOther = document.getElementById("inlineAnnalieseOtherCheckbox").checked ? annalieseArray.push(document.getElementById("inlineAnnalieseOther").value) : "";
+		let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
+		
+			let coryArray = [];
+			let coryGuest = document.getElementById("inlineCoryCheckbox2").checked ? coryArray.push("guest") : "";
+			let coryCam = document.getElementById("inlineCoryCheckbox3").checked ? coryArray.push("cam") : "";
+			let coryAssist = document.getElementById("inlineCoryCheckbox1").checked ? coryArray.push("assistance") : "";
+			let coryOther = document.getElementById("inlineCoryOtherCheckbox").checked ? coryArray.push(document.getElementById("inlineCoryOther").value) : "";
+		let cory = coryGuest != "" || coryCam != "" || coryAssist != "" || coryOther != "" ? "Cory: " + coryArray.join(", ") : "";
+		
+			let jeffArray = [];
+			let jeffAssist = document.getElementById("inlineJeffCheckbox1").checked ? jeffArray.push("assistance") : "";
+			let jeffOther = document.getElementById("inlineJeffOtherCheckbox").checked ? jeffArray.push(document.getElementById("inlineJeffOther").value) : "";
+		let jeff = jeffAssist != "" || jeffOther != "" ? "Jeff: " + jeffArray.join(", ") : "";
+		
+			let eliArray = [];
+			let eliCam = document.getElementById("inlineEliCheckbox2").checked ? eliArray.push("cam") : "";
+			let eliAssist = document.getElementById("inlineEliCheckbox1").checked ? eliArray.push("assistance") : "";
+			let eliOther = document.getElementById("inlineEliOtherCheckbox").checked ? eliArray.push(document.getElementById("inlineEliOther").value) : "";
+		let eli = eliCam != "" || eliAssist != "" || eliOther != "" ? "Eli: " + eliArray.join(", ") : "";
+		
+			let adtnlArray1 = [];
+			let adtnlName1 = document.getElementById("additionalName1").value;
+			let adtnlRole1 = document.getElementById("additionalRoles1").value;
+		let adtnl1 = adtnlName1 != "" || adtnlRole1 != "" ? adtnlName1 + ": " + adtnlRole1 : "";
+		
+			let adtnlArray2 = [];
+			let adtnlName2 = document.getElementById("additionalName2").value;
+			let adtnlRole2 = document.getElementById("additionalRoles2").value;
+		let adtnl2 = adtnlName2 != "" || adtnlRole2 != "" ? adtnlName2 + ": " + adtnlRole2 : "";
+		
+			let adtnlArray3 = [];
+			let adtnlName3 = document.getElementById("additionalName3").value;
+			let adtnlRole3 = document.getElementById("additionalRoles3").value;
+		let adtnl3 = adtnlName3 != "" || adtnlRole3 != "" ? adtnlName3 + ": " + adtnlRole3 : "";
+		
+		let crewUnfilteredArray = [brian, jason, brandt, bryce, john, annaliese, cory, jeff, eli, adtnl1, adtnl2, adtnl3];
+		let crewFilteredArray = crewUnfilteredArray.filter(filterOutEmpty);
+		
+		return crewFilteredArray;
+	}
 
 
 // ░░░░░░░░░▓ REVEAL A SECOND ADDITIONAL CREW ROLE 
-  var hiddenRoleCount = 2;
+	var hiddenRoleCount = 2;
 
-      function unhideAdditionalRole(){
-        document.getElementById("hiddenAdditionalRole" + hiddenRoleCount).classList.remove("d-none");
-        hiddenRoleCount++;
-        if(hiddenRoleCount == 4){
-          document.getElementById("addAnotherButton").classList.add("d-none");
-        };
-      }
+		function unhideAdditionalRole(){
+			document.getElementById("hiddenAdditionalRole" + hiddenRoleCount).classList.remove("d-none");
+			hiddenRoleCount++;
+			if(hiddenRoleCount == 4){
+				document.getElementById("addAnotherButton").classList.add("d-none");
+			};
+		}
 
 
 // ░░░░░░░░░▓ FILTER AN ARRAY TO REMOVE ITS EMPTY ITEMS 
-      function filterOutEmpty(items){
-        return items != "";
-      }
+	function filterOutEmpty(items){
+		return items != "";
+	}
 
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA UPON SUBMIT
-      function afterSubmit(){
-        clearFields(["label","duration"]);
-      }
+	function afterSubmit(){
+		clearFields(["label","duration"]);
+	}
 
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA AND RADIO BUTTONS UPON RESET
-      function afterReset(){
-        clearFields(["label","duration","btncheckA3","btncheckA4","btncheck0","btncheck2","btncheck3","btncheck7","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3","inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineJohnCheckbox1","inlineJohnOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox","inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox","inlineJeffCheckbox1","inlineJeffOtherCheckbox","inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]);
-      }
+	function afterReset(){
+		clearFields(["label","duration","btncheckA3","btncheckA4","btncheck0","btncheck2","btncheck3","btncheck7","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3","inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineJohnCheckbox1","inlineJohnOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox","inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox","inlineJeffCheckbox1","inlineJeffOtherCheckbox","inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]);
+	}
 
 
 // ░░░░░░░░░▓ FUNCTION FOR CLEARING DATA
-      function clearFields(fields){
-        fields.forEach(function(field){
-          var el = document.getElementById(field);
-          if(el.type === "checkbox" || el.type === "radio"){
-            el.checked = false;
-          } else {
-          el.value = "";
-          }
-        });
-      }
+	function clearFields(fields){
+		fields.forEach(function(field){
+			var el = document.getElementById(field);
+			if(el.type === "checkbox" || el.type === "radio"){
+				el.checked = false;
+			} else {
+			el.value = "";
+			}
+		});
+	}
 
 
 // ░░░░░░░░░▓ LISTENERS THAT RUN FUNCTIONS WHEN SOMETHING HAPPENS
-      document.getElementById("submitButton").addEventListener("click",afterButtonClicked);
-      document.getElementById("resetButton").addEventListener("click",afterReset);
-      document.getElementById("continuation_check").addEventListener("click",afterContinuationClicked);
-      document.getElementById("inlineBrianOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrianOther") });
-      document.getElementById("inlineJasonOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJasonOther") });
-      document.getElementById("inlineBrandtOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrandtOther") });
-      document.getElementById("inlineBryceOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBryceOther") });
-      document.getElementById("inlineJohnOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJohnOther") });
-      document.getElementById("inlineAnnalieseOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineAnnalieseOther") });
-      document.getElementById("inlineCoryOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineCoryOther") });
-      document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
-      document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
-      document.getElementById("type_of_video").addEventListener("change",updateTypeDependentFields);
-      document.addEventListener("DOMContentLoaded",afterSidebarLoads);
-    </script>
+	document.getElementById("submitButton").addEventListener("click",afterButtonClicked);
+	document.getElementById("resetButton").addEventListener("click",afterReset);
+	document.getElementById("continuation_check").addEventListener("click",afterContinuationClicked);
+	document.getElementById("inlineBrianOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrianOther") });
+	document.getElementById("inlineJasonOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJasonOther") });
+	document.getElementById("inlineBrandtOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrandtOther") });
+	document.getElementById("inlineBryceOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBryceOther") });
+	document.getElementById("inlineJohnOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJohnOther") });
+	document.getElementById("inlineAnnalieseOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineAnnalieseOther") });
+	document.getElementById("inlineCoryOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineCoryOther") });
+	document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
+	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
+	document.getElementById("type_of_video").addEventListener("change",updateTypeDependentFields);
+	document.addEventListener("DOMContentLoaded",afterSidebarLoads);
+	</script>
 
-  </body>
+	</body>
 </html>
