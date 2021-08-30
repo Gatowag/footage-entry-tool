@@ -3,7 +3,7 @@ const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
 const rangeOffset = 810;
-const locOffset = 750;
+const locOffset = 500;
 var prodOffset = -1;
 var dataArray = {
 				unfinished: [],

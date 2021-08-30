@@ -142,8 +142,10 @@
 		</div>
 
 		<div class="input-group">
-			<input type="text" id="location_property" value="HQ" class="form-control col-4" data-bs-toggle="tooltip" data-bs-placement="top" title="property (wide category)" onclick="this.select();">
-			<input type="text" id="location_room" value="soundstage" class="form-control col-6" data-bs-toggle="tooltip" data-bs-placement="top" title="area on property (narrow category)" onclick="this.select();">
+			<input type="text" id="location_property" value="HQ" class="form-control col-4" data-bs-toggle="tooltip" data-bs-placement="top" title="property (wide category)" onfocus="this.value=''" list="locationWideAutoPopulate">
+				<datalist id="locationWideAutoPopulate"></datalist>
+			<input type="text" id="location_room" value="soundstage" class="form-control col-6" data-bs-toggle="tooltip" data-bs-placement="top" title="area on property (narrow category)" onfocus="this.value=''" list="locationNarrowAutoPopulate">
+				<datalist id="locationNarrowAutoPopulate"></datalist>
 		</div>
 
 		<!-- ░░░░░▓ CREW ROLE BUTTONS -->
@@ -447,26 +449,74 @@
 	}
 
 
-// ░░░░░░░░░▓ POPULATE LABEL DROPDOWN WITH PREVIOUS LABELS
-	function addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,index){
-		var currentlyAdded = [];
+// ░░░░░░░░░▓ POPULATE FOOTAGE LABEL DROPDOWN WITH UNIQUE PREVIOUS LABELS FROM INCOMPLETE EPS
+	function populateContEpDropDown(contDropDown, index){
+		let currentlyAdded = [];
 
-		arrayOfValues.unfinished.forEach(function(r){
-			if(currentlyAdded.indexOf(r[index]) === -1){
-				var option = document.createElement("option");
-				option.textContent = r[index];
+		arrayOfValues.unfinished.forEach(function(el){
+			if(currentlyAdded.indexOf(el[index]) === -1){
+				let option = document.createElement("option");
+				option.textContent = el[index];
 				contDropDown.appendChild(option);
-				currentlyAdded.push(r[index]);
+				currentlyAdded.push(el[index]);
 			}
 		});
 	}
 
 
-// ░░░░░░░░░▓ I DON'T REMEMBER, SOMETHING TO DO WITH
-// ░░░░░░░░░▓ ONLY ALLOWING UNIQUE ENTRIES INTO CONTINUATION DROPDOWN
+// ░░░░░░░░░▓ POPULATE LOCATION FIELD 1 AUTO-COMPLETE WITH UNIQUE PREVIOUS LOCATIONS
+	function populateLocationField1(index){
+		let currentlyAdded = [];
+
+		arrayOfValues.locationsWide.forEach(function(el){
+			if(currentlyAdded.indexOf(el[index]) === -1){
+				let option = document.createElement("option");
+				option.textContent = el[index];
+				locationWideAutoPopulate.appendChild(option);
+				currentlyAdded.push(el[index]);
+			}
+		});
+	}
+
+
+// ░░░░░░░░░▓ POPULATE LOCATION FIELD 2 AUTO-COMPLETE WITH LOCATIONS ASSOCIATED WITH FIELD 1 SELECTION
+	function populateLocationField2(locationField1, index){
+		const locWide = arrayOfValues.locationsWide;
+		const locNar = arrayOfValues.locationsNarrow;
+		let matchingWideIndex = getAllIndexes(locWide, locationField1);
+		let currentlyAdded = [];
+		
+		document.getElementById("locationNarrowAutoPopulate").innerHTML = '';
+		
+		for(i = 0; i < matchingWideIndex.length; i++){
+			var curMatch = matchingWideIndex[i];
+			var curLocNar = locNar[curMatch];
+			
+			if(currentlyAdded.indexOf(curLocNar[0]) === -1){
+				let option = document.createElement("option");
+				option.textContent = curLocNar[0];
+				locationNarrowAutoPopulate.appendChild(option);
+				currentlyAdded.push(curLocNar[0]);
+			};
+		};
+	}
+
+// ░░░░░░░░░▓ RETURNS JUST THE INDEX NUMBERS OF EVERY MATCHING ELEMENT IN AN ARRAY
+	function getAllIndexes(arr, el) {
+		var indexes = [], i;
+		for(i = 0; i < arr.length; i++)
+			if (arr[i] == el)
+				indexes.push(i);
+		return indexes;
+	}
+
+
+// ░░░░░░░░░▓ SENDS DATAARRAY OBJECT / VALUES TO POPULATECONTEPDORPDOWN FUNCTION
 	function afterSpreadsheetDataReturned(dataArray){
 		arrayOfValues = JSON.parse(JSON.stringify(dataArray));
-		addUniqueOptionsToDropdownList(contDropDown,arrayOfValues,0);
+		populateContEpDropDown(contDropDown,0);
+		populateLocationField1(0);
+		populateLocationField2(document.getElementById("location_property").value, 0);
 	}
 
 
@@ -721,6 +771,7 @@
 	document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
 	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
 	document.getElementById("type_of_video").addEventListener("change",updateTypeDependentFields);
+	document.getElementById("location_property").addEventListener("change", function(){ populateLocationField2(document.getElementById("location_property").value,0) });
 	document.addEventListener("DOMContentLoaded",afterSidebarLoads);
 	</script>
 
