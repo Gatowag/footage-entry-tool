@@ -3,10 +3,12 @@ const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
 const rangeOffset = 810;
+const locOffset = 750;
 var prodOffset = -1;
 var dataArray = {
 				unfinished: [],
-				locations: [],
+				locationsWide: [],
+				locationsNarrow: [],
 				allLabels: [],
 				};
 
@@ -61,15 +63,18 @@ function addNewRow(rowData) {
 function getSpreadsheetData(){
 	const lastRow = tab1.getLastRow();
 	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const locationRange = tab1.getRange(810,19,lastRow - (810-1),2);
+	const locationWideRange = tab1.getRange(locOffset,19,lastRow - (locOffset-1),1);
+	const locationNarrowRange = tab1.getRange(locOffset,20,lastRow - (locOffset-1),1);
 
-	for ( i = 0; i < ((lastRow + 1) - rangeOffset); i++){
-		if (labelRange.getBackgrounds()[i] == "#ffff00")
-			{ dataArray.unfinished.push(labelRange.getValues()[i]) };
+		for ( i = 0; i < ((lastRow + 1) - locOffset); i++){
+			if (labelRange.getBackgrounds()[i] == "#ffff00")
+				{ dataArray.unfinished.push(labelRange.getValues()[i]) };
 
-		if (locationRange.getValues()[i] != "")
-			{ dataArray.locations.push(locationRange.getValues()[i]); };
-	}
+			if (locationWideRange.getValues()[i] != "")
+				{	dataArray.locationsWide.push(locationWideRange.getValues()[i]);
+					dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
+				};
+		};
 
 	return dataArray;
 }
@@ -195,12 +200,12 @@ function closeIncompletes(type, cont, label) {
 
 		firstMatch = labelMatchedRow.shift();
 		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#f1c232");
-		labelMatchedRow.forEach(recolorIncompleteRotab1);
+		labelMatchedRow.forEach(recolorIncompleteRowTab1);
 	}
 }
 
 // ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
-function recolorIncompleteRotab1(item){
+function recolorIncompleteRowTab1(item){
 	tab1.getRange(item + ":" + item).setBackground("#e69138");
 }
 
