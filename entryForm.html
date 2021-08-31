@@ -23,14 +23,15 @@
 			<option selected value="1">Episode</option>
 			<option value="2">Multi-Part: Unfinished</option>
 			<option value="3">Multi-Part: Completed</option>
-			<option value="4">Ads</option>
+			<option value="4">Sponsor</option>
 			<option value="5">Patreon Bonus</option>
 		</select>
 
 		<!-- ░░░░░▓ VIDEO LABEL -->
 		<div class="form-group pt-2" id="label_group">
 			<label for="label" class="form-label">Label Footage</label>
-			<input type="text" class="form-control" id="label">
+			<input type="text" class="form-control" id="label" list="sponsorAutoPopulate">
+				<datalist id="sponsorAutoPopulate"></datalist>
 		</div>
 
 		<!-- ░░░░░▓ MULTI: LINKED VIDEO DROPDOWN -->
@@ -464,6 +465,21 @@
 	}
 
 
+// ░░░░░░░░░▓ POPULATE FOOTAGE LABEL AUTO-COMPLETE WITH UNIQUE PREVIOUS SPONSORS
+	function populateSponsorLabel(){
+		let currentlyAdded = [];
+
+		arrayOfValues.sponsors.forEach(function(el){
+				if (currentlyAdded.indexOf(el[0]) === -1) {
+					let option = document.createElement("option");
+					option.textContent = el[0];
+					sponsorAutoPopulate.appendChild(option);
+					currentlyAdded.push(el[0]);
+				}
+		});
+	}
+
+
 // ░░░░░░░░░▓ POPULATE LOCATION FIELD 1 AUTO-COMPLETE WITH UNIQUE PREVIOUS LOCATIONS
 	function populateLocationField1(index){
 		let currentlyAdded = [];
@@ -501,6 +517,7 @@
 		};
 	}
 
+
 // ░░░░░░░░░▓ RETURNS JUST THE INDEX NUMBERS OF EVERY MATCHING ELEMENT IN AN ARRAY
 	function getAllIndexes(arr, el) {
 		var indexes = [], i;
@@ -524,20 +541,28 @@
 	function updateTypeDependentFields(){
 		var contCheck = document.getElementById("cont_check_group");
         
-			if(type.value === "3"){
-				labelGroup.classList.add("d-none");
-				contGroup.classList.remove("d-none");
-				contCheck.classList.add("d-none");
+			if(type.value === "3"){						// "Multi-Part: Completed"
+				labelGroup.classList.add("d-none");		// hide text field
+				contGroup.classList.remove("d-none");	// show drop down
+				contCheck.classList.add("d-none");		// hide continuation check
 				
-			} else if(type.value === "2") {
-				labelGroup.classList.remove("d-none");
-				contGroup.classList.add("d-none");
-				contCheck.classList.remove("d-none");
+			} else if(type.value === "2") {				// "Multi-Part: Unfinished"
+				labelGroup.classList.remove("d-none");	// show text field
+				contGroup.classList.add("d-none");		// hide drop down
+				contCheck.classList.remove("d-none");	// show continuation check
+				emptyDatalist(["sponsorAutoPopulate"]);	// removes sponsor datalist if already loaded
+				
+			} else if(type.value === "4") {				// "Sponsor"
+				labelGroup.classList.remove("d-none");	// show text field
+				contGroup.classList.add("d-none");		// hide drop down
+				contCheck.classList.add("d-none");		// hide continuation check
+				populateSponsorLabel();					// give options for auto-complete
 				
 			} else {
-				labelGroup.classList.remove("d-none");
-				contGroup.classList.add("d-none");
-				contCheck.classList.add("d-none");
+				labelGroup.classList.remove("d-none");	// show text field
+				contGroup.classList.add("d-none");		// hide drop down
+				contCheck.classList.add("d-none");		// hide continuation check
+				emptyDatalist(["sponsorAutoPopulate"]);	// removes sponsor datalist if already loaded
 			}
 	}
 
@@ -745,8 +770,9 @@
 
 
 // ░░░░░░░░░▓ FUNCTION FOR CLEARING DATA
-	function clearFields(fields){
-		fields.forEach(function(field){
+	function clearFields(fieldCollection) {
+		
+		fieldCollection.forEach(function(field){
 			var el = document.getElementById(field);
 			if(el.type === "checkbox" || el.type === "radio"){
 				el.checked = false;
@@ -756,6 +782,17 @@
 		});
 	}
 
+// ░░░░░░░░░▓ FUNCTION FOR CLEARING A DATALIST
+	function emptyDatalist(fieldCollection) {
+		
+		fieldCollection.forEach(function(field) {
+			let dataL = document.getElementById(field);
+		
+			while (dataL.hasChildNodes()) {
+				dataL.removeChild(dataL.firstChild);
+			}
+		});
+	}
 
 // ░░░░░░░░░▓ LISTENERS THAT RUN FUNCTIONS WHEN SOMETHING HAPPENS
 	document.getElementById("submitButton").addEventListener("click",afterButtonClicked);
