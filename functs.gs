@@ -2,12 +2,16 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
-const rangeOffset = 810;
+const rangeOffset = 700;
+const locOffset = 500;
 var prodOffset = -1;
 var dataArray = {
 				unfinished: [],
-				locations: [],
+				locationsWide: [],
+				locationsNarrow: [],
 				allLabels: [],
+				allLabelsString: [],
+				sponsors: []
 				};
 
 
@@ -60,15 +64,25 @@ function addNewRow(rowData) {
 function getSpreadsheetData(){
 	const lastRow = tab1.getLastRow();
 	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const locationRange = tab1.getRange(810,19,lastRow - (810-1),2);
+	const locationWideRange = tab1.getRange(locOffset,19,lastRow - (locOffset-1),1);
+	const locationNarrowRange = tab1.getRange(locOffset,20,lastRow - (locOffset-1),1);
 
-	for ( i = 0; i < ((lastRow + 1) - rangeOffset); i++){
-		if (labelRange.getBackgrounds()[i] == "#ffff00")
-			{ dataArray.unfinished.push(labelRange.getValues()[i]) };
+		for ( i = 0; i < ((lastRow + 1) - locOffset); i++){
+			if (labelRange.getBackgrounds()[i] == "#ffff00") {
+				dataArray.unfinished.push(labelRange.getValues()[i])
+			};
 
-		if (locationRange.getValues()[i] != "")
-			{ dataArray.locations.push(locationRange.getValues()[i]); };
-	}
+			if (locationWideRange.getValues()[i] != "") {
+				dataArray.locationsWide.push(locationWideRange.getValues()[i]);
+				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
+			};
+				
+			if (labelRange.getValues()[i] != "") {
+				dataArray.allLabels.push(labelRange.getValues()[i])
+			};
+		};
+		
+	dataArray.sponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
 
 	return dataArray;
 }
@@ -87,7 +101,7 @@ function determineProdNum(type, cont, label){
 		{ prodArray.push(Number(prodNumRange.getValues()[i])); };
 
 		if (labelRange.getValues()[i] != "")
-		{ dataArray.allLabels.push(String(labelRange.getValues()[i])) };
+		{ dataArray.allLabelsString.push(String(labelRange.getValues()[i])) };
 
 		prodNumIndex.push(Number(prodNumRange.getValues()[i]));
 	};
@@ -102,10 +116,10 @@ function determineProdNum(type, cont, label){
 			prodOffset++;
 			return mostRecentNum + prodOffset;
 		} else if (cont === "CONT") {
-			return prodNumIndex[dataArray.allLabels.indexOf(label)];
+			return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
 		}
 	} else if (type == 3){
-		return prodNumIndex[dataArray.allLabels.indexOf(label)];
+		return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
 	} else {
 		return "-";
 	}
@@ -194,12 +208,12 @@ function closeIncompletes(type, label) {
 
 		firstMatch = labelMatchedRow.shift();
 		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#f1c232");
-		labelMatchedRow.forEach(recolorIncompleteRotab1);
+		labelMatchedRow.forEach(recolorIncompleteRowTab1);
 	}
 }
 
 // ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
-function recolorIncompleteRotab1(item){
+function recolorIncompleteRowTab1(item){
 	tab1.getRange(item + ":" + item).setBackground("#e69138");
 }
 
