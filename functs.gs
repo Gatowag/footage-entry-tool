@@ -39,7 +39,6 @@ function addNewRow(rowData) {
 		rowCombined);
 	closeIncompletes(
 		rowData.type,
-		rowData.cont,
 		rowData.toggledLabel);
 	setBackgroundColor(
 		rowData.type);
@@ -181,7 +180,7 @@ function mergeCells(length, type) {
 }
 
 // ░░░░░░░░░▓ RECOLORS INCOMPLETE EPS IF CLOSED BY A MULIT-PART COMPLETE ENTRY
-function closeIncompletes(type, cont, label) {
+function closeIncompletes(type, label) {
 	const newRow = tab1.getLastRow();
 	const labelRange = tab1.getRange(rangeOffset,12,newRow - (rangeOffset-1),1);
 	let labelMatchedRow = [];
