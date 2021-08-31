@@ -2,7 +2,7 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
-const rangeOffset = 810;
+const rangeOffset = 700;
 const locOffset = 500;
 var prodOffset = -1;
 var dataArray = {
@@ -10,6 +10,8 @@ var dataArray = {
 				locationsWide: [],
 				locationsNarrow: [],
 				allLabels: [],
+				allLabelsString: [],
+				sponsors: []
 				};
 
 
@@ -67,14 +69,21 @@ function getSpreadsheetData(){
 	const locationNarrowRange = tab1.getRange(locOffset,20,lastRow - (locOffset-1),1);
 
 		for ( i = 0; i < ((lastRow + 1) - locOffset); i++){
-			if (labelRange.getBackgrounds()[i] == "#ffff00")
-				{ dataArray.unfinished.push(labelRange.getValues()[i]) };
+			if (labelRange.getBackgrounds()[i] == "#ffff00") {
+				dataArray.unfinished.push(labelRange.getValues()[i])
+			};
 
-			if (locationWideRange.getValues()[i] != "")
-				{	dataArray.locationsWide.push(locationWideRange.getValues()[i]);
-					dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
-				};
+			if (locationWideRange.getValues()[i] != "") {
+				dataArray.locationsWide.push(locationWideRange.getValues()[i]);
+				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
+			};
+				
+			if (labelRange.getValues()[i] != "") {
+				dataArray.allLabels.push(labelRange.getValues()[i])
+			};
 		};
+		
+	dataArray.sponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
 
 	return dataArray;
 }
@@ -93,7 +102,7 @@ function determineProdNum(type, cont, label){
 		{ prodArray.push(Number(prodNumRange.getValues()[i])); };
 
 		if (labelRange.getValues()[i] != "")
-		{ dataArray.allLabels.push(String(labelRange.getValues()[i])) };
+		{ dataArray.allLabelsString.push(String(labelRange.getValues()[i])) };
 
 		prodNumIndex.push(Number(prodNumRange.getValues()[i]));
 	};
@@ -108,10 +117,10 @@ function determineProdNum(type, cont, label){
 			prodOffset++;
 			return mostRecentNum + prodOffset;
 		} else if (cont === "CONT") {
-			return prodNumIndex[dataArray.allLabels.indexOf(label)];
+			return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
 		}
 	} else if (type == 3){
-		return prodNumIndex[dataArray.allLabels.indexOf(label)];
+		return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
 	} else {
 		return "-";
 	}
