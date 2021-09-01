@@ -158,24 +158,57 @@ function setBackgroundColor(type) {
 	const newRow = tab1.getLastRow();
 
 	if (type == "1"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f1c232").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#76c1cc").setFontColor("black");
 	} else if (type == "2"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#ffff00").setFontColor("black");
 	} else if (type == "3"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#e69138").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#458d97").setFontColor("black");
 	} else if (type == "5"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#3c4043").setFontColor("white");
 	} else {
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f9cb9c").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#c4df99").setFontColor("black");
 	}
 }
 
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
 function setNumberFormat() {
 	const newRow = tab1.getLastRow();
-	const cell = tab1.getRange("K" + newRow);
-
-	cell.setNumberFormat("0:00:00");
+	
+	// general formats for the entire row
+	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setVerticalAlignment("middle").setHorizontalAlignment("center");
+	tab1.setRowHeightsForced(newRow, 1, 21);
+	
+	// formats recording date
+	tab1.getRange("A" + newRow).setFontSize(8);
+	
+	// formats production number
+	tab1.getRange("B" + newRow).setFontSize(9);
+	
+	// formats memory card cells
+	tab1.getRange("C" + newRow + ":J" + newRow).setFontSize(8);
+	
+	// formats runtime cell
+	tab1.getRange("K" + newRow).setNumberFormat("0:00:00").setFontSize(8);
+	
+	// formats label cell
+	tab1.getRange("L" + newRow).setFontSize(10).setHorizontalAlignment("left");
+	
+	// formats part cell
+	tab1.getRange("M" + newRow).setFontSize(8);
+	
+	// formats release number cells
+	tab1.getRange("N" + newRow + ":O" + newRow).setFontSize(10);
+	
+	// formats air date cell and published link cell
+	tab1.getRange("P" + newRow + ":Q" + newRow).setFontSize(8);
+	tab1.getRange("Q" + newRow).setHorizontalAlignment("left");
+	
+	// formats sponsor cell and location cells
+	tab1.getRange("R" + newRow + ":T" + newRow).setFontSize(10);
+	tab1.getRange("S" + newRow + ":T" + newRow).setHorizontalAlignment("left");
+	
+	// formats crew cells
+	tab1.getRange("U" + newRow + ":AD" + newRow).setFontSize(9).setHorizontalAlignment("left");
 }
 
 // ░░░░░░░░░▓ MERGES UNUSED CELLS
@@ -207,7 +240,7 @@ function closeIncompletes(type, label) {
 		};
 
 		firstMatch = labelMatchedRow.shift();
-		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#f1c232");
+		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#76c1cc");
 		labelMatchedRow.forEach(recolorIncompleteRowTab1);
 	}
 }
