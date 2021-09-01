@@ -15,6 +15,9 @@
 		<!-- ░░░░░▓ VIDEO TYPE -->
 		<div class="form-group">
 			<label for="type_of_video" class="form-label">Type of Video</label>
+			<div class="spinner-border spinner-border-sm text-danger" role="status" id="loading">
+				<span class="visually-hidden">Loading...</span>
+			</div>
 		</div>
 
 		<div><input type="text" class="form-control d-none" id="toggled_label"></div>
@@ -393,7 +396,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-3 ">alpha version 0.95</div>
+			<div class="form-text pt-3 ">alpha version 0.96</div>
 		</div>
 	</div>
 
@@ -535,6 +538,7 @@
 		populateContEpDropDown(contDropDown,0);
 		populateLocationField1(0);
 		populateLocationField2(document.getElementById("location_property").value, 0);
+		document.getElementById("loading").remove();
 	}
 
 
