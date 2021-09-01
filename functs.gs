@@ -46,7 +46,7 @@ function addNewRow(rowData) {
 		rowData.toggledLabel);
 	setBackgroundColor(
 		rowData.type);
-	setNumberFormat();
+	setCellFormats();
 	mergeCells(
 		rowData.videoCardsLength,
 		rowData.type);
@@ -58,9 +58,8 @@ function addNewRow(rowData) {
 }
 
 
-// ░░░░░░░░░▓ READS FOOTAGE LABELS FROM SPREADSHEET,
-// ░░░░░░░░░▓ FILTERS TO ONLY "UNFINISHED" ENTRIES AND RETURNS THOSE TITLES
-// ░░░░░░░░░▓ IN AN ARRAY WHEN THE FUNCTION IS CALLED IN ENTRYFORM
+// ░░░░░░░░░▓ READS DATA FROM THE SPREADSHEET WHEN THE SIDEBAR LOADS,
+// ░░░░░░░░░▓ ALL RELEVANT DATA GETS PASSED TO THEIR RESPECTIVE ARRAYS IN OBJECT "dataArray"
 function getSpreadsheetData(){
 	const lastRow = tab1.getLastRow();
 	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
@@ -157,21 +156,34 @@ function determinePt(type, cont, label){
 function setBackgroundColor(type) {
 	const newRow = tab1.getLastRow();
 
+	// EPISODES
 	if (type == "1"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#76c1cc").setFontColor("black");
+		
+	// MULTI-PART: UNFINISHED
 	} else if (type == "2"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#ffff00").setFontColor("black");
+		
+	// MULTI-PART: COMPLETED
 	} else if (type == "3"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#458d97").setFontColor("black");
+		
+	// SPONSOR
+	} else if (type == "4"){
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#90eba6").setFontColor("black");
+		
+	// PATREON BONUS
 	} else if (type == "5"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#3c4043").setFontColor("white");
+		
+	// OTHER
 	} else {
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#c4df99").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f9cb9c").setFontColor("black");
 	}
 }
 
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
-function setNumberFormat() {
+function setCellFormats() {
 	const newRow = tab1.getLastRow();
 	
 	// general formats for the entire row
@@ -222,7 +234,7 @@ function mergeCells(length, type) {
 	tab1.getRange('C' + newRow + ':' + mergeEnd + newRow).merge();
   
 	// THIS APPLIES TO THE "PT" COLUMN
-	if(type == "2" || type == "3"){}
+	if (type == "2" || type == "3") {}
 	else {tab1.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
 }
 
