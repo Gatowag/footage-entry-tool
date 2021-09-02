@@ -2,8 +2,8 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
-const rangeOffset = 700;
-const locOffset = 500;
+const newRow = tab1.getLastRow();
+const rowOffset = newRow - 250;
 var prodOffset = -1;
 var dataArray = {
 				unfinished: [],
@@ -61,12 +61,11 @@ function addNewRow(rowData) {
 // ░░░░░░░░░▓ READS DATA FROM THE SPREADSHEET WHEN THE SIDEBAR LOADS,
 // ░░░░░░░░░▓ ALL RELEVANT DATA GETS PASSED TO THEIR RESPECTIVE ARRAYS IN OBJECT "dataArray"
 function getSpreadsheetData(){
-	const lastRow = tab1.getLastRow();
-	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const locationWideRange = tab1.getRange(locOffset,19,lastRow - (locOffset-1),1);
-	const locationNarrowRange = tab1.getRange(locOffset,20,lastRow - (locOffset-1),1);
+	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
+	const locationWideRange = tab1.getRange(rowOffset,19,newRow - (rowOffset-1),1);
+	const locationNarrowRange = tab1.getRange(rowOffset,20,newRow - (rowOffset-1),1);
 
-		for ( i = 0; i < ((lastRow + 1) - locOffset); i++){
+		for ( i = 0; i < ((newRow + 1) - rowOffset); i++){
 			if (labelRange.getBackgrounds()[i] == "#ffff00") {
 				dataArray.unfinished.push(labelRange.getValues()[i])
 			};
@@ -88,14 +87,13 @@ function getSpreadsheetData(){
 
 // ░░░░░░░░░▓ DETERMINES PROD NUMBER
 function determineProdNum(type, cont, label){
-	const lastRow = tab1.getLastRow();
-	const prodNumRange = tab1.getRange(rangeOffset,2,lastRow - (rangeOffset - 1),1);
-	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
+	const prodNumRange = tab1.getRange(rowOffset,2,newRow - (rowOffset - 1),1);
+	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
 	var prodArray = [];
 	var prodNumIndex = [];
 	var mostRecentNum;
 
-	for ( i = 0; i < ((lastRow + 1)  - rangeOffset); i++){
+	for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
 		if (prodNumRange.getValues()[i] != "" && prodNumRange.getValues()[i] != "-")
 		{ prodArray.push(Number(prodNumRange.getValues()[i])); };
 
@@ -126,13 +124,12 @@ function determineProdNum(type, cont, label){
 
 // ░░░░░░░░░▓ DETERMINES PART NUMBER
 function determinePt(type, cont, label){
-	const lastRow = tab1.getLastRow();
-	const labelRange = tab1.getRange(rangeOffset,12,lastRow - (rangeOffset-1),1);
-	const ptRange = tab1.getRange(rangeOffset,13,lastRow - (rangeOffset - 1),1);
+	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
+	const ptRange = tab1.getRange(rowOffset,13,newRow - (rowOffset - 1),1);
 	var ptIndex = [];
 	var labelList = [];
 
-	for ( i = 0; i < ((lastRow + 1)  - rangeOffset); i++){
+	for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
 		if (labelRange.getValues()[i] != "")
 			{ labelList.push(String(labelRange.getValues()[i])) };
 
@@ -154,7 +151,6 @@ function determinePt(type, cont, label){
 
 // ░░░░░░░░░▓ FORMATS THE COLOR OF THE NEW ROW BASED ON FOOTAGE TYPE
 function setBackgroundColor(type) {
-	const newRow = tab1.getLastRow();
 
 	// EPISODES
 	if (type == "1"){
@@ -184,7 +180,6 @@ function setBackgroundColor(type) {
 
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
 function setCellFormats() {
-	const newRow = tab1.getLastRow();
 	
 	// general formats for the entire row
 	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setVerticalAlignment("middle").setHorizontalAlignment("center");
@@ -225,7 +220,6 @@ function setCellFormats() {
 
 // ░░░░░░░░░▓ MERGES UNUSED CELLS
 function mergeCells(length, type) {
-	const newRow = tab1.getLastRow();
 	var mergeEnd;
 
 	// THIS APPLIES TO THE VIDEO MEMORY CARD SECTION
@@ -240,15 +234,14 @@ function mergeCells(length, type) {
 
 // ░░░░░░░░░▓ RECOLORS INCOMPLETE EPS IF CLOSED BY A MULIT-PART COMPLETE ENTRY
 function closeIncompletes(type, label) {
-	const newRow = tab1.getLastRow();
-	const labelRange = tab1.getRange(rangeOffset,12,newRow - (rangeOffset-1),1);
+	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
 	let labelMatchedRow = [];
 	let firstMatch;
 
 	if (type == "3"){
-		for ( i = 0; i < ((newRow + 1)  - rangeOffset); i++){
+		for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
 			if (labelRange.getValues()[i] == label){
-				labelMatchedRow.push(Number([i]) + rangeOffset) };
+				labelMatchedRow.push(Number([i]) + rowOffset) };
 		};
 
 		firstMatch = labelMatchedRow.shift();
