@@ -10,7 +10,7 @@ function createMenu(){
 	const ui = SpreadsheetApp.getUi();
 	const menu = ui.createMenu("Automation");
 
-	menu.addItem("Footage Entry", "loadForm");
+	menu.addItem("Footage Entry Tool", "loadForm");
 	menu.addToUi();
 }
 
