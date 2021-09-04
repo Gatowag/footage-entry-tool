@@ -160,22 +160,22 @@
 
 		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group" role="group" aria-label="First group">
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian">Brian</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason">Jason</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt">Brandt</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce">Bryce</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian" id="buttonBrian">Brian</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason" id="buttonJason">Jason</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt" id="buttonBrandt">Brandt</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce" id="buttonBryce">Bryce</button>
 			</div>
 
 			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Second group">
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJohn" aria-expanded="false" aria-controls="rolesJohn">John</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese">Annaliese</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesCory" aria-expanded="false" aria-controls="rolesCory">Cory</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJohn" aria-expanded="false" aria-controls="rolesJohn" id="buttonJohn">John</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese" id="buttonAnnaliese">Annaliese</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesCory" aria-expanded="false" aria-controls="rolesCory" id="buttonCory">Cory</button>
 			</div>
 
 			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Third group">
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff">Jeff</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesEli" aria-expanded="false" aria-controls="rolesEli">Eli</button>
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional">Additional</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff" id="buttonJeff">Jeff</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesEli" aria-expanded="false" aria-controls="rolesEli" id="buttonEli">Eli</button>
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional" id="buttonAdditional">Additional</button>
 			</div>
 		</div>
 	</div>
@@ -770,12 +770,14 @@
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA AND RADIO BUTTONS UPON RESET
 	function afterReset(){
-		clearFields(["label","duration","btncheckA3","btncheckA4","btncheck0","btncheck2","btncheck3","btncheck7","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3","inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineJohnCheckbox1","inlineJohnOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox","inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox","inlineJeffCheckbox1","inlineJeffOtherCheckbox","inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]);
+		clearFields(["label","duration","btncheckA3","btncheckA4","btncheck0","btncheck2","btncheck3","btncheck7","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3","inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineJohnCheckbox1","inlineJohnOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox","inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox","inlineJeffCheckbox1","inlineJeffOtherCheckbox","inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"],
+		
+		["buttonBrian","buttonJason","buttonBrandt","buttonBryce","buttonJohn","buttonAnnaliese","buttonCory","buttonJeff","buttonEli","buttonAdditional"]);
 	}
 
 
 // ░░░░░░░░░▓ FUNCTION FOR CLEARING DATA
-	function clearFields(fieldCollection) {
+	function clearFields(fieldCollection,crewButtons) {
 		
 		fieldCollection.forEach(function(field){
 			var el = document.getElementById(field);
@@ -784,6 +786,12 @@
 			} else {
 			el.value = "";
 			}
+		});
+		
+		crewButtons.forEach(function(buttonID){
+			var el = document.getElementById(buttonID);
+			el.classList.remove("btn-outline-warning");
+			el.classList.add("btn-outline-primary");
 		});
 	}
 
@@ -799,6 +807,49 @@
 		});
 	}
 
+
+// ░░░░░░░░░▓ FUNCTION FOR CHECKING A GROUP OF CHECKBOXES TO SEE IF *ANY* OF THEM ARE CHECKED
+	function checkboxCheck(checkIDs) {
+		let infoState = "empty";
+		
+		checkIDs.forEach(function(singleID){
+			if (document.getElementById(singleID).checked == true){
+				infoState = "not empty";
+			}
+		});
+		
+		return infoState;
+	}
+
+
+// ░░░░░░░░░▓ FUNCTION FOR CHECKING A GROUP OF TEXT FIELDS TO SEE IF *ANY* OF THEM ARE FILLED OUT
+	function textFieldCheck(textIDs) {
+		let infoState = "empty";
+		
+		textIDs.forEach(function(singleID){
+			if (document.getElementById(singleID).value != ""){
+				infoState = "not empty";
+			}
+		});
+		
+		return infoState;
+	}
+
+
+// ░░░░░░░░░▓ FUNCTION FOR CHANGING A BUTTON STYLE TO OUTLINE PRIMARY (BLUE)
+	function setButtonDefault(buttonID) {
+		document.getElementById(buttonID).classList.add("btn-outline-primary");
+		document.getElementById(buttonID).classList.remove("btn-outline-warning");
+	}
+
+
+// ░░░░░░░░░▓ FUNCTION FOR CHANGING A BUTTON STYLE TO OUTLINE WARNING (YELLOW)
+	function setButtonChanged(buttonID) {
+		document.getElementById(buttonID).classList.remove("btn-outline-primary");
+		document.getElementById(buttonID).classList.add("btn-outline-warning");
+	}
+
+
 // ░░░░░░░░░▓ LISTENERS THAT RUN FUNCTIONS WHEN SOMETHING HAPPENS
 	document.getElementById("submitButton").addEventListener("click",afterButtonClicked);
 	document.getElementById("resetButton").addEventListener("click",afterReset);
@@ -812,6 +863,36 @@
 	document.getElementById("inlineCoryOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineCoryOther") });
 	document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
 	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
+	document.getElementById("rolesBrian").addEventListener("change", function(){
+		if (checkboxCheck(["inlineBrianCheckbox1","inlineBrianOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBrian"); }
+		else { setButtonDefault("buttonBrian"); } });
+	document.getElementById("rolesJason").addEventListener("change", function(){
+		if (checkboxCheck(["inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJason"); }
+		else { setButtonDefault("buttonJason"); } });
+	document.getElementById("rolesBrandt").addEventListener("change", function(){
+		if (checkboxCheck(["inlineBrandtCheckbox1","inlineBrandtOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBrandt"); }
+		else { setButtonDefault("buttonBrandt"); } });
+	document.getElementById("rolesBryce").addEventListener("change", function(){
+		if (checkboxCheck(["inlineBryceCheckbox1","inlineBryceOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBryce"); }
+		else { setButtonDefault("buttonBryce"); } });
+	document.getElementById("rolesJohn").addEventListener("change", function(){
+		if (checkboxCheck(["inlineJohnCheckbox1","inlineJohnOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJohn"); }
+		else { setButtonDefault("buttonJohn"); } });
+	document.getElementById("rolesAnnaliese").addEventListener("change", function(){
+		if (checkboxCheck(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox"]) == "not empty") { setButtonChanged("buttonAnnaliese"); }
+		else { setButtonDefault("buttonAnnaliese"); } });
+	document.getElementById("rolesCory").addEventListener("change", function(){
+		if (checkboxCheck(["inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox"]) == "not empty") { setButtonChanged("buttonCory"); }
+		else { setButtonDefault("buttonCory"); } });
+	document.getElementById("rolesJeff").addEventListener("change", function(){
+		if (checkboxCheck(["inlineJeffCheckbox1","inlineJeffOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJeff"); }
+		else { setButtonDefault("buttonJeff"); } });
+	document.getElementById("rolesEli").addEventListener("change", function(){
+		if (checkboxCheck(["inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]) == "not empty") { setButtonChanged("buttonEli"); }
+		else { setButtonDefault("buttonEli"); } });
+	document.getElementById("rolesAdditional").addEventListener("change", function(){
+		if (textFieldCheck(["additionalName1","additionalRoles1","additionalName2","additionalRoles2","additionalName3","additionalRoles3"]) == "not empty") { setButtonChanged("buttonAdditional"); }
+		else { setButtonDefault("buttonAdditional"); } });
 	document.getElementById("type_of_video").addEventListener("change",updateTypeDependentFields);
 	document.getElementById("location_property").addEventListener("change", function(){ populateLocationField2(document.getElementById("location_property").value,0) });
 	document.addEventListener("DOMContentLoaded",afterSidebarLoads);
