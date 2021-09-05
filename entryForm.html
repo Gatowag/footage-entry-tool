@@ -396,7 +396,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-3 ">alpha version 0.96</div>
+			<div class="form-text pt-3 ">alpha version 0.98</div>
 		</div>
 	</div>
 
@@ -837,16 +837,30 @@
 
 
 // ░░░░░░░░░▓ FUNCTION FOR CHANGING A BUTTON STYLE TO OUTLINE PRIMARY (BLUE)
-	function setButtonDefault(buttonID) {
+	function btnStateDefault(buttonID) {
 		document.getElementById(buttonID).classList.add("btn-outline-primary");
 		document.getElementById(buttonID).classList.remove("btn-outline-warning");
 	}
 
 
 // ░░░░░░░░░▓ FUNCTION FOR CHANGING A BUTTON STYLE TO OUTLINE WARNING (YELLOW)
-	function setButtonChanged(buttonID) {
+	function btnStateChanged(buttonID) {
 		document.getElementById(buttonID).classList.remove("btn-outline-primary");
 		document.getElementById(buttonID).classList.add("btn-outline-warning");
+	}
+
+
+// ░░░░░░░░░▓ FUNCTION FOR ---
+	function btnStateExpand(buttonID) {
+		document.getElementById(buttonID).classList.add("btn-dark");
+		document.getElementById(buttonID).classList.remove("btn-outline-primary");
+	}
+
+
+// ░░░░░░░░░▓ FUNCTION FOR ---
+	function btnStateCollapsed(buttonID) {
+		document.getElementById(buttonID).classList.remove("btn-dark");
+		document.getElementById(buttonID).classList.add("btn-outline-primary");
 	}
 
 
@@ -864,35 +878,53 @@
 	document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
 	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
 	document.getElementById("rolesBrian").addEventListener("change", function(){
-		if (checkboxCheck(["inlineBrianCheckbox1","inlineBrianOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBrian"); }
-		else { setButtonDefault("buttonBrian"); } });
+		if (checkboxCheck(["inlineBrianCheckbox1","inlineBrianOtherCheckbox"]) == "not empty") { btnStateChanged("buttonBrian"); }
+		else { btnStateDefault("buttonBrian"); } });
+	document.getElementById("rolesBrian").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonBrian"); });
+	document.getElementById("rolesBrian").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBrian"); });
 	document.getElementById("rolesJason").addEventListener("change", function(){
-		if (checkboxCheck(["inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJason"); }
-		else { setButtonDefault("buttonJason"); } });
+		if (checkboxCheck(["inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJason"); }
+		else { btnStateDefault("buttonJason"); } });
+	document.getElementById("rolesJason").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJason"); });
+	document.getElementById("rolesJason").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJason"); });
 	document.getElementById("rolesBrandt").addEventListener("change", function(){
-		if (checkboxCheck(["inlineBrandtCheckbox1","inlineBrandtOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBrandt"); }
-		else { setButtonDefault("buttonBrandt"); } });
+		if (checkboxCheck(["inlineBrandtCheckbox1","inlineBrandtOtherCheckbox"]) == "not empty") { btnStateChanged("buttonBrandt"); }
+		else { btnStateDefault("buttonBrandt"); } });
+	document.getElementById("rolesBrandt").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonBrandt"); });
+	document.getElementById("rolesBrandt").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBrandt"); });
 	document.getElementById("rolesBryce").addEventListener("change", function(){
-		if (checkboxCheck(["inlineBryceCheckbox1","inlineBryceOtherCheckbox"]) == "not empty") { setButtonChanged("buttonBryce"); }
-		else { setButtonDefault("buttonBryce"); } });
+		if (checkboxCheck(["inlineBryceCheckbox1","inlineBryceOtherCheckbox"]) == "not empty") { btnStateChanged("buttonBryce"); }
+		else { btnStateDefault("buttonBryce"); } });
+	document.getElementById("rolesBryce").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonBryce"); });
+	document.getElementById("rolesBryce").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBryce"); });
 	document.getElementById("rolesJohn").addEventListener("change", function(){
-		if (checkboxCheck(["inlineJohnCheckbox1","inlineJohnOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJohn"); }
-		else { setButtonDefault("buttonJohn"); } });
+		if (checkboxCheck(["inlineJohnCheckbox1","inlineJohnOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJohn"); }
+		else { btnStateDefault("buttonJohn"); } });
+	document.getElementById("rolesJohn").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJohn"); });
+	document.getElementById("rolesJohn").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJohn"); });
 	document.getElementById("rolesAnnaliese").addEventListener("change", function(){
-		if (checkboxCheck(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox"]) == "not empty") { setButtonChanged("buttonAnnaliese"); }
-		else { setButtonDefault("buttonAnnaliese"); } });
+		if (checkboxCheck(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox"]) == "not empty") { btnStateChanged("buttonAnnaliese"); }
+		else { btnStateDefault("buttonAnnaliese"); } });
+	document.getElementById("rolesAnnaliese").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonAnnaliese"); });
+	document.getElementById("rolesAnnaliese").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonAnnaliese"); });
 	document.getElementById("rolesCory").addEventListener("change", function(){
-		if (checkboxCheck(["inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox"]) == "not empty") { setButtonChanged("buttonCory"); }
-		else { setButtonDefault("buttonCory"); } });
+		if (checkboxCheck(["inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox"]) == "not empty") { btnStateChanged("buttonCory"); }
+		else { btnStateDefault("buttonCory"); } });
+	document.getElementById("rolesCory").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonCory"); });
+	document.getElementById("rolesCory").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonCory"); });
 	document.getElementById("rolesJeff").addEventListener("change", function(){
-		if (checkboxCheck(["inlineJeffCheckbox1","inlineJeffOtherCheckbox"]) == "not empty") { setButtonChanged("buttonJeff"); }
-		else { setButtonDefault("buttonJeff"); } });
+		if (checkboxCheck(["inlineJeffCheckbox1","inlineJeffOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJeff"); }
+		else { btnStateDefault("buttonJeff"); } });
+	document.getElementById("rolesJeff").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJeff"); });
+	document.getElementById("rolesJeff").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJeff"); });
 	document.getElementById("rolesEli").addEventListener("change", function(){
-		if (checkboxCheck(["inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]) == "not empty") { setButtonChanged("buttonEli"); }
-		else { setButtonDefault("buttonEli"); } });
+		if (checkboxCheck(["inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]) == "not empty") { btnStateChanged("buttonEli"); }
+		else { btnStateDefault("buttonEli"); } });
 	document.getElementById("rolesAdditional").addEventListener("change", function(){
-		if (textFieldCheck(["additionalName1","additionalRoles1","additionalName2","additionalRoles2","additionalName3","additionalRoles3"]) == "not empty") { setButtonChanged("buttonAdditional"); }
-		else { setButtonDefault("buttonAdditional"); } });
+		if (textFieldCheck(["additionalName1","additionalRoles1","additionalName2","additionalRoles2","additionalName3","additionalRoles3"]) == "not empty") { btnStateChanged("buttonAdditional"); }
+		else { btnStateDefault("buttonAdditional"); } });
+	document.getElementById("rolesAdditional").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonAdditional"); });
+	document.getElementById("rolesAdditional").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonAdditional"); });
 	document.getElementById("type_of_video").addEventListener("change",updateTypeDependentFields);
 	document.getElementById("location_property").addEventListener("change", function(){ populateLocationField2(document.getElementById("location_property").value,0) });
 	document.addEventListener("DOMContentLoaded",afterSidebarLoads);
