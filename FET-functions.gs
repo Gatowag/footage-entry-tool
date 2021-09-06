@@ -2,7 +2,7 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
-const newRow = tab1.getLastRow();
+const newRow = tab1.getLastRow() + 1;
 const rowOffset = newRow - 250;
 var prodOffset = -1;
 var dataArray = {
@@ -182,32 +182,22 @@ function setBackgroundColor(type) {
 function setCellFormats() {
 	
 	// general formats for the entire row
-	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setVerticalAlignment("middle").setHorizontalAlignment("center");
+	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setFontSize(8).setVerticalAlignment("middle").setHorizontalAlignment("center");
 	tab1.setRowHeightsForced(newRow, 1, 21);
 	
-	// formats recording date
-	tab1.getRange("A" + newRow).setFontSize(8);
-	
 	// formats production number
-	tab1.getRange("B" + newRow).setFontSize(9);
-	
-	// formats memory card cells
-	tab1.getRange("C" + newRow + ":J" + newRow).setFontSize(8);
+	tab1.getRange("B" + newRow).setFontSize(10);
 	
 	// formats runtime cell
-	tab1.getRange("K" + newRow).setNumberFormat("0:00:00").setFontSize(8);
+	tab1.getRange("K" + newRow).setNumberFormat("0:00:00");
 	
 	// formats label cell
 	tab1.getRange("L" + newRow).setFontSize(10).setHorizontalAlignment("left");
 	
-	// formats part cell
-	tab1.getRange("M" + newRow).setFontSize(8);
-	
 	// formats release number cells
 	tab1.getRange("N" + newRow + ":O" + newRow).setFontSize(10);
 	
-	// formats air date cell and published link cell
-	tab1.getRange("P" + newRow + ":Q" + newRow).setFontSize(8);
+	// formats published link cell
 	tab1.getRange("Q" + newRow).setHorizontalAlignment("left");
 	
 	// formats sponsor cell and location cells
@@ -259,8 +249,8 @@ function recolorIncompleteRowTab1(item){
 function passToTab2(label, type, date){
 	if (type === "1" || type === "3"){
 		tab2.insertRowBefore(2);
-		tab2.getRange("G2").setValue(label);
-		tab2.getRange("I2").setValue(date);
+		tab2.getRange("G2").setValue(label).setFontSize(10).setHorizontalAlignment("left");
+		tab2.getRange("I2").setValue(date).setFontSize(8).setVerticalAlignment("middle").setHorizontalAlignment("center");
 	} else {
 	}
 }
