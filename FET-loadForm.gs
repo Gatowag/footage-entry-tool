@@ -1,8 +1,8 @@
 // ░░░░░░░░░▓ LOADS SIDE-BAR FORM WHEN MENU ITEM IS SELECTED
 function loadForm() {
-	const htmlForSidebar = HtmlService.createTemplateFromFile("entryForm");
+	const htmlForSidebar = HtmlService.createTemplateFromFile("FET-sidebarForm");
 	const htmlOutput = htmlForSidebar.evaluate();
-	htmlOutput.setTitle("Footage Entry Tool (FET a0.98)");
+	htmlOutput.setTitle("Footage Entry Tool (a0.98)");
 	const ui = SpreadsheetApp.getUi();
 	ui.showSidebar(htmlOutput);
 }
