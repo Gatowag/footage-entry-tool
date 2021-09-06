@@ -417,9 +417,8 @@
 	var toggledLabel = document.getElementById("toggled_label");
 
 
-
 // ░░░░░░░░░▓ DATA SENT TO NEW ROW ON SUBMIT
-	function afterButtonClicked(){
+	function afterSubmitClicked(){
 		var label = determineLabel();
 		var dateRecorded = document.getElementById("date_recorded");
 		var videoCards = determineVideoCards();
@@ -889,11 +888,6 @@
 	}
 
 
-// ░░░░░░░░░▓ LISTENERS THAT RUN FUNCTIONS WHEN SOMETHING HAPPENS
-	document.getElementById("submitButton").addEventListener("click",afterButtonClicked);
-	document.getElementById("resetButton").addEventListener("click",afterReset);
-	document.getElementById("resetCrewButton").addEventListener("click",afterCrewReset);
-
 // ░░░░░░░░░▓ LISTENERS FOR MEMORYC CARD TOGGLE BUTTONS
 	document.getElementById("btncheckW0").addEventListener("click", function(){
 		if (event.ctrlKey) { checkboxSet(["btncheckL0","btncheckR0"]); } });
@@ -1009,6 +1003,11 @@
 
 // ░░░░░░░░░▓ LISTENER TO PULL SPREADSHEET DATA ONCE SIDEBAR LOADS
 	document.addEventListener("DOMContentLoaded",afterSidebarLoads);
+
+// ░░░░░░░░░▓ LISTENERS THAT RUN FUNCTIONS WHEN SUBMIT OR RESET GETS PRESSED
+	document.getElementById("submitButton").addEventListener("click",afterSubmitClicked);
+	document.getElementById("resetButton").addEventListener("click",afterReset);
+	document.getElementById("resetCrewButton").addEventListener("click",afterCrewReset);
 	</script>
 
 	</body>
