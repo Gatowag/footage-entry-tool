@@ -2,7 +2,7 @@
 function loadForm() {
 	const htmlForSidebar = HtmlService.createTemplateFromFile("FET-sidebarForm");
 	const htmlOutput = htmlForSidebar.evaluate();
-	htmlOutput.setTitle("Footage Entry Tool (a0.98)");
+	htmlOutput.setTitle("Footage Entry Tool");
 	const ui = SpreadsheetApp.getUi();
 	ui.showSidebar(htmlOutput);
 }
