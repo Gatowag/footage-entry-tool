@@ -396,7 +396,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">alpha version 0.98</div>
+			<div class="form-text pt-1">beta version 0.99</div>
 		</div>
 	</div>
 
@@ -549,25 +549,44 @@
 				labelGroup.classList.add("d-none");		// hide text field
 				contGroup.classList.remove("d-none");	// show drop down
 				contCheck.classList.add("d-none");		// hide continuation check
+				roleDefaultsReset();					// resets crew role defaults
 				
 			} else if(type.value === "2") {				// "Multi-Part: Unfinished"
 				labelGroup.classList.remove("d-none");	// show text field
 				contGroup.classList.add("d-none");		// hide drop down
 				contCheck.classList.remove("d-none");	// show continuation check
 				emptyDatalist(["sponsorAutoPopulate"]);	// removes sponsor datalist if already loaded
+				roleDefaultsReset();					// resets crew role defaults
 				
 			} else if(type.value === "4") {				// "Sponsor"
 				labelGroup.classList.remove("d-none");	// show text field
 				contGroup.classList.add("d-none");		// hide drop down
 				contCheck.classList.add("d-none");		// hide continuation check
 				populateSponsorLabel();					// give options for auto-complete
+				roleDefaultsSponsor();
 				
 			} else {
 				labelGroup.classList.remove("d-none");	// show text field
 				contGroup.classList.add("d-none");		// hide drop down
 				contCheck.classList.add("d-none");		// hide continuation check
 				emptyDatalist(["sponsorAutoPopulate"]);	// removes sponsor datalist if already loaded
+				roleDefaultsReset();					// resets crew role defaults
 			}
+	}
+
+
+// ░░░░░░░░░▓ CHANGES DEFAULT ROLES WHEN A SPONSOR TYPE VIDEO IS SELECTED
+	function roleDefaultsSponsor(){
+		checkboxToggle(["inlineBrandtCheckbox1","inlineCoryCheckbox3"]);
+		btnStateDefault(["buttonBrandt"]);
+	}
+
+
+// ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR ALL OTHER VIDEO TYPES
+	function roleDefaultsReset(){
+		document.getElementById("inlineBrandtCheckbox1").checked = true;
+		document.getElementById("inlineCoryCheckbox3").checked = false;
+		btnStateChanged(["buttonBrandt"]);
 	}
 
 
@@ -829,7 +848,7 @@
 
 
 // ░░░░░░░░░▓ FUNCTION FOR SETTING A PRESELECTED GROUP OF CHECKBOXES TO TOGGLE CHECKED / UNCHECKED
-	function checkboxSet(checkIDs) {
+	function checkboxToggle(checkIDs) {
 		checkIDs.forEach(function(singleID){
 			if (document.getElementById(singleID).checked == false){
 				document.getElementById(singleID).checked = true;
@@ -890,29 +909,29 @@
 
 // ░░░░░░░░░▓ LISTENERS FOR MEMORYC CARD TOGGLE BUTTONS
 	document.getElementById("btncheckW0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckL0","btncheckR0"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckL0","btncheckR0"]); } });
 	document.getElementById("btncheckL0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW0","btncheckR0"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckR0"]); } });
 	document.getElementById("btncheckR0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW0","btncheckL0"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckL0"]); } });
 	document.getElementById("btncheckW1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckL1","btncheckR1"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckL1","btncheckR1"]); } });
 	document.getElementById("btncheckL1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW1","btncheckR1"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckR1"]); } });
 	document.getElementById("btncheckR1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW1","btncheckL1"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckL1"]); } });
 	document.getElementById("btncheckW2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckL2","btncheckR2"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckL2","btncheckR2"]); } });
 	document.getElementById("btncheckL2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW2","btncheckR2"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckR2"]); } });
 	document.getElementById("btncheckR2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW2","btncheckL2"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckL2"]); } });
 	document.getElementById("btncheckW3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckL3","btncheckR3"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckL3","btncheckR3"]); } });
 	document.getElementById("btncheckL3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW3","btncheckR3"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckR3"]); } });
 	document.getElementById("btncheckR3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxSet(["btncheckW3","btncheckL3"]); } });
+		if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckL3"]); } });
 
 // ░░░░░░░░░▓ LISTENERS FOR CREW ROLE BUTTONS AND CHECKBOXES
 //	▓▓▓ BRIAN
