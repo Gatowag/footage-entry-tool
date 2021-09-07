@@ -198,7 +198,7 @@ function setCellFormats() {
 	tab1.getRange("N" + newRow + ":O" + newRow).setFontSize(10);
 	
 	// formats published link cell
-	tab1.getRange("Q" + newRow).setHorizontalAlignment("left");
+	tab1.getRange("Q" + newRow).setHorizontalAlignment("right");
 	
 	// formats sponsor cell and location cells
 	tab1.getRange("R" + newRow + ":T" + newRow).setFontSize(10);
