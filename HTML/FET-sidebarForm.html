@@ -114,7 +114,10 @@
 
 		<!-- ░░░░░▓ SUBMIT BUTTON -->
 		<div class="d-flex justify-content-center pt-3" id="submit_container">
-			<button class="btn btn-dark" id="submitButton">Submit Footage</button>
+			<input type="button" class="btn btn-dark" id="submitButton" value="Submit Footage">
+			<div class="spinner-border spinner-border-sm ms-3 mt-3 text-dark d-none" role="status" id="processing">
+				<span class="visually-hidden">Processing...</span>
+			</div>
 		</div>
 
 		<!-- ░░░░░▓ RESET BUTTON -->
@@ -125,7 +128,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.0</div>
+			<div class="form-text pt-1">v1.01</div>
 		</div>
 	</div>
 
@@ -171,6 +174,9 @@
 						crew: crewList,
 						cont: contVal,
 					};
+
+		document.getElementById("processing").classList.remove("d-none");
+		document.getElementById("submitButton").value = "Submitting...";
 		google.script.run.withSuccessHandler(afterSubmit).addNewRow(rowData);
 	}
 
@@ -363,8 +369,8 @@
 	function setDate(){
 		var dateField = document.getElementById("date_recorded");
 		var today = new Date();
-		var formatDate = today.getFullYear() + (today.getMonth() <= 11 ? '-0' : '-') + (today.getMonth() + 1) + (today.getDate() <= 11 ? '-0' : '-') + today.getDate();
-		
+		var formatDate = today.getFullYear() + (today.getMonth() <= 8 ? '-0' : '-') + (today.getMonth() + 1) + (today.getDate() <= 9 ? '-0' : '-') + today.getDate();
+
 		dateField.value = formatDate;
 	}
 
@@ -511,6 +517,8 @@
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA UPON SUBMIT
 	function afterSubmit(){
+		document.getElementById("processing").classList.add("d-none");
+		document.getElementById("submitButton").value = "Submit Footage";
 		clearFields(["label","duration"]);
 	}
 
