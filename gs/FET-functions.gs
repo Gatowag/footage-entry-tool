@@ -11,7 +11,8 @@ var dataArray = {
 				locationsNarrow: [],
 				allLabels: [],
 				allLabelsString: [],
-				sponsors: []
+				allSponsors: [],
+				recSponsors: []
 				};
 
 
@@ -60,7 +61,7 @@ function addNewRow(rowData) {
 
 // ░░░░░░░░░▓ READS DATA FROM THE SPREADSHEET WHEN THE SIDEBAR LOADS,
 // ░░░░░░░░░▓ ALL RELEVANT DATA GETS PASSED TO THEIR RESPECTIVE ARRAYS IN OBJECT "dataArray"
-function getSpreadsheetData(){
+function getSheetDataFET(){
 	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
 	const locationWideRange = tab1.getRange(rowOffset,19,newRow - (rowOffset-1),1);
 	const locationNarrowRange = tab1.getRange(rowOffset,20,newRow - (rowOffset-1),1);
@@ -68,19 +69,15 @@ function getSpreadsheetData(){
 		for ( i = 0; i < ((newRow + 1) - rowOffset); i++){
 			if (labelRange.getBackgrounds()[i] == "#ffff00") {
 				dataArray.unfinished.push(labelRange.getValues()[i])
-			};
-
-			if (locationWideRange.getValues()[i] != "") {
+			} else if (locationWideRange.getValues()[i] != "") {
 				dataArray.locationsWide.push(locationWideRange.getValues()[i]);
 				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
-			};
-				
-			if (labelRange.getValues()[i] != "") {
+			} else if (labelRange.getValues()[i] != "") {
 				dataArray.allLabels.push(labelRange.getValues()[i])
 			};
 		};
 		
-	dataArray.sponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
+	dataArray.allSponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
 
 	return dataArray;
 }
