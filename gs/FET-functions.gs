@@ -3,8 +3,10 @@ const ss = SpreadsheetApp.getActiveSpreadsheet();
 const tab1 = ss.getSheetByName("Production Order");
 const tab2 = ss.getSheetByName("Release Order");
 const newRow = tab1.getLastRow() + 1;
-const rowOffset = newRow - 250;
-var prodOffset = -1;
+var localProdNumOffset = -1;			// exists so that multiple episodes can be entered without pulling spreadsheet data every time
+let determinedProdNum;
+let determinedPart;
+let allLabelMatches = [];
 var dataArray = {
 				unfinished: [],
 				locationsWide: [],
@@ -19,16 +21,18 @@ var dataArray = {
 // ░░░░░░░░░▓ WRITES DATA TO SPREADSHEET
 function addNewRow(rowData) {
 
+	generateIDs(rowData.type, rowData.cont, rowData.toggledLabel);
+
 	const rowPt1 = [
 					rowData.dateRecorded,
-					determineProdNum(rowData.type,rowData.cont,rowData.toggledLabel),
+					determinedProdNum,
 					];
 	const rowPt2 = rowData.videoCardsData;
 	const rowPt3 = [
 					rowData.audioCard,
 					rowData.duration,
 					rowData.toggledLabel,
-					determinePt(rowData.type,rowData.cont,rowData.toggledLabel),
+					determinedPart,
 					,
 					,
 					,
@@ -42,11 +46,9 @@ function addNewRow(rowData) {
 
 	tab1.appendRow(
 		rowCombined);
-	closeIncompletes(
+	setBackgroundColor(
 		rowData.type,
 		rowData.toggledLabel);
-	setBackgroundColor(
-		rowData.type);
 	setCellFormats();
 	mergeCells(
 		rowData.videoCardsLength,
@@ -61,20 +63,19 @@ function addNewRow(rowData) {
 
 // ░░░░░░░░░▓ READS DATA FROM THE SPREADSHEET WHEN THE SIDEBAR LOADS,
 // ░░░░░░░░░▓ ALL RELEVANT DATA GETS PASSED TO THEIR RESPECTIVE ARRAYS IN OBJECT "dataArray"
-function getSheetDataFET(){
-	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
-	const locationWideRange = tab1.getRange(rowOffset,19,newRow - (rowOffset-1),1);
-	const locationNarrowRange = tab1.getRange(rowOffset,20,newRow - (rowOffset-1),1);
+function getSheetDataFET() {
+	const offset = 250;
+	const rowStart = newRow - offset;
+	const labelRange = tab1.getRange(rowStart,12,newRow - (rowStart-1),1);
+	const locationWideRange = tab1.getRange(rowStart,19,newRow - (rowStart-1),1);
+	const locationNarrowRange = tab1.getRange(rowStart,20,newRow - (rowStart-1),1);
 
-		for ( i = 0; i < ((newRow + 1) - rowOffset); i++){
+		for ( i = 0; i < ((newRow + 1) - rowStart); i++){
 			if (labelRange.getBackgrounds()[i] == "#ffff00") {
 				dataArray.unfinished.push(labelRange.getValues()[i])
 			} else if (locationWideRange.getValues()[i] != "") {
 				dataArray.locationsWide.push(locationWideRange.getValues()[i]);
-				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]);
-			} else if (labelRange.getValues()[i] != "") {
-				dataArray.allLabels.push(labelRange.getValues()[i])
-			};
+				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]) };
 		};
 		
 	dataArray.allSponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
@@ -82,73 +83,72 @@ function getSheetDataFET(){
 	return dataArray;
 }
 
-// ░░░░░░░░░▓ DETERMINES PROD NUMBER
-function determineProdNum(type, cont, label){
-	const prodNumRange = tab1.getRange(rowOffset,2,newRow - (rowOffset - 1),1);
-	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
-	var prodArray = [];
-	var prodNumIndex = [];
-	var mostRecentNum;
-
-	for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
+// ░░░░░░░░░▓ HUB FUNCTION RUNNING FOR LOOPS TO DETERMINE IDENTIFIABLE DATA
+function generateIDs(type, cont, label) {
+	const offset = 100;
+	const rowStart = newRow - 20;
+	const prodNumRange = tab1.getRange(	rowStart, 2, newRow - (rowStart - 1),	1);
+	const labelRange = tab1.getRange(	rowStart,  12, newRow - (rowStart   - 1),	1);
+	const ptRange = tab1.getRange(		rowStart,  13, newRow - (rowStart   - 1),	1);
+	let prodNumFilter = [];														// all recent prod numbers, filtered to only numbers
+	let prodNumIndex = [];														// all recent prod numbers including NaN (- or null)
+	let partIndex = [];
+	let labelList = [];
+	
+	for ( i = 0; i < ((newRow + 1) - rowStart); i++ ){
+		
+		if (labelRange.getValues()[i] != "") {
+			dataArray.allLabels.push(labelRange.getValues()[i]);
+			dataArray.allLabelsString.push(String(labelRange.getValues()[i]));
+		};
+	
+		// send 20 latest prod number cells to prodNumFilter - if not empty or dashed
 		if (prodNumRange.getValues()[i] != "" && prodNumRange.getValues()[i] != "-")
-		{ prodArray.push(Number(prodNumRange.getValues()[i])); };
-
-		if (labelRange.getValues()[i] != "")
-		{ dataArray.allLabelsString.push(String(labelRange.getValues()[i])) };
-
+			{ prodNumFilter.push(Number(prodNumRange.getValues()[i])); };
+	
+		// send 20 latest production numbers (unfiltered) to prodNumIndex
 		prodNumIndex.push(Number(prodNumRange.getValues()[i]));
-	};
-
-	if (type == 1) {
-		mostRecentNum = Math.max(...prodArray) + 1;
-		prodOffset++;
-		return mostRecentNum + prodOffset;
-	} else if (type == 2) {
-		if (cont === "NEW"){
-			mostRecentNum = Math.max(...prodArray) + 1;
-			prodOffset++;
-			return mostRecentNum + prodOffset;
-		} else if (cont === "CONT") {
-			return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
-		}
-	} else if (type == 3){
-		return prodNumIndex[dataArray.allLabelsString.indexOf(label)];
-	} else {
-		return "-";
-	}
-}
-
-// ░░░░░░░░░▓ DETERMINES PART NUMBER
-function determinePt(type, cont, label){
-	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
-	const ptRange = tab1.getRange(rowOffset,13,newRow - (rowOffset - 1),1);
-	var ptIndex = [];
-	var labelList = [];
-
-	for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
+		
+		// 
 		if (labelRange.getValues()[i] != "")
 			{ labelList.push(String(labelRange.getValues()[i])) };
 
-		ptIndex.push(Number(ptRange.getValues()[i]));
+		// send 20 latest part numbers to array partIndex
+		partIndex.push(Number(ptRange.getValues()[i]));
+		
+		if (labelRange.getValues()[i] == label){
+			allLabelMatches.push(Number([i]) + rowStart) };
 	};
+	
+	let mostRecentNum = Math.max(...prodNumFilter) + 1;			// finds the largest listed prod num and increments it by 1
+	const lastInstance = dataArray.allLabelsString.lastIndexOf(label);
 
-	if (type == 3) {
-		return ptIndex[labelList.lastIndexOf(label)] + 1;
-	} else if (type == 2) {
-		if (cont === "CONT"){
-			return ptIndex[labelList.lastIndexOf(label)] + 1;
-		} else if (cont === "NEW") {
-			return "1";
+	if (type == 1) {															// EPISODES
+		localProdNumOffset++;									// increases local offset by 1
+		determinedProdNum		= mostRecentNum + localProdNumOffset;
+		determinedPart			= "";
+	} else if (type == 2) {														// MULTI-PART UNFINISHED
+		if (cont === "NEW"){
+			localProdNumOffset++;								// increases local offset by 1
+			determinedProdNum	= mostRecentNum + localProdNumOffset;
+			determinedPart		= 1;
+		} else if (cont === "CONT") {											// MULTI-PART CONTINUATION
+			determinedProdNum	= prodNumIndex[lastInstance];
+			determinedPart		= partIndex[lastInstance] + 1
 		}
-	} else {
-		return "";
-	}
+	} else if (type == 3){														// MULTI-PART COMPLETE
+		determinedProdNum		= prodNumIndex[lastInstance];
+		determinedPart			= partIndex[lastInstance] + 1;
+	} else {																	// SPONSORS, PATREON, OTHER
+		determinedProdNum		= "-";
+		determinedPart			= "";
+	};
 }
 
-// ░░░░░░░░░▓ FORMATS THE COLOR OF THE NEW ROW BASED ON FOOTAGE TYPE
-function setBackgroundColor(type) {
-
+// ░░░░░░░░░▓ FORMATS THE COLOR OF THE NEW ROW AND ANY ASSOCIATED ROWS BASED ON FOOTAGE TYPE
+function setBackgroundColor(type, label) {
+	let firstMatch = allLabelMatches.shift();
+	
 	// EPISODES
 	if (type == "1"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#76c1cc").setFontColor("black");
@@ -160,6 +160,10 @@ function setBackgroundColor(type) {
 	// MULTI-PART: COMPLETED
 	} else if (type == "3"){
 		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#458d97").setFontColor("black");
+		console.log("firstMatch: "+firstMatch);
+		console.log("allLabelMatches: "+allLabelMatches);
+		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#76c1cc");
+		allLabelMatches.forEach(recolorIncompleteRowTab1);
 		
 	// SPONSOR
 	} else if (type == "4"){
@@ -177,7 +181,6 @@ function setBackgroundColor(type) {
 
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
 function setCellFormats() {
-	
 	// general formats for the entire row
 	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setFontSize(8).setVerticalAlignment("middle").setHorizontalAlignment("center");
 	tab1.setRowHeightsForced(newRow, 1, 21);
@@ -219,31 +222,13 @@ function mergeCells(length, type) {
 	else {tab1.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
 }
 
-// ░░░░░░░░░▓ RECOLORS INCOMPLETE EPS IF CLOSED BY A MULIT-PART COMPLETE ENTRY
-function closeIncompletes(type, label) {
-	const labelRange = tab1.getRange(rowOffset,12,newRow - (rowOffset-1),1);
-	let labelMatchedRow = [];
-	let firstMatch;
-
-	if (type == "3"){
-		for ( i = 0; i < ((newRow + 1)  - rowOffset); i++){
-			if (labelRange.getValues()[i] == label){
-				labelMatchedRow.push(Number([i]) + rowOffset) };
-		};
-
-		firstMatch = labelMatchedRow.shift();
-		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#76c1cc");
-		labelMatchedRow.forEach(recolorIncompleteRowTab1);
-	}
-}
-
 // ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
-function recolorIncompleteRowTab1(item){
-	tab1.getRange(item + ":" + item).setBackground("#e69138");
+function recolorIncompleteRowTab1(item) {
+	tab1.getRange(item + ":" + item).setBackground("#458d97");
 }
 
 // ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
-function passToTab2(label, type, date){
+function passToTab2(label, type, date) {
 	if (type === "1" || type === "3"){
 		tab2.insertRowBefore(2);
 		tab2.getRange("G2").setValue(label).setFontSize(10).setHorizontalAlignment("left");
