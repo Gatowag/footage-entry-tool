@@ -183,7 +183,7 @@
 
 // ░░░░░░░░░▓ FUNCTIONS TO RUN WHEN SIDEBAR LOADS
 	function afterSidebarLoads(){
-		google.script.run.withSuccessHandler(afterSpreadsheetDataReturned).getSpreadsheetData();
+		google.script.run.withSuccessHandler(afterSpreadsheetDataReturned).getSheetDataFET();
 		setDate();
 	}
 
