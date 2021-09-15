@@ -1,7 +1,7 @@
 // ░░░░░░░░░▓ COMMON VARIABLES SCOPED GLOBALLY
 const ss = SpreadsheetApp.getActiveSpreadsheet();
-const tab1 = ss.getSheetByName("Production Order");
-const tab2 = ss.getSheetByName("Release Order");
+const tab1 = ss.getSheetByName("Footage List");
+const tab2 = ss.getSheetByName("Published: MR");
 const newRow = tab1.getLastRow() + 1;
 var localProdNumOffset = -1;			// exists so that multiple episodes can be entered without pulling spreadsheet data every time
 let determinedProdNum;
