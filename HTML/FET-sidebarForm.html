@@ -9,7 +9,10 @@
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 		
-		<style> <?!= include('FET-style') ?> </style>
+		<style>
+			html { scroll-behavior: smooth; }
+			<?!= include('FET-style') ?>
+		</style>
 	</head>
 
 <body>
@@ -128,7 +131,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.02</div>
+			<div class="form-text pt-1">v1.03</div>
 		</div>
 	</div>
 
@@ -378,14 +381,15 @@
 // ░░░░░░░░░▓ SETS EACH AUDIO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
 	function determineAudioCard(){
+		var cardA1 = document.getElementById("btncheckA1").checked ? "A1" : "";
+		var cardA2 = document.getElementById("btncheckA2").checked ? "A2" : "";
 		var cardA3 = document.getElementById("btncheckA3").checked ? "A3" : "";
 		var cardA4 = document.getElementById("btncheckA4").checked ? "A4" : "";
-		var card0 = document.getElementById("btncheck0").checked ? "0" : "";
-		var card2 = document.getElementById("btncheck2").checked ? "2" : "";
-		var card3 = document.getElementById("btncheck3").checked ? "3" : "";
-		var card7 = document.getElementById("btncheck7").checked ? "7" : "";
+		var cardA5 = document.getElementById("btncheckA5").checked ? "A5" : "";
+		var cardA6 = document.getElementById("btncheckA6").checked ? "A6" : "";
+		var card9 = document.getElementById("btncheck9").checked ? "9" : "";
 		
-		return cardA3 + cardA4 + card0 + card2 + card3 + card7;
+		return cardA1 + cardA2 + cardA3 + cardA4 + cardA5 + cardA6 + card9;
 	}
 
 
@@ -525,7 +529,7 @@
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA AND RADIO BUTTONS UPON RESET
 	function afterReset(){
-		clearFields(["label","duration","btncheckA3","btncheckA4","btncheck0","btncheck2","btncheck3","btncheck7","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room"], []);
+		clearFields(["label","duration","btncheckA1","btncheckA2","btncheckA3","btncheckA4","btncheckA5","btncheckA6","btncheck9","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room"], []);
 		afterCrewReset();
 	}
 
