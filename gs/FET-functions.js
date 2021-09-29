@@ -182,30 +182,44 @@ function setBackgroundColor(type, label) {
 // ░░░░░░░░░▓ FORMATS APRX. TIME CELL TO SHOW H:MM:SS FROM UNFORMATTED NUMBER INPUT
 function setCellFormats() {
 	// general formats for the entire row
-	tab1.getRange(newRow + ":" + newRow).setFontFamily("Arial").setFontSize(8).setVerticalAlignment("middle").setHorizontalAlignment("center");
+	tab1.getRange(newRow + ":" + newRow)
+		.setFontFamily("Arial")
+		.setFontSize(8)
+		.setVerticalAlignment("middle")
+		.setHorizontalAlignment("center");
 	tab1.setRowHeightsForced(newRow, 1, 21);
 	
 	// formats production number
-	tab1.getRange("B" + newRow).setFontSize(10);
+	tab1.getRange("B" + newRow)
+		.setFontSize(10);
 	
 	// formats runtime cell
-	tab1.getRange("K" + newRow).setNumberFormat("0:00:00");
+	tab1.getRange("K" + newRow)
+		.setNumberFormat("0:00:00");
 	
 	// formats label cell
-	tab1.getRange("L" + newRow).setFontSize(10).setHorizontalAlignment("left");
+	tab1.getRange("L" + newRow)
+		.setFontSize(10)
+		.setHorizontalAlignment("left");
 	
 	// formats release number cells
-	tab1.getRange("N" + newRow + ":O" + newRow).setFontSize(10);
+	tab1.getRange("N" + newRow + ":O" + newRow)
+		.setFontSize(10);
 	
 	// formats published link cell
-	tab1.getRange("Q" + newRow).setHorizontalAlignment("right");
+	tab1.getRange("Q" + newRow)
+		.setHorizontalAlignment("right");
 	
 	// formats sponsor cell and location cells
-	tab1.getRange("R" + newRow + ":T" + newRow).setFontSize(10);
-	tab1.getRange("S" + newRow + ":T" + newRow).setHorizontalAlignment("left");
+	tab1.getRange("R" + newRow + ":T" + newRow)
+		.setFontSize(10);
+	tab1.getRange("S" + newRow + ":T" + newRow)
+		.setHorizontalAlignment("left");
 	
 	// formats crew cells
-	tab1.getRange("U" + newRow + ":AD" + newRow).setFontSize(9).setHorizontalAlignment("left");
+	tab1.getRange("U" + newRow + ":AD" + newRow)
+		.setFontSize(9)
+		.setHorizontalAlignment("left");
 }
 
 // ░░░░░░░░░▓ MERGES UNUSED CELLS
@@ -222,17 +236,24 @@ function mergeCells(length, type) {
 	else {tab1.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
 }
 
-// ░░░░░░░░░▓ CLOSEINCOMPLETES -- THIS ACTUALLY SETS THE BACKGROUND COLOR
+// ░░░░░░░░░▓ RECOLORS MULTI-PART INCOMPLETE ROWS WHEN COMPLETED
 function recolorIncompleteRowTab1(item) {
-	tab1.getRange(item + ":" + item).setBackground("#458d97");
+	tab1.getRange(item + ":" + item).setBackground("#458d97");				// color: dark blue
 }
 
 // ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
 function passToTab2(label, type, date) {
-	if (type === "1" || type === "3"){
-		tab2.insertRowBefore(2);
-		tab2.getRange("G2").setValue(label).setFontSize(10).setHorizontalAlignment("left");
-		tab2.getRange("I2").setValue(date).setFontSize(8).setVerticalAlignment("middle").setHorizontalAlignment("center");
+	if (type === "1" || type === "3"){										// if NEW EP or COMPLETED MULTI-PART
+		tab2.insertRowBefore(2);											// create new row at the top of tab 2
+		tab2.getRange("G2")													// title cell
+			.setValue(label)												// user-input label
+			.setFontSize(10)
+			.setHorizontalAlignment("left");
+		tab2.getRange("I2")													// recording date cell
+			.setValue(date)													// user-input date
+			.setFontSize(8)
+			.setVerticalAlignment("middle")
+			.setHorizontalAlignment("center");
 	} else {
 	}
 }
