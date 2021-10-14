@@ -25,7 +25,7 @@ function addNewRow(rowData) {
 
 	const rowPt1 = [
 					rowData.dateRecorded,
-					determinedProdNum,
+					determinedProdNum
 					];
 	const rowPt2 = rowData.videoCardsData;
 	const rowPt3 = [
@@ -124,12 +124,12 @@ function generateIDs(type, cont, label) {
 	const lastInstance = dataArray.allLabelsString.lastIndexOf(label);
 
 	if (type == 1) {															// EPISODES
-		localProdNumOffset++;									// increases local offset by 1
+		localProdNumOffset++;		// increases local offset by 1
 		determinedProdNum		= mostRecentNum + localProdNumOffset;
 		determinedPart			= "";
 	} else if (type == 2) {														// MULTI-PART UNFINISHED
 		if (cont === "NEW"){
-			localProdNumOffset++;								// increases local offset by 1
+			localProdNumOffset++;	// increases local offset by 1
 			determinedProdNum	= mostRecentNum + localProdNumOffset;
 			determinedPart		= 1;
 		} else if (cont === "CONT") {											// MULTI-PART CONTINUATION
