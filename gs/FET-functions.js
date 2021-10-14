@@ -243,17 +243,20 @@ function recolorIncompleteRowTab1(item) {
 
 // ░░░░░░░░░▓ SUBMITS TITLE DATA TO TAB 2
 function passToTab2(label, type, date) {
-	if (type === "1" || type === "3"){										// if NEW EP or COMPLETED MULTI-PART
+	if (type === "1" || type === "3") {										// if NEW EP or COMPLETED MULTI-PART
 		tab2.insertRowBefore(2);											// create new row at the top of tab 2
 		tab2.getRange("G2")													// title cell
 			.setValue(label)												// user-input label
 			.setFontSize(10)
 			.setHorizontalAlignment("left");
-		tab2.getRange("I2")													// recording date cell
+		tab2.getRange("O2")													// recording date cell
 			.setValue(date)													// user-input date
 			.setFontSize(8)
 			.setVerticalAlignment("middle")
 			.setHorizontalAlignment("center");
-	} else {
+		tab2.getRange("H2:M2")
+			.insertCheckboxes()
+			.setFontSize(7)
+			.setFontColor("#000000");
 	}
 }
