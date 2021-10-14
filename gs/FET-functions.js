@@ -258,5 +258,66 @@ function passToTab2(label, type, date) {
 			.insertCheckboxes()
 			.setFontSize(7)
 			.setFontColor("#000000");
+	} else if (type === "4") {														// if SPONSOR
+		let publishBorder = findRow();												// row number where unpublished videos ends
+		for (r = publishBorder; r > 0; r--) {										// travel up the list from that row
+			if (tab2.getRange("Q" + r).getBackgrounds() == "#e6b8af") { break }};	// when it hits a red row, it stops and "r" is set to that row number
+		let sponsList = tab2.getRange(2, 17, r - 2, 1).getValues();					// get a list of all possible ad matches
+		let tab2AdRow = suggestReverseMatch(label, sponsList);						// find the row containing the best possible ad match
+		tab2.getRange("Q" + tab2AdRow)												// go to the sponsor cell in that row
+			.setBackground("#ffffff");												// reset the background to white
 	}
 }
+
+// ░░░░░░░░░▓ SUGGESTS THE NEAREST CANDIDATE TO CORRECT A TYPO
+function suggestReverseMatch(ad, adList){
+	
+	let adStr = ad.slice(4).toLocaleLowerCase();									// user input set to all lower case
+	let adArr = [].concat.apply([], adList);										// a flattened array of recorded sponsors
+	let filteredCandidates = [];													// a list of each candidate's confidence rating
+	let bestMatch;																	// the lowest number from filteredCandidates
+					
+	adArr.forEach(function(adCandidate) {											// run through each ad candidate
+		let candidateSearchStr = adCandidate.toLocaleLowerCase();					// lowercases each candidate
+		let canLength = candidateSearchStr.length;									// length of candidate string before filtering
+		let deviations = 0;															// how many letters are input but not matched
+		let consBonus = 0;															// cumulative consecutive matches
+		let consCount = -1;															// variable consecutive match counter
+		let adLength = adStr.length;												// length of user input as a number
+
+		if (adCandidate.length == 0){ filteredCandidates.push(0);					// if there's nothing in the cell, return a confidence rating of 0%
+		} else {																	// if there is something in the cell, figure out the confidence rating
+			for ( i = 0; i < adLength; i++) {											// runs through each letter of the user input
+					
+				if (candidateSearchStr.includes(adStr[i]) == true) {				// if the letter exists in the candidate, then...
+					let x = candidateSearchStr.indexOf(adStr[i]);						// where the letter is first found
+					let str1 = candidateSearchStr.slice(0, x);							// cut everything before the letter
+					let str2 = candidateSearchStr.slice(x + 1);							// cut everything after the letter
+					candidateSearchStr = str1 += str2;									// combine the strings to remove the letter
+					consCount++;	
+						
+				} else {															// but if it can't be found in the candidate...
+					deviations++;														// ... then it increases total length
+					if (consCount >= 1){ consBonus = consBonus + consCount };			// send consecutive bonus if it's built up
+					consCount = -1;														// reset consecutive bonus	
+				};
+				
+				if ([i] == (adLength - 1) && (consCount == -1))	{consBonus = consBonus + 0}
+				else if ([i] == (adLength - 1) && (consCount != -1)) {consBonus = consBonus + consCount};
+			};
+
+			let roundedLength = Math.round(100*											// rounds to hundredth place
+				(candidateSearchStr.length + deviations)*								// adds mismatches from the user input to the total length
+				((canLength - consBonus) / canLength))									// applies a bonus based on consecutive matches
+				/100;																	// completes the rounding
+			let proportionalLength = Math.round(										// rounds to nearest integer
+				(1 - (roundedLength / (canLength + candidateSearchStr.length + deviations)))
+				* 100);																	// final length as a percentage of start length + mismatches
+			
+			filteredCandidates.push(proportionalLength);								// send filtered candidate string to list
+		}
+	});
+
+	bestMatch = Math.max(...filteredCandidates);									// find the candidate with the lowest number
+	return (filteredCandidates.lastIndexOf(bestMatch) + 2);							// returns the lowest relevant row number with the best matched ad
+}																					// "+ 2" accounts for lastIndex counting from 0, and the candidates starting on row 2
