@@ -131,7 +131,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.1</div>
+			<div class="form-text pt-1">v1.25</div>
 		</div>
 	</div>
 
@@ -157,7 +157,7 @@
 		var label = determineLabel();
 		var dateRecorded = document.getElementById("date_recorded");
 		var videoCards = determineVideoCards();
-		var audioCard = determineAudioCard();
+		var audioCards = determineAudioCards();
 		var duration = document.getElementById("duration");
 		var locProperty = document.getElementById("location_property");
 		var locRoom = document.getElementById("location_room");
@@ -170,7 +170,8 @@
 						toggledLabel: label,
 						videoCardsLength: videoCards.length,
 						videoCardsData: videoCards.array,
-						audioCard: audioCard,
+						audioCardsLength: audioCards.length,
+						audioCardsData: audioCards.array,
 						duration: duration.value,
 						property: locProperty.value,
 						room: locRoom.value,
@@ -211,11 +212,12 @@
 		let currentlyAdded = [];
 
 		arrayOfValues.allSponsors.forEach(function(el){
-				if (currentlyAdded.indexOf(el[0]) === -1) {
+				let elTrim = el[0].slice(4);
+				if (currentlyAdded.indexOf(elTrim) === -1) {
 					let option = document.createElement("option");
-					option.textContent = el[0];
+					option.textContent = elTrim;
 					sponsorAutoPopulate.appendChild(option);
-					currentlyAdded.push(el[0]);
+					currentlyAdded.push(elTrim);
 				}
 		});
 	}
@@ -361,6 +363,8 @@
 		
 		if (type.value == "3" || contCheck.checked){
 			toggledLabel.value = contDropDown.value;
+		} else if (type.value == "4") {
+			toggledLabel.value = "ad: " + labelField.value;
 		} else {
 			toggledLabel.value = labelField.value;
 		}
@@ -380,7 +384,7 @@
 
 // ░░░░░░░░░▓ SETS EACH AUDIO CARD TO NULL IF NOT SELECTED
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
-	function determineAudioCard(){
+	function determineAudioCards(){
 		var cardA1 = document.getElementById("btncheckA1").checked ? "A1" : "";
 		var cardA2 = document.getElementById("btncheckA2").checked ? "A2" : "";
 		var cardA3 = document.getElementById("btncheckA3").checked ? "A3" : "";
@@ -388,8 +392,16 @@
 		var cardA5 = document.getElementById("btncheckA5").checked ? "A5" : "";
 		var cardA6 = document.getElementById("btncheckA6").checked ? "A6" : "";
 		var card9 = document.getElementById("btncheck9").checked ? "9" : "";
+
+		var unfilteredAudioCardArray = [cardA1, cardA2, cardA3, cardA4, cardA5, cardA6, card9];
+		var filteredAudioCardArray = unfilteredAudioCardArray.filter(filterOutEmpty);
+		var lengthAudioCardArray = filteredAudioCardArray.length;
+		var filteredAudioCards = {
+						length: lengthAudioCardArray,
+						array: filteredAudioCardArray
+		};
 		
-		return cardA1 + cardA2 + cardA3 + cardA4 + cardA5 + cardA6 + card9;
+		return filteredAudioCards;
 	}
 
 
@@ -397,29 +409,29 @@
 // ░░░░░░░░░▓ FUNCTION RETURNS THE VALUE OF ONLY THE SELECTED BUTTON
 	function determineVideoCards(){
 		var cardW0 = document.getElementById("btncheckW0").checked ? "W0" : "";
-		var cardW1 = document.getElementById("btncheckW1").checked ? "W1" : "";
-		var cardW2 = document.getElementById("btncheckW2").checked ? "W2" : "";
-		var cardW3 = document.getElementById("btncheckW3").checked ? "W3" : "";
 		var cardL0 = document.getElementById("btncheckL0").checked ? "L0" : "";
-		var cardL1 = document.getElementById("btncheckL1").checked ? "L1" : "";
-		var cardL2 = document.getElementById("btncheckL2").checked ? "L2" : "";
-		var cardL3 = document.getElementById("btncheckL3").checked ? "L3" : "";
 		var cardR0 = document.getElementById("btncheckR0").checked ? "R0" : "";
+		var cardW1 = document.getElementById("btncheckW1").checked ? "W1" : "";
+		var cardL1 = document.getElementById("btncheckL1").checked ? "L1" : "";
 		var cardR1 = document.getElementById("btncheckR1").checked ? "R1" : "";
+		var cardW2 = document.getElementById("btncheckW2").checked ? "W2" : "";
+		var cardL2 = document.getElementById("btncheckL2").checked ? "L2" : "";
 		var cardR2 = document.getElementById("btncheckR2").checked ? "R2" : "";
+		var cardW3 = document.getElementById("btncheckW3").checked ? "W3" : "";
+		var cardL3 = document.getElementById("btncheckL3").checked ? "L3" : "";
 		var cardR3 = document.getElementById("btncheckR3").checked ? "R3" : "";
+		var cardm1 = document.getElementById("btncheckm1").checked ? "m1" : "";
+		var cardm2 = document.getElementById("btncheckm2").checked ? "m2" : "";
+		var cardm3 = document.getElementById("btncheckm3").checked ? "m3" : "";
+		var cardm4 = document.getElementById("btncheckm4").checked ? "m4" : "";
 		
-		var unfilteredVideoCardArray = [cardW0, cardW1, cardW2, cardW3, cardL0, cardL1, cardL2, cardL3, cardR0, cardR1, cardR2, cardR3];
+		var unfilteredVideoCardArray = [cardW0, cardL0, cardR0, cardW1, cardL1, cardR1, cardW2, cardL2, cardR2, cardW3, cardL3, cardR3, cardm1, cardm2, cardm3, cardm4];
 		var filteredVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty);
-		var lengthVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty).length;
+		var lengthVideoCardArray = filteredVideoCardArray.length;
 		var filteredVideoCards = {
 						length: lengthVideoCardArray,
 						array: filteredVideoCardArray
 		};
-		
-		for ( i=0; filteredVideoCardArray.length < 7; i++){
-			filteredVideoCardArray.unshift("");
-		}
 		
 		return filteredVideoCards;
 	}
@@ -529,7 +541,7 @@
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA AND RADIO BUTTONS UPON RESET
 	function afterReset(){
-		clearFields(["label","duration","btncheckA1","btncheckA2","btncheckA3","btncheckA4","btncheckA5","btncheckA6","btncheck9","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room"], []);
+		clearFields(["label","duration","btncheckA1","btncheckA2","btncheckA3","btncheckA4","btncheckA5","btncheckA6","btncheck9","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","btncheckm1","btncheckm2","btncheckm3","btncheckm4"], []);
 		afterCrewReset();
 	}
 
@@ -649,30 +661,48 @@
 
 
 // ░░░░░░░░░▓ LISTENERS FOR MEMORYC CARD TOGGLE BUTTONS
-	document.getElementById("btncheckW0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckL0","btncheckR0"]); } });
-	document.getElementById("btncheckL0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckR0"]); } });
-	document.getElementById("btncheckR0").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckL0"]); } });
-	document.getElementById("btncheckW1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckL1","btncheckR1"]); } });
-	document.getElementById("btncheckL1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckR1"]); } });
-	document.getElementById("btncheckR1").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckL1"]); } });
-	document.getElementById("btncheckW2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckL2","btncheckR2"]); } });
-	document.getElementById("btncheckL2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckR2"]); } });
-	document.getElementById("btncheckR2").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckL2"]); } });
-	document.getElementById("btncheckW3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckL3","btncheckR3"]); } });
-	document.getElementById("btncheckL3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckR3"]); } });
-	document.getElementById("btncheckR3").addEventListener("click", function(){
-		if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckL3"]); } });
+	// SECRET HOTKEY FOR 0 SERIES CARDS
+		document.getElementById("btncheckW0").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckL0","btncheckR0"]); } });
+		document.getElementById("btncheckL0").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckR0"]); } });
+		document.getElementById("btncheckR0").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW0","btncheckL0"]); } });
+	
+	// SECRET HOTKEY FOR 1 SERIES CARDS
+		document.getElementById("btncheckW1").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckL1","btncheckR1"]); } });
+		document.getElementById("btncheckL1").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckR1"]); } });
+		document.getElementById("btncheckR1").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW1","btncheckL1"]); } });
+
+	// SECRET HOTKEY FOR 2 SERIES CARDS
+		document.getElementById("btncheckW2").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckL2","btncheckR2"]); } });
+		document.getElementById("btncheckL2").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckR2"]); } });
+		document.getElementById("btncheckR2").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW2","btncheckL2"]); } });
+
+	// SECRET HOTKEY FOR 3 SERIES CARDS
+		document.getElementById("btncheckW3").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckL3","btncheckR3"]); } });
+		document.getElementById("btncheckL3").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckR3"]); } });
+		document.getElementById("btncheckR3").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckL3"]); } });
+
+	// SECRET HOTKEY FOR MICROSD CARDS
+		document.getElementById("btncheckm1").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckm2","btncheckm3","btncheckm4"]); } });
+		document.getElementById("btncheckm2").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm3","btncheckm4"]); } });
+		document.getElementById("btncheckm3").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm2","btncheckm4"]); } });
+		document.getElementById("btncheckm4").addEventListener("click", function(){
+			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm2","btncheckm3"]); } });
+
 
 // ░░░░░░░░░▓ LISTENERS FOR CREW ROLE BUTTONS AND CHECKBOXES
 //	▓▓▓ BRIAN
