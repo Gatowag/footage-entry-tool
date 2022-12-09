@@ -4,6 +4,7 @@ const tab1 = ss.getSheetByName("Footage List");
 const tab2 = ss.getSheetByName("Published: MR");
 const newRow = tab1.getLastRow() + 1;
 var localProdNumOffset = -1;			// exists so that multiple episodes can be entered without pulling spreadsheet data every time
+let doubleRow = false;
 let determinedProdNum;
 let determinedPart;
 let allLabelMatches = [];
@@ -22,14 +23,58 @@ var dataArray = {
 function addNewRow(rowData) {
 
 	generateIDs(rowData.type, rowData.cont, rowData.toggledLabel);
-
+	let memCardRow1a = rowData.audioCardsData;
+	let memCardRow2 = [];
+	let memCardLength = rowData.videoCardsLength + rowData.audioCardsLength;
 	const rowPt1 = [
 					rowData.dateRecorded,
 					determinedProdNum
 					];
-	const rowPt2 = rowData.videoCardsData;
+
+	let rowPt2 = [];
+	let rowPt2Row2 = [];
+	let memCardRow1b = [];
+
+	// IF MORE MEMORY CARDS WERE USED THAN CAN FIT IN ONE ROW...
+	if ((memCardLength) > 8) {
+
+		// SET "doubleRow" STATUS TO TRUE FOR FUTURE USE
+		doubleRow = true;
+
+		// LOOP THROUGH THE FIRST 8 MEM CARD SLOTS AFTER ALREADY FILLING AUDIO CARDS...
+		for (i = 0; i < 8 - rowData.audioCardsLength; i++) {
+			// SET ASIDE THE FIRST 8 VIDEO MEM CARDS IN ORDER INSIDE OF "memCardRow1b"
+			memCardRow1b.push(rowData.videoCardsData[i]);
+		};
+
+		// SEND FIRST BATCH OF VIDEO CARDS TO THE BEGINNING OF "memCardRow1"
+		let memCardRow1 = memCardRow1b.concat(memCardRow1a);
+
+		// LOOP THROUGH THE 8 MEM CARD CELLS IN ROW 2...
+		for (j = 0; j < 8; j++) {
+			// AND FOR THE RIGHT-MOST REMAINING SLOTS...
+			if (i < memCardLength - rowData.audioCardsLength) {
+				// ADD THE REST OF THE VIDEO CARDS
+				memCardRow2.push(rowData.videoCardsData[i]);
+			// AND FOR ALL THE CELLS IN BETWEEN...
+			} else {
+				// ADD EMPTY VALUES
+				memCardRow2.unshift("");
+			}
+			i++;
+			console.log("j: " + j + " i: " + i + " memCardRow2: " + memCardRow2);
+		};
+
+		rowPt2 = memCardRow1;
+		rowPt2Row2 = memCardRow2;
+	} else {
+		rowPt2 = rowData.videoCardsData.concat(rowData.audioCardsData);
+		for (i = 0; rowPt2.length < 8; i++){
+			rowPt2.unshift("");
+		}
+	};
+
 	const rowPt3 = [
-					rowData.audioCard,
 					rowData.duration,
 					rowData.toggledLabel,
 					determinedPart,
@@ -42,16 +87,24 @@ function addNewRow(rowData) {
 					rowData.room
 					];
 	const rowPt4 = rowData.crew;
-	const rowCombined = rowPt1.concat(rowPt2,rowPt3,rowPt4);
+	const rowCombined = rowPt1.concat(rowPt2, rowPt3, rowPt4);
 
-	tab1.appendRow(
-		rowCombined);
+	if (doubleRow == true) {
+		tab1.appendRow(
+			rowCombined);
+		let r2Empty = [,];
+		tab1.appendRow(
+			r2Empty.concat(rowPt2Row2));
+	} else {
+		tab1.appendRow(
+			rowCombined);
+	}
 	setBackgroundColor(
 		rowData.type,
 		rowData.toggledLabel);
 	setCellFormats();
 	mergeCells(
-		rowData.videoCardsLength,
+		memCardLength,
 		rowData.type);
 	passToTab2(
 		rowData.toggledLabel,
@@ -66,32 +119,42 @@ function addNewRow(rowData) {
 function getSheetDataFET() {
 	const offset = 250;
 	const rowStart = newRow - offset;
-	const labelRange = tab1.getRange(rowStart,12,newRow - (rowStart-1),1);
-	const locationWideRange = tab1.getRange(rowStart,19,newRow - (rowStart-1),1);
-	const locationNarrowRange = tab1.getRange(rowStart,20,newRow - (rowStart-1),1);
+	const labelRange = tab1.getRange(			rowStart, 12, newRow - (rowStart - 1), 1);
+	const locationWideRange = tab1.getRange(	rowStart, 19, newRow - (rowStart - 1), 1);
+	const locationNarrowRange = tab1.getRange(	rowStart, 20, newRow - (rowStart - 1), 1);
 
-		for ( i = 0; i < ((newRow + 1) - rowStart); i++){
+		for (i = 0; i < ((newRow + 1) - rowStart); i++){
 			if (labelRange.getBackgrounds()[i] == "#ffff00") {
 				dataArray.unfinished.push(labelRange.getValues()[i])
 			} else if (locationWideRange.getValues()[i] != "") {
 				dataArray.locationsWide.push(locationWideRange.getValues()[i]);
 				dataArray.locationsNarrow.push(locationNarrowRange.getValues()[i]) };
 		};
+
+	dataArray.allSponsors = labelRange.getValues().filter(value => /ad: /i.test(value));
 		
-	dataArray.allSponsors = labelRange.getValues().filter(value => /^ad: /i.test(value));
+	/*let rawSponsors = labelRange.getValues().filter(value => /ad: /i.test(value));
+	let rawSponsorsString = [].concat.apply([], rawSponsors);
+	rawSponsorsString.forEach(function(adName) {
+		dataArray.allSponsors.push(adName.slice(4));
+	});
+
+	console.log("rawSponsors: " + rawSponsors);
+	console.log("dataArray.allSponsors: " + dataArray.allSponsors);*/
 
 	return dataArray;
 }
 
+
 // ░░░░░░░░░▓ HUB FUNCTION RUNNING FOR LOOPS TO DETERMINE IDENTIFIABLE DATA
 function generateIDs(type, cont, label) {
 	const offset = 100;
-	const rowStart = newRow - 20;
-	const prodNumRange = tab1.getRange(	rowStart, 2, newRow - (rowStart - 1),	1);
-	const labelRange = tab1.getRange(	rowStart,  12, newRow - (rowStart   - 1),	1);
-	const ptRange = tab1.getRange(		rowStart,  13, newRow - (rowStart   - 1),	1);
-	let prodNumFilter = [];														// all recent prod numbers, filtered to only numbers
-	let prodNumIndex = [];														// all recent prod numbers including NaN (- or null)
+	const rowStart = newRow - offset;
+	const prodNumRange = tab1.getRange(	rowStart, 2,  newRow - (rowStart - 1),	1);
+	const labelRange = tab1.getRange(	rowStart, 12, newRow - (rowStart - 1),	1);
+	const ptRange = tab1.getRange(		rowStart, 13, newRow - (rowStart - 1),	1);
+	let prodNumFilter = [];			// all recent prod numbers, filtered to only numbers
+	let prodNumIndex = [];			// all recent prod numbers including NaN (- or null)
 	let partIndex = [];
 	let labelList = [];
 	
@@ -109,7 +172,7 @@ function generateIDs(type, cont, label) {
 		// send 20 latest production numbers (unfiltered) to prodNumIndex
 		prodNumIndex.push(Number(prodNumRange.getValues()[i]));
 		
-		// 
+		// send 20 latest labels to labelList
 		if (labelRange.getValues()[i] != "")
 			{ labelList.push(String(labelRange.getValues()[i])) };
 
@@ -124,12 +187,12 @@ function generateIDs(type, cont, label) {
 	const lastInstance = dataArray.allLabelsString.lastIndexOf(label);
 
 	if (type == 1) {															// EPISODES
-		localProdNumOffset++;		// increases local offset by 1
+		localProdNumOffset++;													// increases local offset by 1
 		determinedProdNum		= mostRecentNum + localProdNumOffset;
 		determinedPart			= "";
 	} else if (type == 2) {														// MULTI-PART UNFINISHED
 		if (cont === "NEW"){
-			localProdNumOffset++;	// increases local offset by 1
+			localProdNumOffset++;												// increases local offset by 1
 			determinedProdNum	= mostRecentNum + localProdNumOffset;
 			determinedPart		= 1;
 		} else if (cont === "CONT") {											// MULTI-PART CONTINUATION
@@ -148,18 +211,22 @@ function generateIDs(type, cont, label) {
 // ░░░░░░░░░▓ FORMATS THE COLOR OF THE NEW ROW AND ANY ASSOCIATED ROWS BASED ON FOOTAGE TYPE
 function setBackgroundColor(type, label) {
 	let firstMatch = allLabelMatches.shift();
+	let extraRow;
+
+	if (doubleRow == true) { extraRow = newRow + 1; }
+	else { extraRow = newRow; };
 	
 	// EPISODES
 	if (type == "1"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#76c1cc").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#76c1cc").setFontColor("black");
 		
 	// MULTI-PART: UNFINISHED
 	} else if (type == "2"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#ffff00").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#ffff00").setFontColor("black");
 		
 	// MULTI-PART: COMPLETED
 	} else if (type == "3"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#458d97").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#458d97").setFontColor("black");
 		console.log("firstMatch: "+firstMatch);
 		console.log("allLabelMatches: "+allLabelMatches);
 		tab1.getRange(firstMatch + ":" + firstMatch).setBackground("#76c1cc");
@@ -167,15 +234,15 @@ function setBackgroundColor(type, label) {
 		
 	// SPONSOR
 	} else if (type == "4"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#90eba6").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#90eba6").setFontColor("black");
 		
 	// PATREON BONUS
 	} else if (type == "5"){
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#3c4043").setFontColor("white");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#3c4043").setFontColor("white");
 		
 	// OTHER
 	} else {
-		tab1.setActiveSelection(newRow + ":" + newRow).setBackground("#f9cb9c").setFontColor("black");
+		tab1.setActiveSelection(newRow + ":" + extraRow).setBackground("#f9cb9c").setFontColor("black");
 	}
 }
 
@@ -227,13 +294,24 @@ function mergeCells(length, type) {
 	var mergeEnd;
 
 	// THIS APPLIES TO THE VIDEO MEMORY CARD SECTION
-	mergeEnd = "IHGFEDC"[length] || "C";
+	mergeEnd = "JIHGFEDC"[length] || "C";
 
-	tab1.getRange('C' + newRow + ':' + mergeEnd + newRow).merge();
-  
+	tab1.getRange("C" + newRow + ":" + mergeEnd + newRow).merge();
+
 	// THIS APPLIES TO THE "PT" COLUMN
 	if (type == "2" || type == "3") {}
-	else {tab1.getRange('L' + newRow + ':' + 'M' + newRow).merge();};
+	else {tab1.getRange("L" + newRow + ":M" + newRow).merge();};
+
+	// IF TWO ROWS ARE BEING CREATED...
+	if (doubleRow == true) {
+		mergeEnd = "IHGFEDC"[(length - 8)] || "C";
+		tab1.getRange("A" + (newRow) + ":B" + (newRow + 1)).mergeVertically();
+		tab1.getRange("C" + (newRow + 1) + ":" + mergeEnd + (newRow + 1)).merge();
+		tab1.getRange("K" + (newRow) + ":K" + (newRow + 1)).mergeVertically();
+		tab1.getRange("L" + (newRow) + ":M" + (newRow + 1)).merge();
+		tab1.getRange("N" + (newRow) + ":AL" + (newRow + 1)).mergeVertically();
+	}
+	
 }
 
 // ░░░░░░░░░▓ RECOLORS MULTI-PART INCOMPLETE ROWS WHEN COMPLETED
@@ -260,10 +338,17 @@ function passToTab2(label, type, date) {
 			.setFontColor("#000000");
 	} else if (type === "4") {														// if SPONSOR
 		let publishBorder = findRow();												// row number where unpublished videos ends
-		for (r = publishBorder; r > 0; r--) {										// travel up the list from that row
-			if (tab2.getRange("Q" + r).getBackgrounds() == "#e6b8af") { break }};	// when it hits a red row, it stops and "r" is set to that row number
-		let sponsList = tab2.getRange(2, 17, r - 2, 1).getValues();					// get a list of all possible ad matches
-		let tab2AdRow = suggestReverseMatch(label, sponsList);						// find the row containing the best possible ad match
+		let sponsVal = tab2.getRange("Q2:Q" + publishBorder).getValues();			// get all possible sponsor values
+		let sponsBg = tab2.getRange("Q2:Q" + publishBorder).getBackgrounds();		// get all possible sponsor cell colors
+
+		for (i = 0; i < publishBorder; i++) {										// cycle through the sponsor listings
+			if (sponsBg[i] != "#e6b8af") {											// if the background is not red
+				sponsVal[i] = "";													// clear the sponsor name
+			};
+		};
+
+		let tab2AdRow = suggestReverseMatch(label, sponsVal);						// find the row containing the best possible ad match
+
 		tab2.getRange("Q" + tab2AdRow)												// go to the sponsor cell in that row
 			.setBackground("#ffffff");												// reset the background to white
 	}
@@ -276,7 +361,7 @@ function suggestReverseMatch(ad, adList){
 	let adArr = [].concat.apply([], adList);										// a flattened array of recorded sponsors
 	let filteredCandidates = [];													// a list of each candidate's confidence rating
 	let bestMatch;																	// the lowest number from filteredCandidates
-					
+
 	adArr.forEach(function(adCandidate) {											// run through each ad candidate
 		let candidateSearchStr = adCandidate.toLocaleLowerCase();					// lowercases each candidate
 		let canLength = candidateSearchStr.length;									// length of candidate string before filtering
