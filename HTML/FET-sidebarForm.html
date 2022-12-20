@@ -100,14 +100,11 @@
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason" id="buttonJason">Jason</button>
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt" id="buttonBrandt">Brandt</button>
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce" id="buttonBryce">Bryce</button>
-				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesJohn" aria-expanded="false" aria-controls="rolesJohn" id="buttonJohn">John</button>
 			</div>
 
 			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Second group">
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese" id="buttonAnnaliese">Annaliese</button>
-				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesCory" aria-expanded="false" aria-controls="rolesCory" id="buttonCory">Cory</button>
 				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff" id="buttonJeff">Jeff</button>
-				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesEli" aria-expanded="false" aria-controls="rolesEli" id="buttonEli">Eli</button>
 				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional" id="buttonAdditional">+</button>
 			</div>
 		</div>
@@ -131,7 +128,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.25</div>
+			<div class="form-text pt-1">v1.26</div>
 		</div>
 	</div>
 
@@ -317,7 +314,7 @@
 
 // ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR SPONSOR TYPE VIDEOS
 	function roleDefaultsSponsor(){
-		checkboxToggle(["inlineBrandtCheckbox1","inlineCoryCheckbox3"]);
+		checkboxToggle(["inlineBrandtCheckbox1","inlineJasonCheckbox1"]);
 		btnStateDefault(["buttonBrandt"]);
 	}
 
@@ -325,7 +322,6 @@
 // ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR ALL OTHER VIDEO TYPES
 	function roleDefaultsReset(){
 		document.getElementById("inlineBrandtCheckbox1").checked = true;
-		document.getElementById("inlineCoryCheckbox3").checked = false;
 		btnStateChanged(["buttonBrandt"]);
 	}
 
@@ -461,35 +457,21 @@
 			let bryceOther = document.getElementById("inlineBryceOtherCheckbox").checked ? bryceArray.push(document.getElementById("inlineBryceOther").value) : "";
 		let bryce = bryceCam != "" || bryceOther != "" ? "Bryce: " + bryceArray.join(", ") : "";
 		
-			let johnArray = [];
-			let johnCam = document.getElementById("inlineJohnCheckbox1").checked ? johnArray.push("cam") : "";
-			let johnOther = document.getElementById("inlineJohnOtherCheckbox").checked ? johnArray.push(document.getElementById("inlineJohnOther").value) : "";
-		let john = johnCam != "" || johnOther != "" ? "John: " + johnArray.join(", ") : "";
-		
 			let annalieseArray = [];
 			let annalieseAudio = document.getElementById("inlineAnnalieseCheckbox1").checked ? annalieseArray.push("audio") : "";
 			let annalieseCam = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("cam") : "";
-			let annalieseAssist = document.getElementById("inlineAnnalieseCheckbox2").checked ? annalieseArray.push("assistance") : "";
+			let annalieseAssist = document.getElementById("inlineAnnalieseCheckbox3").checked ? annalieseArray.push("assistance") : "";
+			let annalieseGuest = document.getElementById("inlineAnnalieseCheckbox4").checked ? annalieseArray.push("guest") : "";
 			let annalieseOther = document.getElementById("inlineAnnalieseOtherCheckbox").checked ? annalieseArray.push(document.getElementById("inlineAnnalieseOther").value) : "";
 		let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
 		
-			let coryArray = [];
-			let coryGuest = document.getElementById("inlineCoryCheckbox2").checked ? coryArray.push("guest") : "";
-			let coryCam = document.getElementById("inlineCoryCheckbox3").checked ? coryArray.push("cam") : "";
-			let coryAssist = document.getElementById("inlineCoryCheckbox1").checked ? coryArray.push("assistance") : "";
-			let coryOther = document.getElementById("inlineCoryOtherCheckbox").checked ? coryArray.push(document.getElementById("inlineCoryOther").value) : "";
-		let cory = coryGuest != "" || coryCam != "" || coryAssist != "" || coryOther != "" ? "Cory: " + coryArray.join(", ") : "";
-		
 			let jeffArray = [];
 			let jeffAssist = document.getElementById("inlineJeffCheckbox1").checked ? jeffArray.push("assistance") : "";
+			let jeffCam = document.getElementById("inlineJeffCheckbox2").checked ? jeffArray.push("cam") : "";
+			let jeffAudio = document.getElementById("inlineJeffCheckbox3").checked ? jeffArray.push("audio") : "";
+			let jeffGuest = document.getElementById("inlineJeffCheckbox4").checked ? jeffArray.push("guest") : "";
 			let jeffOther = document.getElementById("inlineJeffOtherCheckbox").checked ? jeffArray.push(document.getElementById("inlineJeffOther").value) : "";
 		let jeff = jeffAssist != "" || jeffOther != "" ? "Jeff: " + jeffArray.join(", ") : "";
-		
-			let eliArray = [];
-			let eliCam = document.getElementById("inlineEliCheckbox2").checked ? eliArray.push("cam") : "";
-			let eliAssist = document.getElementById("inlineEliCheckbox1").checked ? eliArray.push("assistance") : "";
-			let eliOther = document.getElementById("inlineEliOtherCheckbox").checked ? eliArray.push(document.getElementById("inlineEliOther").value) : "";
-		let eli = eliCam != "" || eliAssist != "" || eliOther != "" ? "Eli: " + eliArray.join(", ") : "";
 		
 			let adtnlArray1 = [];
 			let adtnlName1 = document.getElementById("additionalName1").value;
@@ -506,7 +488,7 @@
 			let adtnlRole3 = document.getElementById("additionalRoles3").value;
 		let adtnl3 = adtnlName3 != "" || adtnlRole3 != "" ? adtnlName3 + ": " + adtnlRole3 : "";
 		
-		let crewUnfilteredArray = [brian, jason, brandt, bryce, john, annaliese, cory, jeff, eli, adtnl1, adtnl2, adtnl3];
+		let crewUnfilteredArray = [brian, jason, brandt, bryce, annaliese, jeff, adtnl1, adtnl2, adtnl3];
 		let crewFilteredArray = crewUnfilteredArray.filter(filterOutEmpty);
 		
 		return crewFilteredArray;
@@ -548,9 +530,9 @@
 
 // ░░░░░░░░░▓ CLEAR CREW ROLE DATA UPON RESET
 	function afterCrewReset(){
-		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineJohnCheckbox1","inlineJohnOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox","inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox","inlineJeffCheckbox1","inlineJeffOtherCheckbox","inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
+		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox","inlineJeffCheckbox1","inlineJeffCheckbox2","inlineJeffCheckbox3","inlineJeffCheckbox4","inlineJeffOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
 		
-		["buttonBrian","buttonJason","buttonBrandt","buttonBryce","buttonJohn","buttonAnnaliese","buttonCory","buttonJeff","buttonEli","buttonAdditional"]);
+		["buttonBrian","buttonJason","buttonBrandt","buttonBryce","buttonAnnaliese","buttonJeff","buttonAdditional"]);
 	}
 
 
@@ -737,45 +719,21 @@
 	document.getElementById("rolesBryce").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBryce"); });
 	document.getElementById("inlineBryceOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBryceOther") });
 
-//	▓▓▓ JOHN
-	document.getElementById("rolesJohn").addEventListener("change", function(){
-		if (checkboxState(["inlineJohnCheckbox1","inlineJohnOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJohn"); }
-		else { btnStateDefault("buttonJohn"); } });
-	document.getElementById("rolesJohn").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJohn"); scrollWin(0,200); });
-	document.getElementById("rolesJohn").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJohn"); });
-	document.getElementById("inlineJohnOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJohnOther") });
-
 //	▓▓▓ ANNALIESE
 	document.getElementById("rolesAnnaliese").addEventListener("change", function(){
-		if (checkboxState(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseOtherCheckbox"]) == "not empty") { btnStateChanged("buttonAnnaliese"); }
+		if (checkboxState(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox"]) == "not empty") { btnStateChanged("buttonAnnaliese"); }
 		else { btnStateDefault("buttonAnnaliese"); } });
 	document.getElementById("rolesAnnaliese").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonAnnaliese"); scrollWin(0,200); });
 	document.getElementById("rolesAnnaliese").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonAnnaliese"); });
 	document.getElementById("inlineAnnalieseOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineAnnalieseOther") });
 
-//	▓▓▓ CORY
-	document.getElementById("rolesCory").addEventListener("change", function(){
-		if (checkboxState(["inlineCoryCheckbox1","inlineCoryCheckbox2","inlineCoryCheckbox3","inlineCoryOtherCheckbox"]) == "not empty") { btnStateChanged("buttonCory"); }
-		else { btnStateDefault("buttonCory"); } });
-	document.getElementById("rolesCory").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonCory"); scrollWin(0,200); });
-	document.getElementById("rolesCory").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonCory"); });
-	document.getElementById("inlineCoryOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineCoryOther") });
-
 //	▓▓▓ JEFF
 	document.getElementById("rolesJeff").addEventListener("change", function(){
-		if (checkboxState(["inlineJeffCheckbox1","inlineJeffOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJeff"); }
+		if (checkboxState(["inlineJeffCheckbox1","inlineJeffCheckbox2","inlineJeffCheckbox3","inlineJeffCheckbox4","inlineJeffOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJeff"); }
 		else { btnStateDefault("buttonJeff"); } });
 	document.getElementById("rolesJeff").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJeff"); scrollWin(0,200); });
 	document.getElementById("rolesJeff").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJeff"); });
 	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
-
-//	▓▓▓ ELI
-	document.getElementById("rolesEli").addEventListener("change", function(){
-		if (checkboxState(["inlineEliCheckbox1","inlineEliCheckbox2","inlineEliOtherCheckbox"]) == "not empty") { btnStateChanged("buttonEli"); }
-		else { btnStateDefault("buttonEli"); } });
-	document.getElementById("rolesEli").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonEli"); scrollWin(0,200); });
-	document.getElementById("rolesEli").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonEli"); });
-	document.getElementById("inlineEliOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineEliOther") });
 
 //	▓▓▓ ADDITIONAL
 	document.getElementById("rolesAdditional").addEventListener("change", function(){
