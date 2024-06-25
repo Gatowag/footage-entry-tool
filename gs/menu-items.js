@@ -6,14 +6,11 @@ function onOpen() {
 
 function menu() {
 	SpreadsheetApp.getUi()
-		.createMenu("Automation")
-			.addSubMenu(SpreadsheetApp.getUi().createMenu('Modern Rogue')
-  				.addItem("Footage Entry Tool", "footageEntryTool")
-				.addItem("Full Close-Out", "closeOutButton")
-  				.addItem("Populate Latest MR Video", "populateLatestMR"))
-			.addSubMenu(SpreadsheetApp.getUi().createMenu('Scam Stuff')
-				.addItem("Populate Latest SS", "populateScamStuffLatest")
-				.addItem("Expand Link", "expandScamStuffLink"))
+		.createMenu("Scripts")
+		.addItem("Footage Entry Tool", "footageEntryTool")
+		.addItem("Latest Video: Close-Out", "closeOutButton")
+		.addItem("Latest Video: Superficial Close-Out", "populateLatestMR")
+		.addItem("Update Shorts Views", "shortsViewcount")
 		.addToUi();
 }
 
