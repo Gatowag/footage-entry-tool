@@ -1,24 +1,3 @@
-// ░░░░░░░░░▓ COMMON VARIABLES SCOPED GLOBALLY
-const ss = SpreadsheetApp.getActiveSpreadsheet();
-const tab1 = ss.getSheetByName("Footage List");
-const tab2 = ss.getSheetByName("Published: MR");
-const newRow = tab1.getLastRow() + 1;
-var localProdNumOffset = -1;			// exists so that multiple episodes can be entered without pulling spreadsheet data every time
-let doubleRow = false;
-let determinedProdNum;
-let determinedPart;
-let allLabelMatches = [];
-var dataArray = {
-				unfinished: [],
-				locationsWide: [],
-				locationsNarrow: [],
-				allLabels: [],
-				allLabelsString: [],
-				allSponsors: [],
-				recSponsors: []
-				};
-
-
 // ░░░░░░░░░▓ WRITES DATA TO SPREADSHEET
 function addNewRow(rowData) {
 
@@ -258,36 +237,36 @@ function setCellFormats() {
 		.setFontFamily("Roboto Mono");
 	
 	// formats production number
-	tab1.getRange("B" + newRow)
+	tab1.getRange(tab1ProdCol + newRow)
 		.setFontFamily("Roboto Mono")
 		.setFontSize(10);
 	
-	// formats runtime cell
-	tab1.getRange("K" + newRow)
+	// formats duration cell
+	tab1.getRange(tab1DurationCol + newRow)
 		.setFontFamily("Roboto Mono")
 		.setNumberFormat("0:00:00");
 	
-	// formats label cell
-	tab1.getRange("L" + newRow)
+	// formats title cell
+	tab1.getRange(tab1TitleCol + newRow)
 		.setFontSize(10)
 		.setHorizontalAlignment("left");
 	
-	// formats release number cells
-	tab1.getRange("N" + newRow + ":O" + newRow)
+	// formats publish number cells
+	tab1.getRange(tab1PubCol + newRow)
 		.setFontSize(10);
 	
-	// formats published link cell
-	tab1.getRange("Q" + newRow)
+	// formats link cell
+	tab1.getRange(tab1LinkCol + newRow)
 		.setHorizontalAlignment("right");
 	
 	// formats sponsor cell and location cells
-	tab1.getRange("R" + newRow + ":T" + newRow)
+	tab1.getRange(tab1SponsCol + newRow + ":" + tab1Loc2Col + newRow)
 		.setFontSize(10);
-	tab1.getRange("S" + newRow + ":T" + newRow)
+	tab1.getRange(tab1Loc1Col + newRow + ":" + tab1Loc2Col + newRow)
 		.setHorizontalAlignment("left");
 	
 	// formats crew cells
-	tab1.getRange("U" + newRow + ":AD" + newRow)
+	tab1.getRange(tab1CrewStartCol + newRow + ":" + tab1CrewEndCol + newRow)
 		.setFontSize(9)
 		.setHorizontalAlignment("left");
 }
@@ -303,16 +282,16 @@ function mergeCells(length, type) {
 
 	// THIS APPLIES TO THE "PT" COLUMN
 	if (type == "2" || type == "3") {}
-	else {tab1.getRange("L" + newRow + ":M" + newRow).merge();};
+	else {tab1.getRange(tab1TitleCol + newRow + ":" + tab1PartCol + newRow).merge();};
 
 	// IF TWO ROWS ARE BEING CREATED...
 	if (doubleRow == true) {
 		mergeEnd = "IHGFEDC"[(length - 8)] || "C";
-		tab1.getRange("A" + (newRow) + ":B" + (newRow + 1)).mergeVertically();
+		tab1.getRange(tab1RecDateCol + (newRow) + ":" + tab1ProdCol + (newRow + 1)).mergeVertically();
 		tab1.getRange("C" + (newRow + 1) + ":" + mergeEnd + (newRow + 1)).merge();
-		tab1.getRange("K" + (newRow) + ":K" + (newRow + 1)).mergeVertically();
-		tab1.getRange("L" + (newRow) + ":M" + (newRow + 1)).merge();
-		tab1.getRange("N" + (newRow) + ":AL" + (newRow + 1)).mergeVertically();
+		tab1.getRange(tab1DurationCol + (newRow) + ":" + tab1DurationCol + (newRow + 1)).mergeVertically();
+		tab1.getRange(tab1TitleCol + (newRow) + ":" + tab1PartCol + (newRow + 1)).merge();
+		tab1.getRange(tab1PubCol + (newRow) + ":" + tab1CrewEndCol + (newRow + 1)).mergeVertically();
 	}
 	
 }
@@ -326,19 +305,19 @@ function recolorIncompleteRowTab1(item) {
 function passToTab2(label, type, date) {
 	if (type === "1" || type === "3") {										// if NEW EP or COMPLETED MULTI-PART
 		tab2.insertRowBefore(2);											// create new row at the top of tab 2
-		tab2.getRange("G2")													// title cell
+		tab2.getRange(tab2TitleCol + "2")									// title cell
 			.setValue(label)												// user-input label
 			.setFontSize(10)
 			.setHorizontalAlignment("left");
-		tab2.getRange("O2")													// recording date cell
+		tab2.getRange(tab2RecDateCol + "2")									// recording date cell
 			.setValue(date)													// user-input date
 			.setFontSize(8)
 			.setVerticalAlignment("middle")
 			.setHorizontalAlignment("center");
 	} else if (type === "4") {														// if SPONSOR
 		let publishBorder = findRow();												// row number where unpublished videos ends
-		let sponsVal = tab2.getRange("Q2:Q" + publishBorder).getValues();			// get all possible sponsor values
-		let sponsBg = tab2.getRange("Q2:Q" + publishBorder).getBackgrounds();		// get all possible sponsor cell colors
+		let sponsVal = tab2.getRange(tab2SponsCol + "2:" + tab2SponsCol + publishBorder).getValues();			// get all possible sponsor values
+		let sponsBg = tab2.getRange(tab2SponsCol + "2:" + tab2SponsCol + publishBorder).getBackgrounds();		// get all possible sponsor cell colors
 
 		for (i = 0; i < publishBorder; i++) {										// cycle through the sponsor listings
 			if (sponsBg[i] != "#e6b8af") {											// if the background is not red
@@ -348,7 +327,7 @@ function passToTab2(label, type, date) {
 
 		let tab2AdRow = suggestReverseMatch(label, sponsVal);						// find the row containing the best possible ad match
 
-		tab2.getRange("Q" + tab2AdRow)												// go to the sponsor cell in that row
+		tab2.getRange(tab2SponsCol + tab2AdRow)												// go to the sponsor cell in that row
 			.setBackground("#ffffff");												// reset the background to white
 	}
 }
