@@ -62,7 +62,6 @@ function addNewRow(rowData) {
 				memCardRow2.unshift("");
 			}
 			i++;
-			console.log("j: " + j + " i: " + i + " memCardRow2: " + memCardRow2);
 		};
 
 		rowPt2 = memCardRow1;
@@ -78,7 +77,6 @@ function addNewRow(rowData) {
 					rowData.duration,
 					rowData.toggledLabel,
 					determinedPart,
-					,
 					,
 					,
 					,
@@ -250,18 +248,23 @@ function setBackgroundColor(type, label) {
 function setCellFormats() {
 	// general formats for the entire row
 	tab1.getRange(newRow + ":" + newRow)
-		.setFontFamily("Arial")
+		.setFontFamily("Roboto")
 		.setFontSize(8)
 		.setVerticalAlignment("middle")
 		.setHorizontalAlignment("center");
 	tab1.setRowHeightsForced(newRow, 1, 21);
+
+	tab1.getRange(tab1RecDateCol + newRow)
+		.setFontFamily("Roboto Mono");
 	
 	// formats production number
 	tab1.getRange("B" + newRow)
+		.setFontFamily("Roboto Mono")
 		.setFontSize(10);
 	
 	// formats runtime cell
 	tab1.getRange("K" + newRow)
+		.setFontFamily("Roboto Mono")
 		.setNumberFormat("0:00:00");
 	
 	// formats label cell
@@ -332,10 +335,6 @@ function passToTab2(label, type, date) {
 			.setFontSize(8)
 			.setVerticalAlignment("middle")
 			.setHorizontalAlignment("center");
-		tab2.getRange("H2:M2")
-			.insertCheckboxes()
-			.setFontSize(7)
-			.setFontColor("#000000");
 	} else if (type === "4") {														// if SPONSOR
 		let publishBorder = findRow();												// row number where unpublished videos ends
 		let sponsVal = tab2.getRange("Q2:Q" + publishBorder).getValues();			// get all possible sponsor values
