@@ -97,14 +97,8 @@
 		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group mx-auto" role="group" aria-label="First group">
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian" id="buttonBrian">Brian</button>
-				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesJason" aria-expanded="false" aria-controls="rolesJason" id="buttonJason">Jason</button>
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt" id="buttonBrandt">Brandt</button>
-				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBryce" aria-expanded="false" aria-controls="rolesBryce" id="buttonBryce">Bryce</button>
-			</div>
-
-			<div class="btn-group mt-2 mx-auto" role="group" aria-label="Second group">
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese" id="buttonAnnaliese">Annaliese</button>
-				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesJeff" aria-expanded="false" aria-controls="rolesJeff" id="buttonJeff">Jeff</button>
 				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional" id="buttonAdditional">+</button>
 			</div>
 		</div>
@@ -128,7 +122,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.26</div>
+			<div class="form-text pt-1">v1.3</div>
 		</div>
 	</div>
 
@@ -314,7 +308,7 @@
 
 // ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR SPONSOR TYPE VIDEOS
 	function roleDefaultsSponsor(){
-		checkboxToggle(["inlineBrandtCheckbox1","inlineJasonCheckbox1"]);
+		checkboxToggle(["inlineBrandtCheckbox1"]);
 		btnStateDefault(["buttonBrandt"]);
 	}
 
@@ -387,9 +381,8 @@
 		var cardA4 = document.getElementById("btncheckA4").checked ? "A4" : "";
 		var cardA5 = document.getElementById("btncheckA5").checked ? "A5" : "";
 		var cardA6 = document.getElementById("btncheckA6").checked ? "A6" : "";
-		var card9 = document.getElementById("btncheck9").checked ? "9" : "";
 
-		var unfilteredAudioCardArray = [cardA1, cardA2, cardA3, cardA4, cardA5, cardA6, card9];
+		var unfilteredAudioCardArray = [cardA1, cardA2, cardA3, cardA4, cardA5, cardA6];
 		var filteredAudioCardArray = unfilteredAudioCardArray.filter(filterOutEmpty);
 		var lengthAudioCardArray = filteredAudioCardArray.length;
 		var filteredAudioCards = {
@@ -416,12 +409,8 @@
 		var cardW3 = document.getElementById("btncheckW3").checked ? "W3" : "";
 		var cardL3 = document.getElementById("btncheckL3").checked ? "L3" : "";
 		var cardR3 = document.getElementById("btncheckR3").checked ? "R3" : "";
-		var cardm1 = document.getElementById("btncheckm1").checked ? "m1" : "";
-		var cardm2 = document.getElementById("btncheckm2").checked ? "m2" : "";
-		var cardm3 = document.getElementById("btncheckm3").checked ? "m3" : "";
-		var cardm4 = document.getElementById("btncheckm4").checked ? "m4" : "";
 		
-		var unfilteredVideoCardArray = [cardW0, cardL0, cardR0, cardW1, cardL1, cardR1, cardW2, cardL2, cardR2, cardW3, cardL3, cardR3, cardm1, cardm2, cardm3, cardm4];
+		var unfilteredVideoCardArray = [cardW0, cardL0, cardR0, cardW1, cardL1, cardR1, cardW2, cardL2, cardR2, cardW3, cardL3, cardR3];
 		var filteredVideoCardArray = unfilteredVideoCardArray.filter(filterOutEmpty);
 		var lengthVideoCardArray = filteredVideoCardArray.length;
 		var filteredVideoCards = {
@@ -441,21 +430,10 @@
 			let brianOther = document.getElementById("inlineBrianOtherCheckbox").checked ? brianArray.push(document.getElementById("inlineBrianOther").value) : "";
 		let brian = brianHost != "" || brianOther != "" ? "Brian: " + brianArray.join(", ") : "";
 		
-			let jasonArray = [];
-			let jasonHost = document.getElementById("inlineJasonCheckbox1").checked ? jasonArray.push("host") : "";
-			let jasonResearch = document.getElementById("inlineJasonCheckbox2").checked ? jasonArray.push("research") : "";
-			let jasonOther = document.getElementById("inlineJasonOtherCheckbox").checked ? jasonArray.push(document.getElementById("inlineJasonOther").value) : "";
-		let jason = jasonHost != "" || jasonOther != "" ? "Jason: " + jasonArray.join(", ") : "";
-		
 			let brandtArray = [];
 			let brandtCam = document.getElementById("inlineBrandtCheckbox1").checked ? brandtArray.push("cam") : "";
 			let brandtOther = document.getElementById("inlineBrandtOtherCheckbox").checked ? brandtArray.push(document.getElementById("inlineBrandtOther").value) : "";
 		let brandt = brandtCam != "" || brandtOther != "" ? "Brandt: " + brandtArray.join(", ") : "";
-		
-			let bryceArray = [];
-			let bryceCam = document.getElementById("inlineBryceCheckbox1").checked ? bryceArray.push("cam") : "";
-			let bryceOther = document.getElementById("inlineBryceOtherCheckbox").checked ? bryceArray.push(document.getElementById("inlineBryceOther").value) : "";
-		let bryce = bryceCam != "" || bryceOther != "" ? "Bryce: " + bryceArray.join(", ") : "";
 		
 			let annalieseArray = [];
 			let annalieseAudio = document.getElementById("inlineAnnalieseCheckbox1").checked ? annalieseArray.push("audio") : "";
@@ -464,14 +442,6 @@
 			let annalieseGuest = document.getElementById("inlineAnnalieseCheckbox4").checked ? annalieseArray.push("guest") : "";
 			let annalieseOther = document.getElementById("inlineAnnalieseOtherCheckbox").checked ? annalieseArray.push(document.getElementById("inlineAnnalieseOther").value) : "";
 		let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
-		
-			let jeffArray = [];
-			let jeffAssist = document.getElementById("inlineJeffCheckbox1").checked ? jeffArray.push("assistance") : "";
-			let jeffCam = document.getElementById("inlineJeffCheckbox2").checked ? jeffArray.push("cam") : "";
-			let jeffAudio = document.getElementById("inlineJeffCheckbox3").checked ? jeffArray.push("audio") : "";
-			let jeffGuest = document.getElementById("inlineJeffCheckbox4").checked ? jeffArray.push("guest") : "";
-			let jeffOther = document.getElementById("inlineJeffOtherCheckbox").checked ? jeffArray.push(document.getElementById("inlineJeffOther").value) : "";
-		let jeff = jeffAssist != "" || jeffOther != "" ? "Jeff: " + jeffArray.join(", ") : "";
 		
 			let adtnlArray1 = [];
 			let adtnlName1 = document.getElementById("additionalName1").value;
@@ -488,7 +458,7 @@
 			let adtnlRole3 = document.getElementById("additionalRoles3").value;
 		let adtnl3 = adtnlName3 != "" || adtnlRole3 != "" ? adtnlName3 + ": " + adtnlRole3 : "";
 		
-		let crewUnfilteredArray = [brian, jason, brandt, bryce, annaliese, jeff, adtnl1, adtnl2, adtnl3];
+		let crewUnfilteredArray = [brian, brandt, annaliese, adtnl1, adtnl2, adtnl3];
 		let crewFilteredArray = crewUnfilteredArray.filter(filterOutEmpty);
 		
 		return crewFilteredArray;
@@ -523,16 +493,16 @@
 
 // ░░░░░░░░░▓ CLEAR TYPED DATA AND RADIO BUTTONS UPON RESET
 	function afterReset(){
-		clearFields(["label","duration","btncheckA1","btncheckA2","btncheckA3","btncheckA4","btncheckA5","btncheckA6","btncheck9","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room","btncheckm1","btncheckm2","btncheckm3","btncheckm4"], []);
+		clearFields(["label","duration","btncheckA1","btncheckA2","btncheckA3","btncheckA4","btncheckA5","btncheckA6","btncheckW0","btncheckW1","btncheckW2","btncheckW3","btncheckL0","btncheckL1","btncheckL2","btncheckL3","btncheckR0","btncheckR1","btncheckR2","btncheckR3","location_property","location_room"], []);
 		afterCrewReset();
 	}
 
 
 // ░░░░░░░░░▓ CLEAR CREW ROLE DATA UPON RESET
 	function afterCrewReset(){
-		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineBryceCheckbox1","inlineBryceOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox","inlineJeffCheckbox1","inlineJeffCheckbox2","inlineJeffCheckbox3","inlineJeffCheckbox4","inlineJeffOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
+		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
 		
-		["buttonBrian","buttonJason","buttonBrandt","buttonBryce","buttonAnnaliese","buttonJeff","buttonAdditional"]);
+		["buttonBrian","buttonBrandt","buttonAnnaliese","buttonAdditional"]);
 	}
 
 
@@ -675,16 +645,6 @@
 		document.getElementById("btncheckR3").addEventListener("click", function(){
 			if (event.ctrlKey) { checkboxToggle(["btncheckW3","btncheckL3"]); } });
 
-	// SECRET HOTKEY FOR MICROSD CARDS
-		document.getElementById("btncheckm1").addEventListener("click", function(){
-			if (event.ctrlKey) { checkboxToggle(["btncheckm2","btncheckm3","btncheckm4"]); } });
-		document.getElementById("btncheckm2").addEventListener("click", function(){
-			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm3","btncheckm4"]); } });
-		document.getElementById("btncheckm3").addEventListener("click", function(){
-			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm2","btncheckm4"]); } });
-		document.getElementById("btncheckm4").addEventListener("click", function(){
-			if (event.ctrlKey) { checkboxToggle(["btncheckm1","btncheckm2","btncheckm3"]); } });
-
 
 // ░░░░░░░░░▓ LISTENERS FOR CREW ROLE BUTTONS AND CHECKBOXES
 //	▓▓▓ BRIAN
@@ -694,14 +654,6 @@
 	document.getElementById("rolesBrian").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonBrian"); scrollWin(0,200); });
 	document.getElementById("rolesBrian").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBrian"); });
 	document.getElementById("inlineBrianOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrianOther") });
-	
-//	▓▓▓ JASON
-	document.getElementById("rolesJason").addEventListener("change", function(){
-		if (checkboxState(["inlineJasonCheckbox1","inlineJasonCheckbox2","inlineJasonOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJason"); }
-		else { btnStateDefault("buttonJason"); } });
-	document.getElementById("rolesJason").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJason"); scrollWin(0,200); });
-	document.getElementById("rolesJason").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJason"); });
-	document.getElementById("inlineJasonOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJasonOther") });
 
 //	▓▓▓ BRANDT
 	document.getElementById("rolesBrandt").addEventListener("change", function(){
@@ -711,14 +663,6 @@
 	document.getElementById("rolesBrandt").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBrandt"); });
 	document.getElementById("inlineBrandtOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBrandtOther") });
 
-//	▓▓▓ BRYCE
-	document.getElementById("rolesBryce").addEventListener("change", function(){
-		if (checkboxState(["inlineBryceCheckbox1","inlineBryceOtherCheckbox"]) == "not empty") { btnStateChanged("buttonBryce"); }
-		else { btnStateDefault("buttonBryce"); } });
-	document.getElementById("rolesBryce").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonBryce"); scrollWin(0,200); });
-	document.getElementById("rolesBryce").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonBryce"); });
-	document.getElementById("inlineBryceOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineBryceOther") });
-
 //	▓▓▓ ANNALIESE
 	document.getElementById("rolesAnnaliese").addEventListener("change", function(){
 		if (checkboxState(["inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox"]) == "not empty") { btnStateChanged("buttonAnnaliese"); }
@@ -726,14 +670,6 @@
 	document.getElementById("rolesAnnaliese").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonAnnaliese"); scrollWin(0,200); });
 	document.getElementById("rolesAnnaliese").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonAnnaliese"); });
 	document.getElementById("inlineAnnalieseOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineAnnalieseOther") });
-
-//	▓▓▓ JEFF
-	document.getElementById("rolesJeff").addEventListener("change", function(){
-		if (checkboxState(["inlineJeffCheckbox1","inlineJeffCheckbox2","inlineJeffCheckbox3","inlineJeffCheckbox4","inlineJeffOtherCheckbox"]) == "not empty") { btnStateChanged("buttonJeff"); }
-		else { btnStateDefault("buttonJeff"); } });
-	document.getElementById("rolesJeff").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonJeff"); scrollWin(0,200); });
-	document.getElementById("rolesJeff").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonJeff"); });
-	document.getElementById("inlineJeffOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineJeffOther") });
 
 //	▓▓▓ ADDITIONAL
 	document.getElementById("rolesAdditional").addEventListener("change", function(){
