@@ -97,8 +97,8 @@ function getSheetDataFET() {
 	const offset = 250;
 	const rowStart = newRow - offset;
 	const labelRange = tab1.getRange(			rowStart, 12, newRow - (rowStart - 1), 1);
-	const locationWideRange = tab1.getRange(	rowStart, 19, newRow - (rowStart - 1), 1);
-	const locationNarrowRange = tab1.getRange(	rowStart, 20, newRow - (rowStart - 1), 1);
+	const locationWideRange = tab1.getRange(	rowStart, 18, newRow - (rowStart - 1), 1);
+	const locationNarrowRange = tab1.getRange(	rowStart, 19, newRow - (rowStart - 1), 1);
 
 		for (i = 0; i < ((newRow + 1) - rowStart); i++){
 			if (labelRange.getBackgrounds()[i] == "#ffff00") {
