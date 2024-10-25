@@ -99,6 +99,7 @@
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBrian" aria-expanded="false" aria-controls="rolesBrian" id="buttonBrian">Brian</button>
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesBrandt" aria-expanded="false" aria-controls="rolesBrandt" id="buttonBrandt">Brandt</button>
 				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAnnaliese" aria-expanded="false" aria-controls="rolesAnnaliese" id="buttonAnnaliese">Annaliese</button>
+				<button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesNathan" aria-expanded="false" aria-controls="rolesNathan" id="buttonNathan">Nathan</button>
 				<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#rolesAdditional" aria-expanded="false" aria-controls="rolesAdditional" id="buttonAdditional">+</button>
 			</div>
 		</div>
@@ -122,7 +123,7 @@
 
 		<!-- ░░░░░▓ VERSION NUMBER TEXT -->
 		<div class="d-flex justify-content-center" id="version_number">
-			<div class="form-text pt-1">v1.3</div>
+			<div class="form-text pt-1">v1.4</div>
 		</div>
 	</div>
 
@@ -308,15 +309,15 @@
 
 // ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR SPONSOR TYPE VIDEOS
 	function roleDefaultsSponsor(){
-		checkboxToggle(["inlineBrandtCheckbox1"]);
-		btnStateDefault(["buttonBrandt"]);
+		// checkboxToggle(["inlineBrandtCheckbox1"]);
+		// btnStateDefault(["buttonBrandt"]);
 	}
 
 
 // ░░░░░░░░░▓ CHANGES DEFAULT PRE-FILLED CREW ROLES FOR ALL OTHER VIDEO TYPES
 	function roleDefaultsReset(){
-		document.getElementById("inlineBrandtCheckbox1").checked = true;
-		btnStateChanged(["buttonBrandt"]);
+		// document.getElementById("inlineBrandtCheckbox1").checked = true;
+		// btnStateChanged(["buttonBrandt"]);
 	}
 
 
@@ -441,7 +442,14 @@
 			let annalieseAssist = document.getElementById("inlineAnnalieseCheckbox3").checked ? annalieseArray.push("assistance") : "";
 			let annalieseGuest = document.getElementById("inlineAnnalieseCheckbox4").checked ? annalieseArray.push("guest") : "";
 			let annalieseOther = document.getElementById("inlineAnnalieseOtherCheckbox").checked ? annalieseArray.push(document.getElementById("inlineAnnalieseOther").value) : "";
-		let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
+		let annaliese = annalieseAudio != "" || annalieseCam != "" || annalieseAssist != "" || annalieseGuest != "" || annalieseOther != "" ? "Annaliese: " + annalieseArray.join(", ") : "";
+		
+			let nathanArray = [];
+			let nathanAudio = document.getElementById("inlineNathanCheckbox1").checked ? nathanArray.push("audio") : "";
+			let nathanCam = document.getElementById("inlineNathanCheckbox2").checked ? nathanArray.push("cam") : "";
+			let nathanAssist = document.getElementById("inlineNathanCheckbox3").checked ? nathanArray.push("assistance") : "";
+			let nathanOther = document.getElementById("inlineNathanOtherCheckbox").checked ? nathanArray.push(document.getElementById("inlineNathanOther").value) : "";
+		let nathan = nathanAudio != "" || nathanCam != "" || nathanAssist != "" || nathanOther != "" ? "Nathan: " + nathanArray.join(", ") : "";
 		
 			let adtnlArray1 = [];
 			let adtnlName1 = document.getElementById("additionalName1").value;
@@ -500,9 +508,9 @@
 
 // ░░░░░░░░░▓ CLEAR CREW ROLE DATA UPON RESET
 	function afterCrewReset(){
-		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
+		clearFields(["inlineBrianCheckbox1","inlineBrianOtherCheckbox","inlineBrandtCheckbox1","inlineBrandtOtherCheckbox","inlineAnnalieseCheckbox1","inlineAnnalieseCheckbox2","inlineAnnalieseCheckbox3","inlineAnnalieseCheckbox4","inlineAnnalieseOtherCheckbox","inlineNathanCheckbox1","inlineNathanCheckbox2","inlineNathanCheckbox3","inlineNathanOtherCheckbox","additionalName1","additionalName2","additionalName3","additionalRoles1","additionalRoles2","additionalRoles3"],
 		
-		["buttonBrian","buttonBrandt","buttonAnnaliese","buttonAdditional"]);
+		["buttonBrian","buttonBrandt","buttonAnnaliese","buttonNathan","buttonAdditional"]);
 	}
 
 
@@ -671,6 +679,14 @@
 	document.getElementById("rolesAnnaliese").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonAnnaliese"); });
 	document.getElementById("inlineAnnalieseOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineAnnalieseOther") });
 
+//	▓▓▓ NATHAN
+	document.getElementById("rolesNathan").addEventListener("change", function(){
+		if (checkboxState(["inlineNathanCheckbox1","inlineNathanCheckbox2","inlineNathanCheckbox3","inlineNathanOtherCheckbox"]) == "not empty") { btnStateChanged("buttonNathan"); }
+		else { btnStateDefault("buttonNathan"); } });
+	document.getElementById("rolesNathan").addEventListener('show.bs.collapse', function(){ btnStateExpand("buttonNathan"); scrollWin(0,200); });
+	document.getElementById("rolesNathan").addEventListener('hide.bs.collapse', function(){ btnStateCollapsed("buttonNathan"); });
+	document.getElementById("inlineNathanOtherCheckbox").addEventListener("click", function(){ afterCrewRoleOtherClicked("inlineNathanOther") });
+
 //	▓▓▓ ADDITIONAL
 	document.getElementById("rolesAdditional").addEventListener("change", function(){
 		if (textFieldCheck(["additionalName1","additionalRoles1","additionalName2","additionalRoles2","additionalName3","additionalRoles3"]) == "not empty") { btnStateChanged("buttonAdditional"); }
@@ -693,6 +709,5 @@
 	document.getElementById("resetButton").addEventListener("click",afterReset);
 	document.getElementById("resetCrewButton").addEventListener("click",afterCrewReset);
 	</script>
-
 	</body>
 </html>
